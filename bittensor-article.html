@@ -45,7 +45,7 @@ body::after {
   position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 9998;
+  z-index: 10;
   opacity: .6;
 }
 
@@ -54,7 +54,7 @@ body::after {
   position: fixed; top: 0; left: 0;
   width: 0%; height: 3px;
   background: var(--orange);
-  z-index: 9999;
+  z-index: 100;
   transition: width .08s linear;
 }
 #progress-section-label {
@@ -62,7 +62,7 @@ body::after {
   font-family: 'Geist Mono', monospace;
   font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
   color: var(--orange); opacity: 0; transition: opacity .4s;
-  z-index: 10000; pointer-events: none; white-space: nowrap;
+  z-index: 101; pointer-events: none; white-space: nowrap;
 }
 #progress-section-label.visible { opacity: 1; }
 
@@ -293,7 +293,8 @@ body::after {
 .takeaways-list { counter-reset: item; }
 
 /* ─── SECTION HEADINGS ─── */
-.section-anchor { display: flex; align-items: baseline; gap: 14px; margin: 64px 0 22px; }
+.section-anchor { display: flex; align-items: baseline; gap: 14px; margin: 64px 0 22px; scroll-margin-top: 72px; }
+h2[id], .subnet-card[id] { scroll-margin-top: 72px; }
 .section-num {
   font-family: 'Geist Mono', monospace; font-size: 11px;
   font-weight: 500; letter-spacing: .12em; color: var(--orange);
@@ -713,6 +714,19 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 }
 .disclosure-section a { color: var(--ink-60); }
 
+
+/* Scenario table */
+.scenario-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-family: 'Geist', sans-serif; font-size: 13px; }
+.scenario-table th { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-60); padding: 8px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+.scenario-table td { padding: 13px 14px; border-bottom: 1px solid rgba(13,12,9,.06); vertical-align: top; line-height: 1.5; }
+.scenario-table tr:last-child td { border-bottom: none; }
+.scenario-table .sc-bear td:first-child { color: #c0392b; font-weight: 600; }
+.scenario-table .sc-base td:first-child { color: var(--ink); font-weight: 600; }
+.scenario-table .sc-bull td:first-child { color: #1a7a3a; font-weight: 600; }
+.scenario-table .sc-price { font-family: 'Geist Mono', monospace; font-weight: 600; font-size: 14px; }
+.scenario-wrap { margin: 36px 0; }
+.scenario-wrap h3 { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-60); margin: 0 0 14px; font-weight: 400; }
+
 </style>
 </head>
 <body>
@@ -770,6 +784,12 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
   </div>
 </section>
 
+  <!-- Figures note -->
+  <div style="background:var(--parch);border-bottom:1px solid var(--border);padding:10px 0;">
+    <div style="max-width:calc(var(--toc) + var(--col) + var(--gap) + 64px);margin:0 auto;padding:0 32px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.07em;color:var(--ink-60);">
+      All figures as of February 2026 · TAO at ~$31 implying ~$4B FDV · Source: <a href="https://www.coingecko.com/en/coins/bittensor" target="_blank" style="color:var(--ink-60);">CoinGecko</a>
+    </div>
+  </div>
 <!-- PAGE LAYOUT -->
 <div class="page-wrap">
 
@@ -928,6 +948,12 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 
     <p>Since TAO's TGE in 2023, Bittensor's economic model has begun to prove its genesis mission: an incentive framework to coordinate global AI talent to solve global problems. The five subnets below represent the leading edge of that commercial transition.</p>
 
+
+    <!-- COVERAGE SELECTION CRITERIA -->
+    <div style="margin:0 0 36px;padding:20px 24px;background:var(--parch);border-radius:6px;border-left:3px solid var(--orange);">
+      <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">Coverage Selection — Why These Five</div>
+      <p style="font-size:14px;line-height:1.7;color:var(--ink2);margin:0;">From 128 active subnets, coverage was filtered to networks meeting at least two of: (1) verified enterprise contract or named paying customer, (2) auditable on-chain revenue or ARR disclosure, (3) peer-reviewed academic output, (4) minimum 6 months in production. Excluded subnets — including SN19 Nineteen AI and SN9 dMind — did not meet the revenue or customer verifiability threshold at time of writing.</p>
+    </div>
     <div class="section-anchor"><span class="section-num">04</span><h2 id="coverage">Subnet Coverage</h2></div>
 
     <!-- SN44 SCORE -->
@@ -1142,6 +1168,11 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
           <div class="stat-value">50+</div>
           <div class="stat-note">LLMs, diffusion, speech, embeddings</div>
         </div>
+        <div class="stat-cell">
+          <div class="stat-label">Implied EV / ARR</div>
+          <div class="stat-value" style="color:var(--orange);">~58×</div>
+          <div class="stat-note">~$320M implied EV at ~8% emission share × $4B FDV</div>
+        </div>
       </div>
       <div class="subnet-body">
         <p>AI inference is where value gets captured. Training builds the model; inference is where it earns money. Global inference market: $116B in 2025, growing 17–19% CAGR toward $250–540B by 2030–2034. Chutes is an open-source, decentralized compute provider for deploying and running open-source models in production — and publishes a live revenue dashboard, making it one of the most transparent revenue subnets in crypto.</p>
@@ -1198,7 +1229,46 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
       <p>Today, centralized AI labs collectively command valuations above $1 trillion. TAO's fully diluted valuation sits at approximately $4 billion — 1/125th of OpenAI alone. The question has shifted. It's no longer whether decentralized AI can work. These subnets are showing it can.</p>
     </div>
 
-    <p>For allocators with a genuine long-term horizon, the asymmetry is clear. Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
+
+    <div class="scenario-wrap">
+      <h3>Return Scenario Analysis — TAO</h3>
+      <table class="scenario-table">
+        <thead>
+          <tr>
+            <th>Case</th>
+            <th>Implied FDV</th>
+            <th>Implied TAO Price</th>
+            <th>Trigger Conditions</th>
+            <th>Horizon</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="sc-bear">
+            <td>Bear</td>
+            <td>$4B (flat)</td>
+            <td class="sc-price">~$31</td>
+            <td>Decentralised training stalls vs centralised capex; Covenant 72B benchmarks miss frontier baselines; ETF inflows reverse</td>
+            <td>12–18 mo</td>
+          </tr>
+          <tr class="sc-base">
+            <td>Base</td>
+            <td>$20–30B</td>
+            <td class="sc-price">~$155–230</td>
+            <td>2–3 top subnets reach $20M+ ARR; Grayscale TAO trust AUM exceeds $500M; Dynamic TAO attracts crossover capital from AI-native funds</td>
+            <td>18–36 mo</td>
+          </tr>
+          <tr class="sc-bull">
+            <td>Bull</td>
+            <td>$80–120B</td>
+            <td class="sc-price">~$615–920</td>
+            <td>Covenant 72B matches or exceeds centralised frontier baselines; multiple subnets IPO-equivalent via token listings; regulatory clarity on token-incentivised AI infrastructure</td>
+            <td>36–60 mo</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-family:'Geist',sans-serif;font-size:11px;color:var(--ink-60);margin:0;">Scenarios are illustrative. Not investment advice. Price targets based on comparable decentralised AI infrastructure multiples and current TAO circulating supply of ~130M tokens. Positions may be held by Khala Research principals.</p>
+    </div>
+    <p>For allocators with a genuine long-term horizon, the asymmetry is clear. <em>As of February 2026, Khala Research principals hold a long position in TAO, initiated at approximately $28–$34. This report was not written to support or exit that position.</em> Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
 
     <div class="subscribe-strip" id="subscribe">
       <div>

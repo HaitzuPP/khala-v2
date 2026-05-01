@@ -112,6 +112,11 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 .filter-btn:hover { color: var(--ink); }
 .filter-btn--soon { opacity: .45; cursor: default; }
 .filter-btn--soon:hover { background: transparent; color: var(--ink2); }
+.filter-coming {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .05em;
+  color: var(--ink3); display: flex; align-items: center; padding: 0 6px;
+  white-space: nowrap;
+}
 .filter-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
 .filter-count { font-family: var(--mono); font-size: 9px; letter-spacing: .05em; color: var(--ink3); margin-left: 4px; }
 
@@ -426,7 +431,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 <section class="page-header">
   <div>
     <div class="page-eyebrow"><span class="eyebrow-line"></span>Intelligence Archive</div>
-    <h1 class="page-title">Five sectors.<br><em>One question.</em><br>Where does coordination<br>unlock value?</h1>
+    <h1 class="page-title">AI × Crypto Research.<br><em>One conviction</em><br>per report.</h1>
   </div>
   <div class="page-aside">
     <div class="page-aside-stat">
@@ -447,12 +452,9 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 
 <!-- FILTER STRIP -->
 <nav class="filter-strip">
-  <button class="filter-btn active" data-filter="all">All <span class="filter-count">05</span></button>
-  <button class="filter-btn filter-btn--soon" data-filter="Data Infrastructure" title="Coming soon">Data Infrastructure</button>
-  <button class="filter-btn filter-btn--soon" data-filter="Agentic Finance" title="Coming soon">Agentic Finance</button>
-  <button class="filter-btn filter-btn--soon" data-filter="AI Infrastructure" title="Coming soon">AI Infrastructure</button>
+  <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="Coordination Networks">Coordination Networks</button>
-  <button class="filter-btn filter-btn--soon" data-filter="Physical AI" title="Coming soon">Physical AI</button>
+  <span class="filter-coming">Data Infrastructure · Agentic Finance · AI Infrastructure · Physical AI — filters unlock as reports publish</span>
 </nav>
 
 <!-- FEATURED REPORT -->
@@ -473,11 +475,11 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
         </div>
         <div>
           <div class="fstat-label">Key Thesis</div>
-          <div class="fstat-value accent">Enterprise traction separates signal from noise</div>
+          <div class="fstat-value accent" style="font-size:15px;line-height:1.4;">Enterprise traction separates signal from noise</div>
         </div>
         <div>
-          <div class="fstat-label">Prior Call</div>
-          <div class="fstat-value">SN18 Cortex flagged 3 months before institutional inflow</div>
+          <div class="fstat-label">Coverage Scope</div>
+          <div class="fstat-value" style="font-size:16px;">128 active subnets reviewed. 5 profiled in depth.</div>
         </div>
       </div>
       <div class="featured-byline">
@@ -492,7 +494,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 <section class="report-list-section">
   <div class="rg-header">
     <div class="section-label">Archive</div>
-    <div class="rg-count" id="visibleCount">Showing 05 of 05</div>
+    <div class="rg-count" id="visibleCount">1 live · 4 forthcoming</div>
   </div>
   <div class="report-list" id="reportList">
 
@@ -601,22 +603,22 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
     <div class="sector-cell">
       <div class="sector-symbol">₿</div>
       <div class="sector-name">Agentic Finance</div>
-      <div class="sector-count">1 report active</div>
+      <div class="sector-count">1 report forthcoming</div>
     </div>
     <div class="sector-cell">
       <div class="sector-symbol">⟢</div>
       <div class="sector-name">AI Infrastructure</div>
-      <div class="sector-count">1 report active</div>
+      <div class="sector-count">1 report forthcoming</div>
     </div>
     <div class="sector-cell">
       <div class="sector-symbol">◈</div>
       <div class="sector-name">Data Infrastructure</div>
-      <div class="sector-count">1 report active</div>
+      <div class="sector-count">1 report forthcoming</div>
     </div>
     <div class="sector-cell">
       <div class="sector-symbol">⬡</div>
       <div class="sector-name">Physical AI</div>
-      <div class="sector-count">1 report active</div>
+      <div class="sector-count">1 report forthcoming</div>
     </div>
     <div class="sector-cell" style="opacity:.5;">
       <div class="sector-symbol" style="color:var(--ink3);">+</div>
@@ -660,33 +662,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   <p>Khala Research publishes analysis for informational purposes only. Nothing in this archive constitutes investment advice, a solicitation to buy or sell any financial instrument, or a recommendation of any kind. Past identification of market trends does not guarantee future results. Readers should conduct their own due diligence and consult a qualified financial adviser before making investment decisions. Khala Research may hold positions in assets discussed in its research. All content is protected under applicable copyright law. Reproduction without written permission is prohibited.</p>
 </div>
 
-<script>
-const filterBtns = document.querySelectorAll('.filter-btn');
-const rows = document.querySelectorAll('#reportList .report-row');
-const countEl = document.getElementById('visibleCount');
-const total = rows.length;
 
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const filter = btn.dataset.filter;
-    let visible = 0;
-
-    rows.forEach(row => {
-      if (filter === 'all' || row.dataset.category === filter) {
-        row.removeAttribute('data-hidden');
-        visible++;
-      } else {
-        row.setAttribute('data-hidden', 'true');
-      }
-    });
-
-    countEl.textContent = `Showing ${String(visible).padStart(2,'0')} of ${String(total).padStart(2,'0')}`;
-  });
-});
-</script>
 
 <script>
 /* Feature 7: Stat counter */
@@ -710,7 +686,7 @@ filterBtns.forEach(btn => {
       countUp(el2, 5, 1100);
       io.disconnect();
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" });
   if (el1) io.observe(el1.closest('.page-aside-stat') || el1);
 })();
 
@@ -736,7 +712,7 @@ filterBtns.forEach(btn => {
     const r = card.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width  - 0.5;
     const y = (e.clientY - r.top)  / r.height - 0.5;
-    card.style.transform = `perspective(900px) rotateY(${x * 5}deg) rotateX(${-y * 4}deg) scale(1.008)`;
+    card.style.transform = `perspective(900px) rotateY(${x * 2}deg) rotateX(${-y * 1.5}deg) scale(1.008)`;
   });
   card.addEventListener('mouseleave', () => {
     card.style.transform = '';
@@ -773,7 +749,7 @@ filterBtns.forEach(btn => {
           if (r.style.display === 'none') return;
           const delay = i++ * 60;
           setTimeout(() => {
-            r.style.opacity = r.classList.contains('report-row--locked') ? '0.45' : '1';
+            r.classList.add('row-visible'); r.style.opacity = r.classList.contains('report-row--locked') ? '0.45' : '1';
             r.style.transform = 'translateY(0)';
           }, delay);
         });
