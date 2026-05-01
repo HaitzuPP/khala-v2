@@ -1643,28 +1643,29 @@ html { scroll-behavior: smooth; }
 <!-- MARKET TICKER -->
 <div class="mkt-ticker" aria-label="Market data">
   <div class="mkt-ticker-track" id="mkt-track">
+    <span class="mkt-chip" style="opacity:.5;border-right-color:rgba(255,255,255,.15)"><span class="mkt-chip-sym" style="color:rgba(255,255,255,.3)">DATA</span><span class="mkt-chip-stat" style="color:rgba(255,255,255,.3)">as of Feb 2026</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">TAO</span><span class="mkt-chip-val">$31.40</span><span class="mkt-chip-chg pos" id="tao-chg">+4.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">128 subnets</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">PEAK ARR</span><span class="mkt-chip-val">$5.5M</span><span class="mkt-chip-chg pos">+311% YoY</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">SN-64 Chutes</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">BTC</span><span class="mkt-chip-val">$104,200</span><span class="mkt-chip-chg pos">+1.8%</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">ETH</span><span class="mkt-chip-val">$3,820</span><span class="mkt-chip-chg neg">−0.4%</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">TAO FDV</span><span class="mkt-chip-val">~$4.0B</span><span class="mkt-chip-chg pos">+22% 30d</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">21M max supply</span></span>
+    <span class="mkt-chip"><span class="mkt-chip-sym">TAO FDV</span><span class="mkt-chip-val">~$4.0B</span><span class="mkt-chip-chg pos">+22% 30d</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">~130M circulating</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">RNDR</span><span class="mkt-chip-val">$8.14</span><span class="mkt-chip-chg pos">+2.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Decentralised Compute</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">AKT</span><span class="mkt-chip-val">$4.72</span><span class="mkt-chip-chg neg">−1.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Compute Marketplace</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">7,200 TAO/day</span><span class="mkt-chip-chg">halving ~2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
+    <span class="mkt-chip"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">3,600 TAO/day</span><span class="mkt-chip-chg">halved Jan 2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">SUBNETS</span><span class="mkt-chip-val">128 active</span><span class="mkt-chip-chg">5 profiled</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Bittensor · dTAO live</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 200× SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
+    <span class="mkt-chip"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 20–40× AI SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">dTAO ALPHA</span><span class="mkt-chip-val">Per-subnet token</span><span class="mkt-chip-chg">direct price discovery</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Bittensor v2.0</span></span>
     <!-- duplicate for seamless loop -->
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">TAO</span><span class="mkt-chip-val">$31.40</span><span class="mkt-chip-chg pos">+4.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">128 subnets</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">PEAK ARR</span><span class="mkt-chip-val">$5.5M</span><span class="mkt-chip-chg pos">+311% YoY</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">SN-64 Chutes</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">BTC</span><span class="mkt-chip-val">$104,200</span><span class="mkt-chip-chg pos">+1.8%</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">ETH</span><span class="mkt-chip-val">$3,820</span><span class="mkt-chip-chg neg">−0.4%</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">TAO FDV</span><span class="mkt-chip-val">~$4.0B</span><span class="mkt-chip-chg pos">+22% 30d</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">21M max supply</span></span>
+    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">TAO FDV</span><span class="mkt-chip-val">~$4.0B</span><span class="mkt-chip-chg pos">+22% 30d</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">~130M circulating</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">RNDR</span><span class="mkt-chip-val">$8.14</span><span class="mkt-chip-chg pos">+2.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Decentralised Compute</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">AKT</span><span class="mkt-chip-val">$4.72</span><span class="mkt-chip-chg neg">−1.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Compute Marketplace</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">7,200 TAO/day</span><span class="mkt-chip-chg">halving ~2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
+    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">3,600 TAO/day</span><span class="mkt-chip-chg">halved Jan 2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">SUBNETS</span><span class="mkt-chip-val">128 active</span><span class="mkt-chip-chg">5 profiled</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Bittensor</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 200× SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
+    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 20–40× AI SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
   </div>
 </div>
 <!-- HERO -->
@@ -1838,7 +1839,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev">Generative AI enters mainstream production</div>
         <div class="vtl-toggle">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">GPT-4: 100M users. Inference becomes an economic unit. <strong>Coordination still centralised</strong> — three hyperscalers control all of it. The bottleneck is governance, not silicon.</div>
+          <div class="vtl-detail">ChatGPT: 100M users in 60 days. Inference becomes an economic unit. <strong>Coordination still centralised</strong> — three hyperscalers control all of it. The bottleneck is governance, not silicon.</div>
         </div>
       </div>
     </div>
@@ -1876,7 +1877,7 @@ html { scroll-behavior: smooth; }
         <div class="pipe-desc">On-chain metrics, emission schedules, subnet registrations. Continuous.</div>
         <div class="pipe-reveal">
           <div class="pipe-reveal-inner">
-            <span class="pipe-fact">128 subnets · 7,200 TAO/day emissions</span>
+            <span class="pipe-fact">128 subnets · 3,600 TAO/day emissions</span>
             <span class="pipe-fact-desc">Every subnet's emissions, deregistration risk, and revenue trajectory. Divergence from price = signal.</span>
           </div>
         </div>
@@ -1910,7 +1911,7 @@ html { scroll-behavior: smooth; }
         <div class="pipe-desc">Falsifiable theses. Named positions. Before consensus. We hold what we recommend.</div>
         <div class="pipe-reveal">
           <div class="pipe-reveal-inner">
-            <span class="pipe-fact">Named position · Pre-consensus window</span>
+            <span class="pipe-fact">Named position · First-mover window</span>
             <span class="pipe-fact-desc">Specific tokens. Specific entry. Bear/base/bull scenarios. Not "exposure to the theme."</span>
           </div>
         </div>
@@ -1979,8 +1980,12 @@ html { scroll-behavior: smooth; }
     <div class="thesis-right">
       <div class="thesis-stat-bar">
         <div class="thesis-stat"><div class="thesis-stat-v">$4B</div><div class="thesis-stat-l">TAO FDV Today</div></div>
-        <div class="thesis-stat"><div class="thesis-stat-v">~58×</div><div class="thesis-stat-l">EV/ARR — Top Subnet</div></div>
+        <div class="thesis-stat"><div class="thesis-stat-v">~58×</div><div class="thesis-stat-l">EV/ARR — SN-64</div></div>
         <div class="thesis-stat"><div class="thesis-stat-v">&lt;3yr</div><div class="thesis-stat-l">To Production Revenue</div></div>
+      </div>
+      <div style="margin-top:14px;padding:11px 14px;background:rgba(217,79,42,.06);border:1px solid rgba(217,79,42,.2);border-radius:2px;display:flex;align-items:center;gap:10px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0;animation:pulse 2.4s ease-in-out infinite"></div>
+        <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;color:var(--ink2)"><strong style="color:var(--ink)">Our position:</strong> Long TAO · initiated ~$28–$34 · disclosed in every report</div>
       </div>
       <div class="td reveal" tabindex="0">
         <div class="td-n">01</div>
@@ -1988,8 +1993,8 @@ html { scroll-behavior: smooth; }
           <div class="td-h">The constraint is <em>coordination,</em> not compute.</div>
           <div class="td-b">Frontier AI is blocked by the inability to align distributed global talent around hard problems. No bureaucracy. No borders. No central orchestrator.</div>
           <div class="td-evidence">
-            <span class="td-evidence-line">Bittensor: 128 subnets · 7,200 TAO/day to global contributors</span>
-            <span class="td-evidence-line">Gensyn: training across 10,000+ nodes</span>
+            <span class="td-evidence-line">Bittensor: 128 subnets · 3,600 TAO/day to global contributors</span>
+            <span class="td-evidence-line">Gensyn: distributed training network in active testnet</span>
           </div>
         </div>
       </div>
@@ -2008,10 +2013,10 @@ html { scroll-behavior: smooth; }
         <div class="td-n">03</div>
         <div>
           <div class="td-h">The winning protocols<br><em>have not yet been priced.</em></div>
-          <div class="td-b">Top subnets have recurring revenue. Compute networks bill enterprise today. AI data protocols have Fortune 500 partners. None priced in. 2021 speculation frameworks applied to production infrastructure. That dislocation is the trade.</div>
+          <div class="td-b">Top subnets have recurring revenue. Compute networks bill enterprise today. AI data protocols have named enterprise partners. None priced in. 2021 speculation frameworks applied to production infrastructure. That dislocation is the trade.</div>
           <div class="td-evidence">
             <span class="td-evidence-line">SN-64: $5.5M ARR · ~58× EV/ARR at $320M implied</span>
-            <span class="td-evidence-line">SaaS comps: 150–250× ARR. That gap closes.</span>
+            <span class="td-evidence-line">High-growth AI SaaS: 20–40× ARR today. That gap closes.</span>
           </div>
         </div>
       </div>
@@ -2033,7 +2038,7 @@ html { scroll-behavior: smooth; }
     <div class="rp-meta" style="margin-top:auto;">
       <span class="rp-author">Khala Research</span>
       <span class="rp-sep">·</span>
-      <span class="rp-detail">1–2 reports per quarter · No paywall · No ads</span>
+      <span class="rp-detail">Published when analysis is complete · No paywall · No ads</span>
     </div>
   </div>
   <div class="rp-right">
@@ -2042,7 +2047,7 @@ html { scroll-behavior: smooth; }
       <div class="rr-n">01</div>
       <div><div class="rr-cat">Data Infrastructure</div><div class="rr-t">SURF: A Data Platform for Crypto Intelligence</div>
       <div class="rr-preview"><div class="rr-preview-text">Institutional on-chain data. Enterprise API clients in production.</div></div></div>
-      <div class="rr-d" style="color:var(--orange)">Live Now</div>
+      <div class="rr-d" >Forthcoming</div>
       <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
@@ -2089,7 +2094,7 @@ html { scroll-behavior: smooth; }
     </div>
     <div class="ai-stack-layers">
       <div class="stack-layer" style="--layer-color:#4ade80" data-sl-i="0">
-        <div><div class="sl-num">Layer 6 — Top</div></div>
+        <div><div class="sl-num">Layer 6 — Applications</div></div>
         <div><div class="sl-label">Agentic Finance & Applications</div><div class="sl-desc">Agent-to-agent payments. Autonomous capital.</div></div>
         <div class="sl-protocols"><span class="sl-tag">x402</span><span class="sl-tag">KiteAI</span><span class="sl-tag">Morpho</span></div>
       </div>
@@ -2115,7 +2120,7 @@ html { scroll-behavior: smooth; }
       </div>
       <div class="stack-layer" style="--layer-color:#D94F2A" data-sl-i="5">
         <div><div class="sl-num">Layer 1 — Base</div></div>
-        <div><div class="sl-label">Coordination Networks</div><div class="sl-desc">Token incentives aligning global AI talent. 7,200 TAO/day via Yuma Consensus. dTAO: each subnet has its own alpha token.</div></div>
+        <div><div class="sl-label">Coordination Networks</div><div class="sl-desc">Token incentives aligning global AI talent. 3,600 TAO/day via Yuma Consensus. dTAO: each subnet has its own alpha token.</div></div>
         <div class="sl-protocols"><span class="sl-tag covered">Bittensor ✓</span><span class="sl-tag">dTAO</span><span class="sl-tag">Gensyn</span><span class="sl-tag">Commune</span></div>
       </div>
     </div>
@@ -2126,25 +2131,25 @@ html { scroll-behavior: smooth; }
   <div class="sectors">
     <div class="sectors-hdr">
       <div>
-        <div class="section-label">Coverage Map</div>
-        <h2 class="section-title">Six layers.<br><em>One stack.</em></h2>
+        <div class="section-label">Coverage Status</div>
+        <h2 class="section-title">What we cover.<br><em>What&#39;s live.</em></h2>
       </div>
-      <p class="sectors-desc">Six layers. Dedicated coverage. Base layer to financial infrastructure.</p>
+      <p class="sectors-desc">One live report. Five forthcoming. Coverage expands as analysis reaches publication standard.</p>
     </div>
     <div class="sector-filter" id="sector-filter">
-        <button class="sf-btn active" data-sf="all">All Sectors</button>
-        <button class="sf-btn" data-sf="coordination">Coordination</button>
-        <button class="sf-btn" data-sf="compute">Compute</button>
-        <button class="sf-btn" data-sf="finance">Finance</button>
-        <button class="sf-btn" data-sf="data">Data</button>
-      </div>
-      <div class="sectors-grid">
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 01</div><div class="sc-name">Coordination<br><em>Networks</em></div><div class="sc-desc">Token incentives aligning global talent. Base layer.</div><div class="tags"><span class="tag">Bittensor</span><span class="tag">Gensyn</span><span class="tag">Commune</span></div><span class="sc-layer">Layer 1 — Foundation</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>1 live report</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:100%"></div></div></div><div class="sc-stat">128 subnets · $4B FDV</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 02</div><div class="sc-name">Decentralised<br><em>Compute</em></div><div class="sc-desc">Open GPU and inference markets outside hyperscaler control.</div><div class="tags"><span class="tag">Render</span><span class="tag">Akash</span><span class="tag">io.net</span></div><span class="sc-layer">Layer 2 — Infrastructure</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:20%"></div></div></div><div class="sc-stat">$1.2B combined FDV</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 03</div><div class="sc-name">Inference<br><em>Marketplaces</em></div><div class="sc-desc">Liquid markets for AI model capacity.</div><div class="tags"><span class="tag">SN-19</span><span class="tag">Together</span><span class="tag">Prime Intellect</span></div><span class="sc-layer">Layer 3 — Commodity Intelligence</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:15%"></div></div></div><div class="sc-stat">Spot inference pricing forming</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="finance">Sector 04</div><div class="sc-name">AI-Native<br><em>Finance</em></div><div class="sc-desc">Payment rails for the agentic economy.</div><div class="tags"><span class="tag">x402</span><span class="tag">KiteAI</span><span class="tag">Morpho</span></div><span class="sc-layer">Layer 4 — Agentic Finance</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:25%"></div></div></div><div class="sc-stat">Agent-to-agent payment rails</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="data">Sector 05</div><div class="sc-name">Data &amp;<br><em>Intelligence</em></div><div class="sc-desc">Data curation and verification at scale.</div><div class="tags"><span class="tag">SURF</span><span class="tag">Vana</span><span class="tag">Ocean</span></div><span class="sc-layer">Layer 5 — Data Layer</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:30%"></div></div></div><div class="sc-stat">Fortune 500 partnerships forming</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 06</div><div class="sc-name">Physical<br><em>AI</em></div><div class="sc-desc">Decentralised robotics and autonomous agents.</div><div class="tags"><span class="tag">OpenClaw</span><span class="tag">Gaia</span><span class="tag">Fetch.ai</span></div><span class="sc-layer">Layer 6 — Real World</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:10%"></div></div></div><div class="sc-stat">Earliest stage · Highest upside</div></div>
+      <button class="sf-btn active" data-sf="all">All Sectors</button>
+      <button class="sf-btn" data-sf="coordination">Coordination</button>
+      <button class="sf-btn" data-sf="compute">Compute</button>
+      <button class="sf-btn" data-sf="finance">Finance</button>
+      <button class="sf-btn" data-sf="data">Data</button>
+    </div>
+    <div class="sectors-grid">
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 01</div><div class="sc-name">Coordination<br><em>Networks</em></div><div class="tags"><span class="tag">Bittensor</span><span class="tag">Gensyn</span><span class="tag">Commune</span></div><span class="sc-layer">Layer 1 — Foundation</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>1 live report</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:100%"></div></div></div><div class="sc-stat">128 subnets · $4B FDV · <a href="bittensor-article.html" style="color:var(--orange);text-decoration:none;font-family:var(--mono);font-size:10px">Read →</a></div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 02</div><div class="sc-name">Decentralised<br><em>Compute</em></div><div class="tags"><span class="tag">Render</span><span class="tag">Akash</span><span class="tag">io.net</span></div><span class="sc-layer">Layer 3 — Infrastructure</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:20%"></div></div></div><div class="sc-stat">$2B+ combined FDV</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 03</div><div class="sc-name">Inference<br><em>Marketplaces</em></div><div class="tags"><span class="tag">SN-19</span><span class="tag">Together</span><span class="tag">Prime Intellect</span></div><span class="sc-layer">Layer 4 — Commodity AI</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:15%"></div></div></div><div class="sc-stat">Spot pricing forming</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="finance">Sector 04</div><div class="sc-name">AI-Native<br><em>Finance</em></div><div class="tags"><span class="tag">x402</span><span class="tag">KiteAI</span><span class="tag">Morpho</span></div><span class="sc-layer">Layer 6 — Agentic Finance</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:25%"></div></div></div><div class="sc-stat">Agent-to-agent payment rails</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="data">Sector 05</div><div class="sc-name">Data &amp;<br><em>Intelligence</em></div><div class="tags"><span class="tag">SURF</span><span class="tag">Vana</span><span class="tag">Ocean</span></div><span class="sc-layer">Layer 5 — Data Layer</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:30%"></div></div></div><div class="sc-stat">Enterprise API clients in production</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 06</div><div class="sc-name">Physical<br><em>AI</em></div><div class="tags"><span class="tag">OpenClaw</span><span class="tag">Gaia</span><span class="tag">Fetch.ai</span></div><span class="sc-layer">Layer 2 — Real World</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:10%"></div></div></div><div class="sc-stat">Earliest stage · Highest upside</div></div>
     </div>
   </div>
 </section>
@@ -2238,7 +2243,7 @@ html { scroll-behavior: smooth; }
 <!-- SUBSCRIBE -->
 <section class="subscribe" style="background:var(--parch);">
   <div class="section-label" style="margin-bottom:16px;">Join the Research</div>
-  <div class="sub-editorial">"The best AI × crypto research,<br>before consensus arrives."</div>
+  <div class="sub-editorial">"Identified $5.5M ARR on SN-64<br>before it priced in."</div>
   <h2 class="sub-title">Be first.<br><em>Not second.</em></h2>
   <p class="sub-body">Bittensor. Compute. Agentic finance. AI data. No paywall. No ads.</p>
 
@@ -2690,12 +2695,12 @@ document.querySelectorAll('[data-tls-count]').forEach(el => tlsIO.observe(el));
   const activeCount = [3,4,5,6,7,6,5,4,3,2,3,4,5,6,7,8,7,6];
   let tick = 0;
   const labels = [
-    '128 subnets live','127 subnets live','128 subnets live',
-    '5 profiled in depth','$5.5M peak ARR','58× EV/ARR','dTAO alpha live','128 subnets live'
+    '128 subnets live','5 profiled in depth','$5.5M peak ARR',
+    '58× EV/ARR today','dTAO alpha live','3,600 TAO/day','SN-64 Chutes','Yuma Consensus'
   ];
   const subs = [
-    '7,200 TAO/day · updating','Yuma Consensus active','emission epoch 3,241',
-    '7,200 TAO/day · live','SN-64 Chutes leading','vs. 200× SaaS','per-subnet token','halving ~2025'
+    '3,600 TAO/day · post-halving','Yuma Consensus active','emission epoch 3,241',
+    '3,600 TAO/day · post-halving','SN-64 Chutes leading','58× EV/ARR today','per-subnet token','halved Jan 2025'
   ];
   setInterval(() => {
     tick++;
