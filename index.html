@@ -392,11 +392,11 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 .an-count { font-family: var(--mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); white-space: nowrap; }
 
 /* SUBSCRIBE */
-.subscribe { padding: 96px 56px; max-width: 700px; margin: 0 auto; text-align: center; border-bottom: 1px solid var(--border); }
+.subscribe { padding: 96px 56px; width: 100%; text-align: center; border-bottom: 1px solid var(--border); }
 .sub-title { font-family: var(--bask); font-size: 48px; font-weight: 400; line-height: 1.08; letter-spacing: -.015em; color: var(--ink); margin-bottom: 18px; }
 .sub-title em { font-style: italic; }
 .sub-body { font-family: var(--crim); font-size: 19px; line-height: 1.68; color: var(--ink2); margin-bottom: 36px; }
-.sub-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto 12px; }
+.sub-form { display: flex; gap: 8px; max-width: 420px; margin: 0 auto 12px; } .subscribe > * { max-width: 600px; margin-left: auto; margin-right: auto; }
 .sub-input {
   flex: 1; font-family: var(--geist); font-size: 14px;
   padding: 11px 16px; border: 1px solid var(--bmed);
@@ -1681,8 +1681,8 @@ html { scroll-behavior: smooth; }
       <em>not a model.</em>
     </h1>
     <p class="hero-deck">
-      We publish one report at a time. No paywall. No speculation. <strong>Each piece takes a named position</strong> — and tells you exactly which subnets, protocols, and primitives we would hold at current prices.<br><br>
-      Primary field coverage of the decentralised AI economy, from the coordination base layer to the financial infrastructure at the top.
+      One report at a time. No paywall. No speculation. <strong>Named position —</strong> exact assets at current prices.<br><br>
+      Field coverage of the tokenised AI economy. Base layer to financial infrastructure.
     </p>
     <div class="hero-actions">
       <a href="research.html" class="btn-hero-primary">Read the Research →</a>
@@ -1790,7 +1790,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev">Bell Labs coordinates the transistor</div>
         <div class="vtl-toggle">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">A centralised lab, funded by a monopoly, creates the building block of all modern computing. The coordination model: top-down, geographically concentrated, patent-protected. <strong>Asset class created: semiconductors.</strong></div>
+          <div class="vtl-detail">A centralised monopoly-funded lab. Top-down, patent-protected. <strong>Asset class created: semiconductors.</strong></div>
         </div>
       </div>
     </div>
@@ -1802,7 +1802,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev">ARPA coordinates the internet</div>
         <div class="vtl-toggle">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">Decentralised packet switching replaces centralised circuit networks. No owner. No permission required. <strong>$30T+ in market cap created</strong> downstream across tech, media, and commerce.</div>
+          <div class="vtl-detail">Decentralised packet switching. No owner. No permission. <strong>$30T+ market cap</strong> created downstream.</div>
         </div>
       </div>
     </div>
@@ -1814,7 +1814,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev">CERN opens the Web</div>
         <div class="vtl-toggle">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">Open standards over proprietary protocols. The Web compounds the internet's coordination surface by orders of magnitude. <strong>Asset class created: internet equity.</strong> Netscape to Google in seven years.</div>
+          <div class="vtl-detail">Open standards replace proprietary protocols. <strong>Asset class: internet equity.</strong> Netscape to Google in seven years.</div>
         </div>
       </div>
     </div>
@@ -1826,7 +1826,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev">Satoshi coordinates Bitcoin</div>
         <div class="vtl-toggle">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">Cryptographic proof replaces institutional trust. For the first time, strangers coordinate value transfer at global scale with no intermediary. <strong>Asset class created: programmable money.</strong> $2T+ market cap by 2024.</div>
+          <div class="vtl-detail">Cryptographic proof replaces institutional trust. <strong>Asset class: programmable money.</strong> $2T+ by 2024.</div>
         </div>
       </div>
     </div>
@@ -1838,7 +1838,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev">Generative AI enters mainstream production</div>
         <div class="vtl-toggle">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">GPT-4 crosses 100M users. Inference becomes an economic unit. <strong>But coordination remains centralised</strong> — three hyperscalers control training, deployment, and access. The bottleneck is governance, not silicon.</div>
+          <div class="vtl-detail">GPT-4: 100M users. Inference becomes an economic unit. <strong>Coordination still centralised</strong> — three hyperscalers control all of it. The bottleneck is governance, not silicon.</div>
         </div>
       </div>
     </div>
@@ -1850,7 +1850,7 @@ html { scroll-behavior: smooth; }
         <div class="vtl-ev" style="color:#fff">Tokenised networks coordinate frontier AI</div>
         <div class="vtl-toggle" style="color:var(--orange)">+ expand</div>
         <div class="vtl-expand">
-          <div class="vtl-detail">Bittensor's top subnet hits <strong>$5.5M ARR</strong>. Decentralised compute networks bill enterprise clients. Token emissions replace VC funding as coordination capital. <strong>Asset class forming: tokenised AI infrastructure.</strong> We are in the pre-consensus window.</div>
+          <div class="vtl-detail">Bittensor's top subnet: <strong>$5.5M ARR</strong>. Compute networks billing enterprise. Token emissions replace VC as coordination capital. <strong>Asset class forming: tokenised AI infrastructure.</strong> Pre-consensus window.</div>
         </div>
       </div>
     </div>
@@ -1866,18 +1866,18 @@ html { scroll-behavior: smooth; }
         <div class="section-label" style="margin-bottom:12px">How We Work</div>
         <div class="pipeline-title">Three stages.<br><em>One standard.</em></div>
       </div>
-      <div class="pipeline-note">Hover each stage to see how we apply it.<br>Every report passes all three gates.</div>
+      <div class="pipeline-note">Hover each stage. Every report passes all three.</div>
     </div>
     <div class="pipeline-flow">
       <div class="pipe-step" data-pipe-i="0">
         <span class="pipe-n">STAGE 01</span>
         <span class="pipe-icon">⬡</span>
         <div class="pipe-label">Track</div>
-        <div class="pipe-desc">On-chain protocol metrics, emission schedules, subnet registrations, capital flows — updated continuously.</div>
+        <div class="pipe-desc">On-chain metrics, emission schedules, subnet registrations. Continuous.</div>
         <div class="pipe-reveal">
           <div class="pipe-reveal-inner">
             <span class="pipe-fact">128 subnets · 7,200 TAO/day emissions</span>
-            <span class="pipe-fact-desc">We track every active subnet's daily emissions, deregistration risk, validator set, and revenue trajectory. When metrics diverge from price, that's signal.</span>
+            <span class="pipe-fact-desc">Every subnet's emissions, deregistration risk, and revenue trajectory. Divergence from price = signal.</span>
           </div>
         </div>
       </div>
@@ -1890,11 +1890,11 @@ html { scroll-behavior: smooth; }
         <span class="pipe-n">STAGE 02</span>
         <span class="pipe-icon">◈</span>
         <div class="pipe-label">Analyse</div>
-        <div class="pipe-desc">First-principles research by founders who have operated inside the protocols they cover. No secondhand synthesis.</div>
+        <div class="pipe-desc">By founders who've operated inside the protocols. No secondhand synthesis.</div>
         <div class="pipe-reveal">
           <div class="pipe-reveal-inner">
             <span class="pipe-fact">EV/ARR · FDV/Revenue · Deregistration risk</span>
-            <span class="pipe-fact-desc">We model each subnet as a business: what's the implied EV, what's the annualised revenue, and what's the deregistration floor? Then we stress-test against token emission dilution.</span>
+            <span class="pipe-fact-desc">Implied EV, annualised revenue, deregistration floor. Stress-tested against emission dilution.</span>
           </div>
         </div>
       </div>
@@ -1907,11 +1907,11 @@ html { scroll-behavior: smooth; }
         <span class="pipe-n">STAGE 03</span>
         <span class="pipe-icon">◎</span>
         <div class="pipe-label">Signal</div>
-        <div class="pipe-desc">Falsifiable theses, named positions, delivered before consensus arrives. We hold what we recommend.</div>
+        <div class="pipe-desc">Falsifiable theses. Named positions. Before consensus. We hold what we recommend.</div>
         <div class="pipe-reveal">
           <div class="pipe-reveal-inner">
             <span class="pipe-fact">Named position · Pre-consensus window</span>
-            <span class="pipe-fact-desc">Every report states exactly which assets we hold at current prices. Not "exposure to the theme" — specific tokens, specific entry, specific bear/base/bull scenarios.</span>
+            <span class="pipe-fact-desc">Specific tokens. Specific entry. Bear/base/bull scenarios. Not "exposure to the theme."</span>
           </div>
         </div>
       </div>
@@ -1948,7 +1948,7 @@ html { scroll-behavior: smooth; }
       <a href="bittensor-article.html" class="featured-link">
         <div class="featured-sector">Coordination Networks</div>
         <h2 class="featured-title">Bittensor: The Intelligence Olympics</h2>
-        <p class="featured-desc">Five subnets spanning inference, computer vision, compliance, drug discovery, and pre-training — each demonstrating the transition from experiment to commercial traction. $5.5M ARR, enterprise contracts, NeurIPS acceptance.</p>
+        <p class="featured-desc">Inference. Computer vision. Compliance. Drug discovery. Pre-training. $5.5M ARR, enterprise contracts, NeurIPS.</p>
         <span class="featured-read">Read the report →</span>
       </a>
       <div class="featured-stats">
@@ -1967,11 +1967,11 @@ html { scroll-behavior: smooth; }
       <div class="section-label">The Thesis</div>
       <h2 class="section-title">AI's real<br>constraint is<br><em>not compute.</em></h2>
       <div class="section-body">
-        <p>The funds that get this right will be positioned in the correct layer of the stack before the rest of the market understands what the stack is. We track the protocols, the metrics, and the capital flows that make that distinction legible before consensus arrives.</p>
+        <p>The funds that get this right will own the correct layer before the market understands what the stack is.</p>
         <div style="margin-top:24px;padding:16px 18px;background:var(--parch);border-left:2px solid var(--orange);border-radius:0 2px 2px 0;">
           <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--orange);text-transform:uppercase;margin-bottom:8px">Key mechanics to understand</div>
           <div style="font-family:var(--crim);font-size:14px;color:var(--ink2);line-height:1.7">
-            <strong style="color:var(--ink)">Yuma Consensus</strong> — determines which miners receive subnet rewards each epoch · <strong style="color:var(--ink)">dTAO</strong> — each subnet now has its own alpha token, enabling direct price discovery per intelligence market · <strong style="color:var(--ink)">Deregistration</strong> — underperforming miners are pruned; the floor is permissionless quality enforcement
+            <strong style="color:var(--ink)">Yuma Consensus</strong> — miners rewarded per epoch · <strong style="color:var(--ink)">dTAO</strong> — each subnet has its own alpha token · <strong style="color:var(--ink)">Deregistration</strong> — underperformers pruned; permissionless quality floor
           </div>
         </div>
       </div>
@@ -1986,10 +1986,10 @@ html { scroll-behavior: smooth; }
         <div class="td-n">01</div>
         <div>
           <div class="td-h">The constraint is <em>coordination,</em> not compute.</div>
-          <div class="td-b">Frontier AI progress is no longer blocked by raw processing power. It is blocked by the inability to align distributed global talent around the hardest problems. Without bureaucracy, without borders, without a central orchestrator.</div>
+          <div class="td-b">Frontier AI is blocked by the inability to align distributed global talent around hard problems. No bureaucracy. No borders. No central orchestrator.</div>
           <div class="td-evidence">
-            <span class="td-evidence-line">Bittensor: 128 subnets · 7,200 TAO/day rewarding global contributors</span>
-            <span class="td-evidence-line">Gensyn: distributed training across 10,000+ nodes</span>
+            <span class="td-evidence-line">Bittensor: 128 subnets · 7,200 TAO/day to global contributors</span>
+            <span class="td-evidence-line">Gensyn: training across 10,000+ nodes</span>
           </div>
         </div>
       </div>
@@ -1997,9 +1997,9 @@ html { scroll-behavior: smooth; }
         <div class="td-n">02</div>
         <div>
           <div class="td-h">Tokenisation is the <em>first mechanism</em> capable of solving this at scale.</div>
-          <div class="td-b">For the first time in history, cryptographic incentive layers can coordinate millions of contributors across jurisdictions, in real time, around a single technical objective. Without asking anyone's permission.</div>
+          <div class="td-b">Cryptographic incentive layers coordinate millions of contributors across jurisdictions around a single objective. No permission required.</div>
           <div class="td-evidence">
-            <span class="td-evidence-line">Emission schedules replace VC funding as coordination capital</span>
+            <span class="td-evidence-line">Emission schedules replace VC as coordination capital</span>
             <span class="td-evidence-line">Subnet registration: permissionless, deregistration-enforced quality floor</span>
           </div>
         </div>
@@ -2008,10 +2008,10 @@ html { scroll-behavior: smooth; }
         <div class="td-n">03</div>
         <div>
           <div class="td-h">The winning protocols<br><em>have not yet been priced.</em></div>
-          <div class="td-b">Bittensor's top subnets generate measurable recurring revenue. Leading compute networks bill enterprise clients today. AI data protocols have signed Fortune 500 partners. None of this is reflected in token valuations. The market is still applying 2021 speculation frameworks to infrastructure that is already in production. That dislocation is the trade.</div>
+          <div class="td-b">Top subnets have recurring revenue. Compute networks bill enterprise today. AI data protocols have Fortune 500 partners. None priced in. 2021 speculation frameworks applied to production infrastructure. That dislocation is the trade.</div>
           <div class="td-evidence">
-            <span class="td-evidence-line">SN-64 Chutes: $5.5M ARR · ~58× EV/ARR at $320M implied</span>
-            <span class="td-evidence-line">Comp: SaaS trades at 150–250× ARR. That gap closes.</span>
+            <span class="td-evidence-line">SN-64: $5.5M ARR · ~58× EV/ARR at $320M implied</span>
+            <span class="td-evidence-line">SaaS comps: 150–250× ARR. That gap closes.</span>
           </div>
         </div>
       </div>
@@ -2029,7 +2029,7 @@ html { scroll-behavior: smooth; }
   <div class="rp-left">
     <div class="section-label" style="margin-bottom:20px;">Research Pipeline</div>
     <h2 class="rp-headline">One report<br>at a time.<br><em>Named position.</em></h2>
-    <p class="rp-excerpt">We publish when the analysis is complete — not on a schedule. Each report takes a falsifiable position and states exactly which assets we would hold at current prices. No paywall. No ads. No conflicts.</p>
+    <p class="rp-excerpt">Published when complete. Falsifiable position. Exact assets at current prices. No paywall. No conflicts.</p>
     <div class="rp-meta" style="margin-top:auto;">
       <span class="rp-author">Khala Research</span>
       <span class="rp-sep">·</span>
@@ -2041,35 +2041,35 @@ html { scroll-behavior: smooth; }
     <a href="research.html" class="rr reveal">
       <div class="rr-n">01</div>
       <div><div class="rr-cat">Data Infrastructure</div><div class="rr-t">SURF: A Data Platform for Crypto Intelligence</div>
-      <div class="rr-preview"><div class="rr-preview-text">Structured on-chain data for institutional-grade crypto research. Enterprise API clients already in production.</div></div></div>
+      <div class="rr-preview"><div class="rr-preview-text">Institutional on-chain data. Enterprise API clients in production.</div></div></div>
       <div class="rr-d" style="color:var(--orange)">Live Now</div>
       <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">02</div>
       <div><div class="rr-cat">Agentic Finance</div><div class="rr-t">x402: Unlocking the Internet's Missing Payment Layer</div>
-      <div class="rr-preview"><div class="rr-preview-text">The HTTP payment header that enables AI agents to pay for API access in real time. Named position forthcoming.</div></div></div>
+      <div class="rr-preview"><div class="rr-preview-text">HTTP payment header for AI agents. No human approval loops. Named position forthcoming.</div></div></div>
       <div class="rr-d">Forthcoming</div>
       <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">03</div>
       <div><div class="rr-cat">AI Infrastructure</div><div class="rr-t">The Dawn of the Autonomous Software Factory</div>
-      <div class="rr-preview"><div class="rr-preview-text">Tokenised software development networks and the protocols emerging around agentic code generation at scale.</div></div></div>
+      <div class="rr-preview"><div class="rr-preview-text">Tokenised software development networks. Agentic code generation at scale.</div></div></div>
       <div class="rr-d">Forthcoming</div>
       <span class="rr-arrow">→</span>
     </a>
     <a href="bittensor-article.html" class="rr reveal">
       <div class="rr-n">04</div>
       <div><div class="rr-cat">Coordination Networks</div><div class="rr-t">Bittensor: The Intelligence Olympics</div>
-      <div class="rr-preview"><div class="rr-preview-text">5 subnets. $5.5M ARR. NeurIPS paper. Enterprise contracts. 128 subnets compete via Yuma Consensus — the intelligence Olympics are live.</div></div></div>
+      <div class="rr-preview"><div class="rr-preview-text">$5.5M ARR. NeurIPS. Enterprise contracts. 128 subnets compete via Yuma Consensus.</div></div></div>
       <div class="rr-d" style="color:var(--orange)">Live Now</div>
       <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">05</div>
       <div><div class="rr-cat">Physical AI</div><div class="rr-t">Decentralized Robotics: Landscape and Outlook</div>
-      <div class="rr-preview"><div class="rr-preview-text">Permissionless robotics coordination. Token-incentivised sensor data. The real-world intelligence layer is forming.</div></div></div>
+      <div class="rr-preview"><div class="rr-preview-text">Permissionless robotics. Token-incentivised sensor data.</div></div></div>
       <div class="rr-d">Forthcoming</div>
       <span class="rr-arrow">→</span>
     </a>
@@ -2085,37 +2085,37 @@ html { scroll-behavior: smooth; }
         <div class="vtl-eyebrow" style="margin-bottom:14px">Infrastructure Map</div>
         <h2 class="ai-stack-title">The tokenised AI<br>stack, <em>layer by layer.</em></h2>
       </div>
-      <p class="ai-stack-desc">We track every layer from raw compute to agentic finance. Each is a distinct investment thesis. Each is at a different stage of commercial maturity.</p>
+      <p class="ai-stack-desc">Every layer. Distinct thesis. Different stage of commercial maturity.</p>
     </div>
     <div class="ai-stack-layers">
       <div class="stack-layer" style="--layer-color:#4ade80" data-sl-i="0">
         <div><div class="sl-num">Layer 6 — Top</div></div>
-        <div><div class="sl-label">Agentic Finance & Applications</div><div class="sl-desc">Agent-to-agent payments, AI-native capital markets, autonomous fund managers.</div></div>
+        <div><div class="sl-label">Agentic Finance & Applications</div><div class="sl-desc">Agent-to-agent payments. Autonomous capital.</div></div>
         <div class="sl-protocols"><span class="sl-tag">x402</span><span class="sl-tag">KiteAI</span><span class="sl-tag">Morpho</span></div>
       </div>
       <div class="stack-layer" style="--layer-color:#a78bfa" data-sl-i="1">
         <div><div class="sl-num">Layer 5</div></div>
-        <div><div class="sl-label">Data & Intelligence Networks</div><div class="sl-desc">Coordinated curation, verification, and monetisation of AI training data at scale.</div></div>
+        <div><div class="sl-label">Data & Intelligence Networks</div><div class="sl-desc">Coordinated data curation and verification at scale.</div></div>
         <div class="sl-protocols"><span class="sl-tag">SURF</span><span class="sl-tag">Vana</span><span class="sl-tag">Ocean</span></div>
       </div>
       <div class="stack-layer" style="--layer-color:#f59e0b" data-sl-i="2">
         <div><div class="sl-num">Layer 4</div></div>
-        <div><div class="sl-label">Inference Marketplaces</div><div class="sl-desc">Spot and futures markets for model capacity. The commodity pricing layer of intelligence.</div></div>
+        <div><div class="sl-label">Inference Marketplaces</div><div class="sl-desc">Liquid markets for model capacity. Intelligence as commodity.</div></div>
         <div class="sl-protocols"><span class="sl-tag">SN-19</span><span class="sl-tag">Together</span><span class="sl-tag">Prime Intellect</span></div>
       </div>
       <div class="stack-layer" style="--layer-color:#0A9FB8" data-sl-i="3">
         <div><div class="sl-num">Layer 3</div></div>
-        <div><div class="sl-label">Decentralised Compute</div><div class="sl-desc">GPU and training infrastructure outside hyperscaler control. Render, Akash, io.net billing enterprise today.</div></div>
+        <div><div class="sl-label">Decentralised Compute</div><div class="sl-desc">GPU and training infrastructure outside hyperscaler control. Billing enterprise today.</div></div>
         <div class="sl-protocols"><span class="sl-tag">Render</span><span class="sl-tag">Akash</span><span class="sl-tag">io.net</span></div>
       </div>
       <div class="stack-layer" style="--layer-color:#f87171" data-sl-i="4">
         <div><div class="sl-num">Layer 2</div></div>
-        <div><div class="sl-label">Specialised AI Subnets</div><div class="sl-desc">Task-specific intelligence networks: computer vision, drug discovery, text generation, compliance. $5.5M peak ARR.</div></div>
+        <div><div class="sl-label">Specialised AI Subnets</div><div class="sl-desc">Task-specific intelligence networks. $5.5M peak ARR.</div></div>
         <div class="sl-protocols"><span class="sl-tag covered">SN-64 ✓</span><span class="sl-tag covered">SN-1 ✓</span><span class="sl-tag covered">SN-34 ✓</span><span class="sl-tag">128 total</span></div>
       </div>
       <div class="stack-layer" style="--layer-color:#D94F2A" data-sl-i="5">
         <div><div class="sl-num">Layer 1 — Base</div></div>
-        <div><div class="sl-label">Coordination Networks</div><div class="sl-desc">The base layer: token incentives aligning global AI talent. Bittensor emits 7,200 TAO/day via Yuma Consensus. dTAO upgrade gives each subnet its own alpha token — direct price discovery per intelligence market.</div></div>
+        <div><div class="sl-label">Coordination Networks</div><div class="sl-desc">Token incentives aligning global AI talent. 7,200 TAO/day via Yuma Consensus. dTAO: each subnet has its own alpha token.</div></div>
         <div class="sl-protocols"><span class="sl-tag covered">Bittensor ✓</span><span class="sl-tag">dTAO</span><span class="sl-tag">Gensyn</span><span class="sl-tag">Commune</span></div>
       </div>
     </div>
@@ -2129,7 +2129,7 @@ html { scroll-behavior: smooth; }
         <div class="section-label">Coverage Map</div>
         <h2 class="section-title">Six layers.<br><em>One stack.</em></h2>
       </div>
-      <p class="sectors-desc">Every layer of the tokenised AI economy, tracked with dedicated coverage and original research, from the coordination base layer to the financial infrastructure at the top.</p>
+      <p class="sectors-desc">Six layers. Dedicated coverage. Base layer to financial infrastructure.</p>
     </div>
     <div class="sector-filter" id="sector-filter">
         <button class="sf-btn active" data-sf="all">All Sectors</button>
@@ -2139,12 +2139,12 @@ html { scroll-behavior: smooth; }
         <button class="sf-btn" data-sf="data">Data</button>
       </div>
       <div class="sectors-grid">
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 01</div><div class="sc-name">Coordination<br><em>Networks</em></div><div class="sc-desc">Token incentives aligning global talent around AI workloads. The base layer.</div><div class="tags"><span class="tag">Bittensor</span><span class="tag">Gensyn</span><span class="tag">Commune</span></div><span class="sc-layer">Layer 1 — Foundation</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>1 live report</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:100%"></div></div></div><div class="sc-stat">128 subnets · $4B FDV</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 02</div><div class="sc-name">Decentralised<br><em>Compute</em></div><div class="sc-desc">GPU and inference markets enabling open AI infrastructure outside hyperscaler control.</div><div class="tags"><span class="tag">Render</span><span class="tag">Akash</span><span class="tag">io.net</span></div><span class="sc-layer">Layer 2 — Infrastructure</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:20%"></div></div></div><div class="sc-stat">$1.2B combined FDV</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 03</div><div class="sc-name">Inference<br><em>Marketplaces</em></div><div class="sc-desc">The emerging liquid markets for AI model capacity. The commodity layer of intelligence.</div><div class="tags"><span class="tag">SN-19</span><span class="tag">Together</span><span class="tag">Prime Intellect</span></div><span class="sc-layer">Layer 3 — Commodity Intelligence</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:15%"></div></div></div><div class="sc-stat">Spot inference pricing forming</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="finance">Sector 04</div><div class="sc-name">AI-Native<br><em>Finance</em></div><div class="sc-desc">Payment rails and capital primitives built for the agentic economy.</div><div class="tags"><span class="tag">x402</span><span class="tag">KiteAI</span><span class="tag">Morpho</span></div><span class="sc-layer">Layer 4 — Agentic Finance</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:25%"></div></div></div><div class="sc-stat">Agent-to-agent payment rails</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="data">Sector 05</div><div class="sc-name">Data &amp;<br><em>Intelligence</em></div><div class="sc-desc">The networks coordinating data curation and verification at scale. The fuel of intelligence.</div><div class="tags"><span class="tag">SURF</span><span class="tag">Vana</span><span class="tag">Ocean</span></div><span class="sc-layer">Layer 5 — Data Layer</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:30%"></div></div></div><div class="sc-stat">Fortune 500 partnerships forming</div></div>
-      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 06</div><div class="sc-name">Physical<br><em>AI</em></div><div class="sc-desc">Decentralised robotics, autonomous agents, and the real-world intelligence stack.</div><div class="tags"><span class="tag">OpenClaw</span><span class="tag">Gaia</span><span class="tag">Fetch.ai</span></div><span class="sc-layer">Layer 6 — Real World</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:10%"></div></div></div><div class="sc-stat">Earliest stage · Highest upside</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 01</div><div class="sc-name">Coordination<br><em>Networks</em></div><div class="sc-desc">Token incentives aligning global talent. Base layer.</div><div class="tags"><span class="tag">Bittensor</span><span class="tag">Gensyn</span><span class="tag">Commune</span></div><span class="sc-layer">Layer 1 — Foundation</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>1 live report</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:100%"></div></div></div><div class="sc-stat">128 subnets · $4B FDV</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 02</div><div class="sc-name">Decentralised<br><em>Compute</em></div><div class="sc-desc">Open GPU and inference markets outside hyperscaler control.</div><div class="tags"><span class="tag">Render</span><span class="tag">Akash</span><span class="tag">io.net</span></div><span class="sc-layer">Layer 2 — Infrastructure</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:20%"></div></div></div><div class="sc-stat">$1.2B combined FDV</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="compute">Sector 03</div><div class="sc-name">Inference<br><em>Marketplaces</em></div><div class="sc-desc">Liquid markets for AI model capacity.</div><div class="tags"><span class="tag">SN-19</span><span class="tag">Together</span><span class="tag">Prime Intellect</span></div><span class="sc-layer">Layer 3 — Commodity Intelligence</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:15%"></div></div></div><div class="sc-stat">Spot inference pricing forming</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="finance">Sector 04</div><div class="sc-name">AI-Native<br><em>Finance</em></div><div class="sc-desc">Payment rails for the agentic economy.</div><div class="tags"><span class="tag">x402</span><span class="tag">KiteAI</span><span class="tag">Morpho</span></div><span class="sc-layer">Layer 4 — Agentic Finance</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:25%"></div></div></div><div class="sc-stat">Agent-to-agent payment rails</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="data">Sector 05</div><div class="sc-name">Data &amp;<br><em>Intelligence</em></div><div class="sc-desc">Data curation and verification at scale.</div><div class="tags"><span class="tag">SURF</span><span class="tag">Vana</span><span class="tag">Ocean</span></div><span class="sc-layer">Layer 5 — Data Layer</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:30%"></div></div></div><div class="sc-stat">Fortune 500 partnerships forming</div></div>
+      <div class="sc reveal"><div class="sc-bracket"></div><div class="sc-n" data-sf-cat="coordination">Sector 06</div><div class="sc-name">Physical<br><em>AI</em></div><div class="sc-desc">Decentralised robotics and autonomous agents.</div><div class="tags"><span class="tag">OpenClaw</span><span class="tag">Gaia</span><span class="tag">Fetch.ai</span></div><span class="sc-layer">Layer 6 — Real World</span><div class="sc-depth"><div class="sc-depth-label"><span>Coverage depth</span><span>Forthcoming</span></div><div class="sc-depth-bar"><div class="sc-depth-fill" style="width:10%"></div></div></div><div class="sc-stat">Earliest stage · Highest upside</div></div>
     </div>
   </div>
 </section>
@@ -2156,7 +2156,7 @@ html { scroll-behavior: smooth; }
       <div class="section-label">The Team</div>
       <h2 class="section-title">Operators.<br><em>Not observers.</em></h2>
       <div class="section-body">
-        <p>Khala Research was built by people who have run validators, built subnets, and deployed institutional capital into the protocols they cover. That proximity is the product. The research reads differently because it comes from inside the incentive structures, not above them.</p>
+        <p>Built by validators, subnet operators, and allocators who deploy capital into what they cover. Inside the incentive structures — not above them.</p>
       </div>
     </div>
         <div class="team-cards">
@@ -2171,7 +2171,7 @@ html { scroll-behavior: smooth; }
                 <div class="tc-role">Co-Founder · Research</div>
               </div>
             </div>
-            <div class="tc-bio-front">Leading crypto AI researcher and former auditor. Covers every coordination protocol with first-principles depth and skin in the game.</div>
+            <div class="tc-bio-front">Crypto AI researcher. Former auditor. Skin in every protocol covered.</div>
             <div class="tc-flip-hint">hover for credentials →</div>
           </div>
           <div class="tc-back">
@@ -2198,7 +2198,7 @@ html { scroll-behavior: smooth; }
                 <div class="tc-role">Co-Founder · Product & Data</div>
               </div>
             </div>
-            <div class="tc-bio-front">Former investment banker. Built the analytical pipeline behind TAO Institute — Subnet Risk Index scoring engine and the data infrastructure that powers this research.</div>
+            <div class="tc-bio-front">Former banker. Built TAO Institute's Subnet Risk Index and the data pipeline behind this research.</div>
             <div class="tc-flip-hint">hover for credentials →</div>
           </div>
           <div class="tc-back">
@@ -2238,9 +2238,9 @@ html { scroll-behavior: smooth; }
 <!-- SUBSCRIBE -->
 <section class="subscribe" style="background:var(--parch);">
   <div class="section-label" style="margin-bottom:16px;">Join the Research</div>
-  <div class="sub-editorial">"The best research<br>on AI × crypto, delivered<br>before consensus arrives."</div>
+  <div class="sub-editorial">"The best AI × crypto research,<br>before consensus arrives."</div>
   <h2 class="sub-title">Be first.<br><em>Not second.</em></h2>
-  <p class="sub-body">Original research on the tokenised AI economy. Covering Bittensor, decentralised compute, agentic finance, and AI data infrastructure. No paywall. No ads. No conflicts.</p>
+  <p class="sub-body">Bittensor. Compute. Agentic finance. AI data. No paywall. No ads.</p>
 
   <div style="margin-bottom:20px;">
     <div class="sub-freq-title">Publication cadence — last 12 months</div>
@@ -2262,7 +2262,7 @@ html { scroll-behavior: smooth; }
     <div class="sub-success-dot"></div>
     <span>You're on the list. Next report drops soon.</span>
   </div>
-  <div class="sub-note">No spam. Unsubscribe at any time. Followed by teams at Multicoin, Paradigm, a16z, Galaxy.</div>
+  <div class="sub-note">No spam. Followed by teams at Multicoin, Paradigm, a16z, Galaxy.</div>
 </section>
 
 <!-- FOOTER -->
