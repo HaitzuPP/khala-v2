@@ -1253,6 +1253,101 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   color: var(--ink); font-weight: 500;
 }
 
+
+/* Hero node tooltip */
+.hn-tooltip {
+  position: absolute; background: var(--ink);
+  color: #fff; font-family: var(--mono); font-size: 10.5px;
+  padding: 6px 10px; border-radius: 3px; white-space: nowrap;
+  pointer-events: none; opacity: 0; transform: translateY(4px);
+  transition: opacity .2s, transform .2s; z-index: 30;
+  border: 1px solid rgba(255,255,255,.1);
+  top: -38px; left: 50%; transform: translateX(-50%) translateY(4px);
+}
+.hn-tooltip.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.hero-hint {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  font-family: var(--mono); font-size: 10px; letter-spacing: .1em;
+  color: rgba(255,255,255,.25); text-align: center;
+  animation: hint-fade 3s ease-in-out 3s forwards;
+  white-space: nowrap;
+}
+@keyframes hint-fade { 0%{opacity:1} 100%{opacity:0} }
+
+
+/* Research row hover expand */
+.rr { position: relative; overflow: hidden; }
+.rr-preview {
+  max-height: 0; overflow: hidden; opacity: 0;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1), opacity .25s;
+}
+.rr:hover .rr-preview, .rr:focus .rr-preview { max-height: 80px; opacity: 1; }
+.rr-preview-text {
+  font-family: var(--crim); font-size: 13px; color: var(--ink2);
+  line-height: 1.5; padding: 6px 0 4px;
+  font-style: italic;
+}
+.rr-arrow {
+  font-family: var(--mono); font-size: 10px; color: var(--ink3);
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  transition: color .2s, transform .2s;
+}
+.rr:hover .rr-arrow { color: var(--orange); transform: translateY(-50%) translateX(3px); }
+
+
+/* Featured band stats row */
+.featured-stats {
+  display: flex; gap: 32px; margin-top: 28px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  flex-wrap: wrap;
+}
+.fs-item {
+  font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.4);
+  letter-spacing: .04em;
+}
+.fs-val {
+  color: rgba(255,255,255,.85); font-weight: 500; font-size: 13px;
+  display: block; margin-bottom: 2px;
+}
+.fs-pulse {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); margin-right: 5px;
+  animation: fs-pulse-anim 2s ease-in-out infinite;
+  vertical-align: middle;
+}
+@keyframes fs-pulse-anim {
+  0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)}
+}
+
+
+/* Analysts pull quote */
+.analyst-pull {
+  font-family: var(--bask); font-size: clamp(18px,2.2vw,26px);
+  font-style: italic; color: var(--ink2); line-height: 1.5;
+  position: relative; padding-left: 24px;
+  margin: 24px 0;
+}
+.analyst-pull::before {
+  content: '"';
+  position: absolute; left: 0; top: -4px;
+  font-size: 42px; color: var(--orange); line-height: 1;
+  font-family: var(--bask);
+}
+.analyst-cred {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--ink3); text-transform: uppercase;
+  padding-left: 24px; margin-top: 12px;
+}
+.analyst-chips {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;
+  padding-left: 24px;
+}
+.analyst-chip {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em;
+  border: 1px solid var(--border); padding: 4px 10px;
+  border-radius: 2px; color: var(--ink2);
+}
+
 </style>
 </head>
 <body>
@@ -1279,8 +1374,9 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
     <span class="mkt-chip"><span class="mkt-chip-sym">RNDR</span><span class="mkt-chip-val">$8.14</span><span class="mkt-chip-chg pos">+2.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Decentralised Compute</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">AKT</span><span class="mkt-chip-val">$4.72</span><span class="mkt-chip-chg neg">−1.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Compute Marketplace</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">7,200 TAO/day</span><span class="mkt-chip-chg">halving ~2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">SUBNETS</span><span class="mkt-chip-val">128 active</span><span class="mkt-chip-chg">5 profiled</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Bittensor</span></span>
+    <span class="mkt-chip"><span class="mkt-chip-sym">SUBNETS</span><span class="mkt-chip-val">128 active</span><span class="mkt-chip-chg">5 profiled</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Bittensor · dTAO live</span></span>
     <span class="mkt-chip"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 200× SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
+    <span class="mkt-chip"><span class="mkt-chip-sym">dTAO ALPHA</span><span class="mkt-chip-val">Per-subnet token</span><span class="mkt-chip-chg">direct price discovery</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Bittensor v2.0</span></span>
     <!-- duplicate for seamless loop -->
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">TAO</span><span class="mkt-chip-val">$31.40</span><span class="mkt-chip-chg pos">+4.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">128 subnets</span></span>
     <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">PEAK ARR</span><span class="mkt-chip-val">$5.5M</span><span class="mkt-chip-chg pos">+311% YoY</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">SN-64 Chutes</span></span>
@@ -1578,6 +1674,13 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
         <p class="featured-desc">Five subnets spanning inference, computer vision, compliance, drug discovery, and pre-training — each demonstrating the transition from experiment to commercial traction. $5.5M ARR, enterprise contracts, NeurIPS acceptance.</p>
         <span class="featured-read">Read the report →</span>
       </a>
+      <div class="featured-stats">
+        <div class="fs-item"><span class="fs-val"><span class="fs-pulse"></span>$5.5M ARR</span>Peak Subnet Revenue</div>
+        <div class="fs-item"><span class="fs-val">5 subnets</span>Profiled in Depth</div>
+        <div class="fs-item"><span class="fs-val">128 active</span>Total Subnets Tracked</div>
+        <div class="fs-item"><span class="fs-val">~58×</span>EV/ARR — Top Subnet</div>
+        <div class="fs-item"><span class="fs-val">NeurIPS 2024</span>Research Acceptance</div>
+      </div>
     </div>
   </section>
 <!-- THESIS -->
@@ -1642,35 +1745,45 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
     <div class="rp-meta" style="margin-top:auto;">
       <span class="rp-author">Khala Research</span>
       <span class="rp-sep">·</span>
-      <span class="rp-detail">Typically 1–2 reports per quarter</span>
+      <span class="rp-detail">1–2 reports per quarter · No paywall · No ads</span>
     </div>
   </div>
   <div class="rp-right">
     <div class="section-label">All Reports</div>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">01</div>
-      <div><div class="rr-cat">Data Infrastructure</div><div class="rr-t">SURF: A Data Platform for Crypto Intelligence</div></div>
+      <div><div class="rr-cat">Data Infrastructure</div><div class="rr-t">SURF: A Data Platform for Crypto Intelligence</div>
+      <div class="rr-preview"><div class="rr-preview-text">Structured on-chain data for institutional-grade crypto research. Enterprise API clients already in production.</div></div></div>
       <div class="rr-d" style="color:var(--orange)">Live Now</div>
+      <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">02</div>
-      <div><div class="rr-cat">Agentic Finance</div><div class="rr-t">x402: Unlocking the Internet's Missing Payment Layer</div></div>
+      <div><div class="rr-cat">Agentic Finance</div><div class="rr-t">x402: Unlocking the Internet's Missing Payment Layer</div>
+      <div class="rr-preview"><div class="rr-preview-text">The HTTP payment header that enables AI agents to pay for API access in real time. Named position forthcoming.</div></div></div>
       <div class="rr-d">Forthcoming</div>
+      <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">03</div>
-      <div><div class="rr-cat">AI Infrastructure</div><div class="rr-t">The Dawn of the Autonomous Software Factory</div></div>
+      <div><div class="rr-cat">AI Infrastructure</div><div class="rr-t">The Dawn of the Autonomous Software Factory</div>
+      <div class="rr-preview"><div class="rr-preview-text">Tokenised software development networks and the protocols emerging around agentic code generation at scale.</div></div></div>
       <div class="rr-d">Forthcoming</div>
+      <span class="rr-arrow">→</span>
     </a>
     <a href="bittensor-article.html" class="rr reveal">
       <div class="rr-n">04</div>
-      <div><div class="rr-cat">Coordination Networks</div><div class="rr-t">Bittensor: The Intelligence Olympics</div></div>
+      <div><div class="rr-cat">Coordination Networks</div><div class="rr-t">Bittensor: The Intelligence Olympics</div>
+      <div class="rr-preview"><div class="rr-preview-text">5 subnets. $5.5M ARR. NeurIPS paper. Enterprise contracts. 128 subnets compete via Yuma Consensus — the intelligence Olympics are live.</div></div></div>
       <div class="rr-d" style="color:var(--orange)">Live Now</div>
+      <span class="rr-arrow">→</span>
     </a>
     <a href="research.html" class="rr reveal">
       <div class="rr-n">05</div>
-      <div><div class="rr-cat">Physical AI</div><div class="rr-t">Decentralized Robotics: Landscape and Outlook</div></div>
+      <div><div class="rr-cat">Physical AI</div><div class="rr-t">Decentralized Robotics: Landscape and Outlook</div>
+      <div class="rr-preview"><div class="rr-preview-text">Permissionless robotics coordination. Token-incentivised sensor data. The real-world intelligence layer is forming.</div></div></div>
       <div class="rr-d">Forthcoming</div>
+      <span class="rr-arrow">→</span>
     </a>
     <div class="rp-cta"><a href="research.html" class="btn-outline">View all research →</a></div>
   </div>
@@ -1714,8 +1827,8 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
       </div>
       <div class="stack-layer" style="--layer-color:#D94F2A" data-sl-i="5">
         <div><div class="sl-num">Layer 1 — Base</div></div>
-        <div><div class="sl-label">Coordination Networks</div><div class="sl-desc">The base layer: token incentives aligning global AI talent. Bittensor emits 7,200 TAO/day to the best intelligence.</div></div>
-        <div class="sl-protocols"><span class="sl-tag covered">Bittensor ✓</span><span class="sl-tag">Gensyn</span><span class="sl-tag">Commune</span></div>
+        <div><div class="sl-label">Coordination Networks</div><div class="sl-desc">The base layer: token incentives aligning global AI talent. Bittensor emits 7,200 TAO/day via Yuma Consensus. dTAO upgrade gives each subnet its own alpha token — direct price discovery per intelligence market.</div></div>
+        <div class="sl-protocols"><span class="sl-tag covered">Bittensor ✓</span><span class="sl-tag">dTAO</span><span class="sl-tag">Gensyn</span><span class="sl-tag">Commune</span></div>
       </div>
     </div>
   </div>
@@ -2102,6 +2215,30 @@ const scIO = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.2 });
 document.querySelectorAll('.sc').forEach(el => scIO.observe(el));
+
+
+/* ── HERO TOKEN TOOLTIPS ── */
+const nodeData = {
+  'BTC':  { tip: 'BTC · $104,200 · +1.8% 24h', color: '#f7931a' },
+  'ETH':  { tip: 'ETH · $3,820 · −0.4% 24h', color: '#627eea' },
+  'TAO':  { tip: 'TAO · $31.40 · 128 subnets · $4B FDV', color: '#D94F2A' },
+  'RNDR': { tip: 'RNDR · $8.14 · Decentralised Compute', color: '#0A9FB8' },
+  'AKT':  { tip: 'AKT · $4.72 · Compute Marketplace', color: '#4ade80' },
+  'x402': { tip: 'x402 · Agent Payment Rails · Forthcoming', color: '#a78bfa' },
+};
+document.querySelectorAll('.tn').forEach(el => {
+  const sym = el.querySelector('.tn-sym')?.textContent?.trim();
+  if(!sym || !nodeData[sym]) return;
+  const d = nodeData[sym];
+  const tip = document.createElement('div');
+  tip.className = 'hn-tooltip';
+  tip.textContent = d.tip;
+  el.style.position = 'relative';
+  el.appendChild(tip);
+  el.addEventListener('mouseenter', () => tip.classList.add('show'));
+  el.addEventListener('mouseleave', () => tip.classList.remove('show'));
+  el.style.cursor = 'pointer';
+});
 
 </script>
 
