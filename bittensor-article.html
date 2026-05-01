@@ -6,653 +6,631 @@
 <title>Bittensor: The Intelligence Olympics · Khala Research</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream: #F3EEE3;
-    --parch: #EAE4D4;
-    --ink: #0D0C09;
-    --ink-60: rgba(13,12,9,.60);
-    --ink-30: rgba(13,12,9,.30);
-    --ink-10: rgba(13,12,9,.10);
-    --orange: #D94F2A;
-    --cyan: #0A9FB8;
-    --rule: 1px solid var(--ink-10);
-    --r: 2px;
-  }
+:root {
+  --cream: #F3EEE3;
+  --parch: #EAE4D4;
+  --ink:   #0D0C09;
+  --ink-80: rgba(13,12,9,.80);
+  --ink-60: rgba(13,12,9,.60);
+  --ink-30: rgba(13,12,9,.30);
+  --ink-12: rgba(13,12,9,.12);
+  --ink-06: rgba(13,12,9,.06);
+  --orange: #D94F2A;
+  --cyan:   #0A9FB8;
+  --green:  #1a7a3a;
+  --red:    #c0392b;
+  --amber:  #a07808;
+  --rule:   1px solid var(--ink-12);
+  --rule-heavy: 1px solid var(--ink-30);
+  --col: 740px;
+  --toc: 220px;
+  --gap: 64px;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--cream); }
 
-  html { scroll-behavior: smooth; }
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 20px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9998;
+  opacity: .6;
+}
 
-  body {
-    background: var(--cream);
-    color: var(--ink);
-    font-family: 'Crimson Text', Georgia, serif;
-    font-size: 20px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed; top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: var(--orange);
+  z-index: 9999;
+  transition: width .04s linear;
+}
 
-  /* ─── READING PROGRESS BAR ─── */
-  #progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 3px;
-    background: var(--orange);
-    z-index: 9999;
-    transition: width 0.05s linear;
-    transform-origin: left;
-  }
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(243,238,227,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: var(--rule);
+  height: 56px;
+}
+.topbar-inner {
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+.topbar-logo svg { height: 20px; width: auto; }
+.topbar-center {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 400;
+  color: var(--ink-30); letter-spacing: .02em;
+}
+.topbar-center a { color: var(--ink-30); text-decoration: none; transition: color .15s; }
+.topbar-center a:hover { color: var(--ink); }
+.topbar-center .sep { color: var(--ink-12); }
+.topbar-center .current { color: var(--ink-60); }
+.topbar-right { display: flex; align-items: center; gap: 20px; }
+.topbar-right a {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500;
+  color: var(--ink-60); text-decoration: none; letter-spacing: .02em; transition: color .15s;
+}
+.topbar-right a:hover { color: var(--ink); }
+.topbar-cta {
+  color: var(--ink) !important;
+  border: 1px solid var(--ink-30);
+  padding: 6px 14px;
+  border-radius: 2px;
+  transition: background .15s, border-color .15s !important;
+}
+.topbar-cta:hover { background: var(--ink); color: var(--cream) !important; border-color: var(--ink) !important; }
 
-  /* ─── TOPBAR ─── */
-  .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--cream);
-    border-bottom: var(--rule);
-    height: 56px;
-  }
-  .topbar-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 32px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .topbar-logo { display: flex; align-items: center; text-decoration: none; }
-  .topbar-logo svg { height: 22px; width: auto; }
-  .topbar-nav { display: flex; align-items: center; gap: 24px; }
-  .topbar-nav a {
-    font-family: 'Geist', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-60);
-    text-decoration: none;
-    letter-spacing: .03em;
-    transition: color .15s;
-  }
-  .topbar-nav a:hover { color: var(--ink); }
-  .topbar-cta {
-    font-family: 'Geist', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink) !important;
-    border: 1px solid var(--ink);
-    padding: 6px 14px;
-    border-radius: var(--r);
-    text-decoration: none;
-    transition: background .15s, color .15s;
-  }
-  .topbar-cta:hover { background: var(--ink); color: var(--cream) !important; }
+/* ─── HERO ─── */
+.hero {
+  background: var(--ink);
+  padding: 72px 32px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '◆';
+  position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+  font-size: clamp(120px, 18vw, 240px);
+  color: rgba(255,255,255,.025);
+  font-family: 'Geist Mono', monospace;
+  pointer-events: none; line-height: 1;
+  letter-spacing: -.05em;
+}
+.hero-inner {
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: var(--toc) 1fr;
+  gap: 0 var(--gap);
+  align-items: end;
+}
+.hero-left { padding-bottom: 4px; }
+.hero-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px;
+  font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--orange); }
+.hero-title {
+  font-family: 'Baskervville', serif;
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 400; line-height: 1.06; letter-spacing: -.02em;
+  color: var(--cream); margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: rgba(243,238,227,.65); }
+.hero-sub {
+  font-family: 'Crimson Text', serif; font-size: 19px; font-style: italic;
+  color: rgba(243,238,227,.5); line-height: 1.55; max-width: 560px;
+  margin-bottom: 32px;
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.10); padding-top: 20px;
+}
+.hero-meta-item {
+  font-family: 'Geist', sans-serif; font-size: 12px;
+  color: rgba(243,238,227,.35); letter-spacing: .04em;
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-meta-item strong { color: rgba(243,238,227,.70); font-weight: 500; }
+.hero-read-time {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; font-weight: 500;
+  letter-spacing: .1em; color: rgba(243,238,227,.35);
+  border: 1px solid rgba(255,255,255,.12); padding: 4px 10px;
+}
+.hero-right {
+  display: flex; flex-direction: column; gap: 0;
+  border-left: 1px solid rgba(255,255,255,.08);
+  padding-left: var(--gap);
+}
+.hero-stat {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.hero-stat-label {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(243,238,227,.25); margin-bottom: 6px;
+}
+.hero-stat-value {
+  font-family: 'Baskervville', serif; font-size: 26px; font-weight: 400;
+  color: var(--cream); line-height: 1.15;
+}
+.hero-stat-value.accent { color: var(--orange); }
+.hero-stat-note {
+  font-family: 'Geist', sans-serif; font-size: 11px;
+  color: rgba(243,238,227,.30); margin-top: 3px;
+}
 
-  /* ─── ARTICLE LAYOUT ─── */
-  .article-wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 32px;
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 0 60px;
-    align-items: start;
-  }
+/* ─── PAGE LAYOUT ─── */
+.page-wrap {
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: var(--toc) 1fr;
+  gap: 0 var(--gap);
+  align-items: start;
+}
 
-  /* ─── SIDEBAR TOC ─── */
-  .sidebar {
-    position: sticky;
-    top: 80px;
-    padding: 48px 0 48px;
-    grid-column: 1;
-  }
-  .toc-label {
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--ink-30);
-    margin-bottom: 16px;
-  }
-  .toc-list { list-style: none; }
-  .toc-list li { margin-bottom: 4px; }
-  .toc-list a {
-    font-family: 'Geist', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: var(--ink-60);
-    text-decoration: none;
-    line-height: 1.5;
-    display: block;
-    padding: 3px 0 3px 10px;
-    border-left: 2px solid transparent;
-    transition: color .15s, border-color .15s;
-  }
-  .toc-list a:hover { color: var(--ink); }
-  .toc-list a.active { color: var(--ink); border-left-color: var(--orange); font-weight: 500; }
-  .toc-list .toc-sub a { padding-left: 20px; font-size: 11.5px; color: var(--ink-30); }
-  .toc-list .toc-sub a:hover, .toc-list .toc-sub a.active { color: var(--ink-60); }
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position: sticky; top: 72px;
+  padding: 48px 0;
+  grid-column: 1;
+}
+.toc-label {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  font-weight: 500; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--ink-30); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.toc-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-12); }
+.toc-list { list-style: none; }
+.toc-list li { margin: 0; }
+.toc-list a {
+  font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 400;
+  color: var(--ink-30); text-decoration: none; line-height: 1.4;
+  display: block; padding: 5px 0 5px 12px;
+  border-left: 2px solid transparent;
+  transition: color .12s, border-color .12s;
+}
+.toc-list a:hover { color: var(--ink-80); }
+.toc-list a.active {
+  color: var(--ink); border-left-color: var(--orange);
+  font-weight: 500;
+}
+.toc-list .toc-sub a {
+  padding-left: 22px; font-size: 11.5px;
+  color: rgba(13,12,9,.20);
+}
+.toc-list .toc-sub a:hover { color: var(--ink-60); }
+.toc-list .toc-sub a.active { color: var(--ink-60); border-left-color: rgba(217,79,42,.4); }
+.toc-list .toc-divider {
+  height: 1px; background: var(--ink-06);
+  margin: 8px 0 8px 12px;
+}
 
-  /* ─── ARTICLE BODY ─── */
-  .article-body {
-    grid-column: 2;
-    padding: 48px 0 96px;
-    max-width: 700px;
-  }
+/* ─── ARTICLE BODY ─── */
+.article-body {
+  grid-column: 2;
+  padding: 52px 0 96px;
+}
 
-  /* ─── ARTICLE HEADER ─── */
-  .article-header { margin-bottom: 48px; border-bottom: var(--rule); padding-bottom: 40px; }
-  .article-tag {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 16px;
-    display: block;
-  }
-  .article-title {
-    font-family: 'Baskervville', serif;
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -.01em;
-    margin-bottom: 20px;
-    color: var(--ink);
-  }
-  .article-subtitle {
-    font-family: 'Crimson Text', serif;
-    font-size: 21px;
-    font-style: italic;
-    color: var(--ink-60);
-    line-height: 1.5;
-    margin-bottom: 28px;
-  }
-  .article-meta {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .meta-item {
-    font-family: 'Geist', sans-serif;
-    font-size: 12.5px;
-    color: var(--ink-60);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .meta-item .dot { color: var(--ink-30); }
-  .meta-read-time {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: .06em;
-    color: var(--ink-30);
-    border: 1px solid var(--ink-10);
-    padding: 3px 8px;
-    border-radius: 2px;
-  }
+/* ─── NOTE BOX ─── */
+.note-box {
+  background: var(--parch); border-left: 3px solid var(--orange);
+  padding: 14px 18px; margin-bottom: 36px;
+}
+.note-box p {
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  color: var(--ink-60); line-height: 1.6; margin: 0;
+}
+.note-box strong { color: var(--ink); font-weight: 600; }
 
-  /* ─── NOTE BOX ─── */
-  .note-box {
-    background: var(--parch);
-    border-left: 3px solid var(--orange);
-    padding: 16px 20px;
-    margin-bottom: 40px;
-    border-radius: 0 var(--r) var(--r) 0;
-  }
-  .note-box p {
-    font-family: 'Geist', sans-serif;
-    font-size: 13.5px;
-    color: var(--ink-60);
-    line-height: 1.6;
-    margin: 0;
-  }
-  .note-box strong { color: var(--ink); }
+/* ─── KEY TAKEAWAYS ─── */
+.takeaways-box {
+  border: var(--rule); margin-bottom: 52px; overflow: hidden;
+}
+.takeaways-header {
+  background: var(--ink); padding: 12px 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.takeaways-header-label {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(243,238,227,.45);
+}
+.takeaways-header-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0;
+}
+.takeaways-list { list-style: none; }
+.takeaways-list li {
+  font-family: 'Crimson Text', serif; font-size: 18px;
+  line-height: 1.6; color: var(--ink);
+  padding: 14px 24px 14px 44px;
+  border-bottom: var(--rule);
+  position: relative;
+}
+.takeaways-list li:last-child { border-bottom: none; }
+.takeaways-list li::before {
+  content: counter(item);
+  counter-increment: item;
+  position: absolute; left: 20px; top: 16px;
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  font-weight: 500; color: var(--orange); letter-spacing: .06em;
+}
+.takeaways-list { counter-reset: item; }
 
-  /* ─── KEY TAKEAWAYS ─── */
-  .takeaways-box {
-    background: var(--parch);
-    border: 1px solid var(--ink-10);
-    padding: 28px 32px;
-    margin-bottom: 48px;
-    border-radius: var(--r);
-  }
-  .takeaways-label {
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color: var(--ink-30);
-    margin-bottom: 18px;
-  }
-  .takeaways-list { list-style: none; }
-  .takeaways-list li {
-    font-family: 'Crimson Text', serif;
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--ink);
-    padding: 10px 0 10px 22px;
-    border-bottom: 1px solid var(--ink-10);
-    position: relative;
-  }
-  .takeaways-list li:last-child { border-bottom: none; }
-  .takeaways-list li::before {
-    content: '◆';
-    position: absolute;
-    left: 0;
-    top: 12px;
-    font-size: 8px;
-    color: var(--orange);
-  }
+/* ─── SECTION HEADINGS ─── */
+.section-anchor { display: flex; align-items: baseline; gap: 14px; margin: 64px 0 22px; }
+.section-num {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; color: var(--orange);
+  flex-shrink: 0; padding-top: 4px;
+}
+.article-body h2 {
+  font-family: 'Baskervville', serif; font-size: clamp(26px, 3.5vw, 34px);
+  font-weight: 400; line-height: 1.15; letter-spacing: -.015em; color: var(--ink);
+  margin: 0;
+}
+.section-anchor + * { margin-top: 0; }
+.article-body h2:not(.section-anchor h2) { margin: 64px 0 22px; }
 
-  /* ─── SECTION HEADINGS ─── */
-  .article-body h2 {
-    font-family: 'Baskervville', serif;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -.01em;
-    color: var(--ink);
-    margin: 56px 0 20px;
-    padding-top: 8px;
-  }
-  .article-body h2:first-of-type { margin-top: 0; }
+/* ─── PROSE ─── */
+.article-body p {
+  font-size: 20px; line-height: 1.72; color: var(--ink); margin-bottom: 24px;
+}
+.article-body p.lead {
+  font-size: 22px; font-style: italic; color: var(--ink-60);
+  line-height: 1.6; border-left: 3px solid var(--ink-12);
+  padding-left: 20px; margin-bottom: 28px;
+}
 
-  .article-body h3 {
-    font-family: 'Geist', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: .01em;
-    color: var(--ink);
-    margin: 36px 0 14px;
-    text-transform: uppercase;
-    letter-spacing: .06em;
-  }
+/* ─── LISTS ─── */
+.article-body ul {
+  list-style: none; margin: 0 0 28px; padding: 0;
+  border: var(--rule);
+}
+.article-body ul li {
+  font-size: 19px; line-height: 1.65; color: var(--ink);
+  padding: 11px 18px 11px 40px; position: relative;
+  border-bottom: var(--rule);
+}
+.article-body ul li:last-child { border-bottom: none; }
+.article-body ul li::before {
+  content: '→'; position: absolute; left: 16px; top: 13px;
+  font-size: 12px; color: var(--orange);
+}
+.article-body ul li strong { font-weight: 600; }
 
-  /* ─── PROSE ─── */
-  .article-body p {
-    font-family: 'Crimson Text', serif;
-    font-size: 20px;
-    line-height: 1.7;
-    color: var(--ink);
-    margin-bottom: 22px;
-  }
-  .article-body p.lead {
-    font-size: 22px;
-    font-style: italic;
-    color: var(--ink-60);
-    line-height: 1.6;
-  }
+/* ─── CALLOUT ─── */
+.callout {
+  background: var(--ink); padding: 28px 32px;
+  margin: 40px 0; position: relative;
+}
+.callout::before {
+  content: '"';
+  position: absolute; top: -14px; left: 24px;
+  font-family: 'Baskervville', serif; font-size: 80px;
+  color: var(--orange); line-height: 1;
+}
+.callout p {
+  font-family: 'Baskervville', serif; font-size: 22px; font-style: italic;
+  line-height: 1.45; color: var(--cream); margin: 0; padding-top: 8px;
+}
 
-  /* ─── SUBNET PROFILE CARDS ─── */
-  .subnet-card {
-    border: 1px solid var(--ink-10);
-    border-radius: var(--r);
-    margin: 40px 0;
-    overflow: hidden;
-  }
-  .subnet-card-header {
-    background: var(--parch);
-    padding: 20px 24px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    border-bottom: var(--rule);
-  }
-  .subnet-id {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: .1em;
-    color: var(--orange);
-    margin-bottom: 4px;
-  }
-  .subnet-name {
-    font-family: 'Baskervville', serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--ink);
-    line-height: 1.2;
-  }
-  .subnet-desc {
-    font-family: 'Crimson Text', serif;
-    font-size: 15px;
-    font-style: italic;
-    color: var(--ink-60);
-    margin-top: 4px;
-  }
-  .subnet-status {
-    font-family: 'Geist', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 2px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .status-live { background: #1a7a3a22; color: #1a7a3a; border: 1px solid #1a7a3a44; }
-  .status-building { background: #d4a01722; color: #a07808; border: 1px solid #d4a01744; }
+/* ─── SUBNET CARDS ─── */
+.subnet-card {
+  border: var(--rule); margin: 44px 0; overflow: hidden;
+  transition: border-color .2s;
+}
+.subnet-card:hover { border-color: var(--ink-30); }
 
-  .subnet-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: var(--rule);
-  }
-  .stat-cell {
-    padding: 16px 24px;
-    border-right: var(--rule);
-  }
-  .stat-cell:last-child { border-right: none; }
-  .stat-label {
-    font-family: 'Geist Mono', monospace;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--ink-30);
-    margin-bottom: 4px;
-  }
-  .stat-value {
-    font-family: 'Geist', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .stat-note {
-    font-family: 'Geist', sans-serif;
-    font-size: 11px;
-    color: var(--ink-30);
-    margin-top: 2px;
-  }
+.subnet-card-header {
+  background: var(--ink); padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px; align-items: start;
+}
+.subnet-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.subnet-id {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; color: var(--orange);
+}
+.subnet-status {
+  font-family: 'Geist', sans-serif; font-size: 10px; font-weight: 500;
+  padding: 3px 9px; white-space: nowrap; letter-spacing: .06em;
+}
+.status-live { background: rgba(26,122,58,.2); color: #5dbf7c; border: 1px solid rgba(26,122,58,.3); }
+.status-building { background: rgba(212,160,23,.15); color: #e6b830; border: 1px solid rgba(212,160,23,.25); }
+.subnet-name {
+  font-family: 'Baskervville', serif; font-size: 26px; font-weight: 400;
+  color: var(--cream); line-height: 1.1; margin-bottom: 6px;
+}
+.subnet-desc {
+  font-family: 'Crimson Text', serif; font-size: 15px; font-style: italic;
+  color: rgba(243,238,227,.4); line-height: 1.5;
+}
 
-  .subnet-body { padding: 24px; }
-  .subnet-body p {
-    font-size: 17.5px;
-    line-height: 1.68;
-    margin-bottom: 16px;
-  }
+.subnet-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: var(--rule);
+}
+.stat-cell {
+  padding: 16px 20px; border-right: var(--rule);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-label {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-30); margin-bottom: 5px;
+}
+.stat-value {
+  font-family: 'Geist', sans-serif; font-size: 17px;
+  font-weight: 600; color: var(--ink); line-height: 1.2;
+}
+.stat-note {
+  font-family: 'Geist', sans-serif; font-size: 10.5px;
+  color: var(--ink-30); margin-top: 3px;
+}
 
-  /* ─── BULLET LISTS ─── */
-  .article-body ul {
-    margin: 0 0 22px 0;
-    padding: 0;
-    list-style: none;
-  }
-  .article-body ul li {
-    font-family: 'Crimson Text', serif;
-    font-size: 19px;
-    line-height: 1.65;
-    color: var(--ink);
-    padding: 6px 0 6px 22px;
-    position: relative;
-    border-bottom: 1px solid var(--ink-10);
-  }
-  .article-body ul li:last-child { border-bottom: none; }
-  .article-body ul li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    top: 7px;
-    font-size: 13px;
-    color: var(--orange);
-  }
-  .article-body ul li strong {
-    font-weight: 600;
-    color: var(--ink);
-  }
+.subnet-body { padding: 24px 28px 28px; }
+.subnet-body p { font-size: 17.5px; line-height: 1.7; margin-bottom: 16px; }
 
-  /* ─── SIGNAL TAGS ─── */
-  .signal-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 16px 0 24px;
-  }
-  .signal-tag {
-    font-family: 'Geist Mono', monospace;
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: 2px;
-  }
-  .signal-green { background: #1a7a3a18; color: #1a7a3a; border: 1px solid #1a7a3a30; }
-  .signal-red { background: #c0392b18; color: #c0392b; border: 1px solid #c0392b30; }
-  .signal-amber { background: #d4a01718; color: #a07808; border: 1px solid #d4a01730; }
+.verdict-row {
+  background: var(--parch); border-top: var(--rule);
+  padding: 14px 28px; display: flex; align-items: baseline; gap: 10px;
+}
+.verdict-label {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-30); flex-shrink: 0;
+}
+.verdict-text {
+  font-family: 'Crimson Text', serif; font-size: 16px;
+  color: var(--ink-60); line-height: 1.55;
+}
 
-  /* ─── CALLOUT ─── */
-  .callout {
-    background: var(--ink);
-    color: var(--cream);
-    padding: 24px 28px;
-    border-radius: var(--r);
-    margin: 36px 0;
-  }
-  .callout p {
-    font-family: 'Baskervville', serif;
-    font-size: 22px;
-    font-style: italic;
-    line-height: 1.45;
-    margin: 0;
-    color: var(--cream);
-  }
+/* ─── SIGNAL TAGS ─── */
+.signal-row {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 20px;
+}
+.signal-tag {
+  font-family: 'Geist Mono', monospace; font-size: 10.5px;
+  font-weight: 500; padding: 4px 10px; letter-spacing: .04em;
+}
+.sig-green { background: rgba(26,122,58,.08); color: #1a7a3a; border: 1px solid rgba(26,122,58,.2); }
+.sig-red   { background: rgba(192,57,43,.08); color: #c0392b; border: 1px solid rgba(192,57,43,.20); }
+.sig-amber { background: rgba(160,120,8,.08); color: #a07808; border: 1px solid rgba(160,120,8,.20); }
 
-  /* ─── CATALYST TABLE ─── */
-  .catalyst-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 24px 0 32px;
-    font-family: 'Geist', sans-serif;
-    font-size: 13px;
-  }
-  .catalyst-table th {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--ink-30);
-    font-family: 'Geist Mono', monospace;
-    padding: 8px 12px;
-    border-bottom: 2px solid var(--ink-10);
-    text-align: left;
-  }
-  .catalyst-table td {
-    padding: 10px 12px;
-    border-bottom: 1px solid var(--ink-10);
-    vertical-align: top;
-    color: var(--ink);
-    line-height: 1.5;
-  }
-  .catalyst-table tr:last-child td { border-bottom: none; }
-  .catalyst-table .cat-positive { color: #1a7a3a; font-weight: 500; }
-  .catalyst-table .cat-risk { color: #c0392b; font-weight: 500; }
+/* ─── CATALYST TABLE ─── */
+.catalyst-section { margin: 28px 0 40px; }
+.catalyst-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  border: var(--rule);
+}
+.catalyst-table thead { background: var(--parch); }
+.catalyst-table th {
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-30); padding: 10px 16px; text-align: left;
+  border-bottom: var(--rule-heavy);
+}
+.catalyst-table td {
+  padding: 11px 16px; border-bottom: var(--rule);
+  vertical-align: top; line-height: 1.5; color: var(--ink-80);
+}
+.catalyst-table tr:last-child td { border-bottom: none; }
+.catalyst-table tbody tr { transition: background .1s; }
+.catalyst-table tbody tr:hover { background: var(--parch); }
+.cat-positive { color: var(--green) !important; font-weight: 600; white-space: nowrap; }
+.cat-risk     { color: var(--red)   !important; font-weight: 600; white-space: nowrap; }
+.cat-timeline { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--ink-30); white-space: nowrap; }
 
-  /* ─── SUBSCRIBE STRIP ─── */
-  .subscribe-strip {
-    border-top: var(--rule);
-    border-bottom: var(--rule);
-    padding: 40px 0;
-    margin: 60px 0 0;
-    text-align: center;
-  }
-  .subscribe-strip h3 {
-    font-family: 'Baskervville', serif;
-    font-size: 26px;
-    font-weight: 400;
-    margin-bottom: 10px;
-    letter-spacing: initial;
-    text-transform: none;
-  }
-  .subscribe-strip p {
-    font-size: 17px;
-    color: var(--ink-60);
-    margin-bottom: 20px;
-  }
-  .subscribe-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .subscribe-form input {
-    font-family: 'Geist', sans-serif;
-    font-size: 14px;
-    padding: 10px 16px;
-    border: 1px solid var(--ink-10);
-    background: var(--cream);
-    color: var(--ink);
-    border-radius: var(--r);
-    width: 260px;
-    outline: none;
-  }
-  .subscribe-form input:focus { border-color: var(--ink-30); }
-  .subscribe-form button {
-    font-family: 'Geist', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 10px 20px;
-    background: var(--ink);
-    color: var(--cream);
-    border: none;
-    border-radius: var(--r);
-    cursor: pointer;
-    letter-spacing: .03em;
-    transition: opacity .15s;
-  }
-  .subscribe-form button:hover { opacity: .8; }
+/* ─── SUBSCRIBE ─── */
+.subscribe-strip {
+  background: var(--ink); padding: 48px 40px; margin: 64px 0 0;
+  display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+}
+.sub-heading {
+  font-family: 'Baskervville', serif; font-size: 26px;
+  font-weight: 400; color: var(--cream); margin-bottom: 8px; line-height: 1.2;
+}
+.sub-body { font-family: 'Crimson Text', serif; font-size: 16px; color: rgba(243,238,227,.45); }
+.sub-form { display: flex; gap: 0; }
+.sub-input {
+  font-family: 'Geist', sans-serif; font-size: 14px;
+  padding: 11px 16px; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.15); color: var(--cream);
+  outline: none; width: 220px; transition: border-color .15s;
+}
+.sub-input::placeholder { color: rgba(255,255,255,.25); }
+.sub-input:focus { border-color: rgba(255,255,255,.4); }
+.sub-btn {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500;
+  padding: 11px 20px; background: var(--orange); color: #fff;
+  border: 1px solid var(--orange); cursor: pointer; white-space: nowrap;
+  letter-spacing: .03em; transition: opacity .15s;
+}
+.sub-btn:hover { opacity: .85; }
 
-  /* ─── FOOTER ─── */
-  footer {
-    border-top: var(--rule);
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .footer-left {
-    font-family: 'Geist', sans-serif;
-    font-size: 12px;
-    color: var(--ink-30);
-  }
-  .footer-right { display: flex; gap: 20px; }
-  .footer-right a {
-    font-family: 'Geist', sans-serif;
-    font-size: 12px;
-    color: var(--ink-30);
-    text-decoration: none;
-  }
-  .footer-right a:hover { color: var(--ink); }
+/* ─── FOOTER ─── */
+.footer {
+  border-top: var(--rule);
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto; padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-left { font-family: 'Geist', sans-serif; font-size: 11.5px; color: var(--ink-30); }
+.footer-right { display: flex; gap: 20px; }
+.footer-right a { font-family: 'Geist', sans-serif; font-size: 11.5px; color: var(--ink-30); text-decoration: none; transition: color .15s; }
+.footer-right a:hover { color: var(--ink); }
 
-  /* ─── RESPONSIVE ─── */
-  @media (max-width: 900px) {
-    .article-wrap {
-      grid-template-columns: 1fr;
-      padding: 0 20px;
-    }
-    .sidebar { display: none; }
-    .article-body { grid-column: 1; padding: 32px 0 64px; }
-    .topbar { padding: 0 20px; }
-    .subnet-stats { grid-template-columns: 1fr 1fr; }
-    .subnet-stats .stat-cell:nth-child(2) { border-right: none; }
-    .subnet-stats .stat-cell:nth-child(3) { border-top: var(--rule); grid-column: 1 / -1; }
-  }
-  @media (max-width: 500px) {
-    body { font-size: 18px; }
-    .article-body h2 { font-size: 24px; }
-    .article-title { font-size: 28px; }
-    .subnet-stats { grid-template-columns: 1fr; }
-    .subnet-stats .stat-cell { border-right: none; border-bottom: var(--rule); }
-    .subnet-stats .stat-cell:last-child { border-bottom: none; }
-  }
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1000px) {
+  :root { --toc: 180px; --gap: 48px; }
+}
+@media (max-width: 820px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 28px; display: grid; grid-template-columns: repeat(3,1fr); }
+  .hero-stat { border-bottom: none; border-right: 1px solid rgba(255,255,255,.06); padding: 16px 20px; }
+  .hero-stat:last-child { border-right: none; }
+  .page-wrap { grid-template-columns: 1fr; padding: 0 20px; }
+  .sidebar { display: none; }
+  .article-body { grid-column: 1; padding: 36px 0 72px; }
+  .subscribe-strip { grid-template-columns: 1fr; gap: 24px; padding: 36px 28px; }
+  .sub-form { flex-direction: column; gap: 10px; }
+  .sub-input { width: 100%; }
+  .sub-btn { width: 100%; text-align: center; }
+  .topbar-center { display: none; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 44px; }
+  .hero-title { font-size: 34px; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+  .hero-stat:nth-child(3) { border-right: none; }
+  .topbar-inner { padding: 0 20px; }
+  .footer { padding: 20px; }
+  .subnet-stats { grid-template-columns: 1fr 1fr; }
+  .subnet-stats .stat-cell:nth-child(2) { border-right: none; }
+  .subnet-stats .stat-cell:nth-child(3) { border-top: var(--rule); grid-column: 1/-1; }
+  .catalyst-table { font-size: 12px; }
+  .catalyst-table td, .catalyst-table th { padding: 9px 10px; }
+}
+@media (max-width: 420px) {
+  .hero-title { font-size: 28px; }
+  .hero-right { grid-template-columns: 1fr; }
+  .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06) !important; }
+  .hero-stat:last-child { border-bottom: none !important; }
+}
 
-  /* ─── UNCLICKABLE LINKS ─── */
-  a[href="#"] {
-    color: rgba(13,12,9,.30) !important;
-    pointer-events: none;
-    cursor: default;
-  }
+a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: default; }
 </style>
 </head>
 <body>
 
-<!-- READING PROGRESS BAR -->
 <div id="progress-bar"></div>
 
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-inner">
-  <a href="index.html" class="topbar-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.999 36" style="height:22px;width:auto;display:block;" aria-label="Khala Research"><path d="M 7.276 36 L 0 36 L 0 28.724 L 7.276 28.724 Z M 71.096 20.416 C 71.888 20.416 72.603 20.511 73.241 20.698 C 73.879 20.873 74.384 21.068 74.754 21.28 L 74.143 22.858 C 73.728 22.614 73.283 22.425 72.82 22.296 C 72.279 22.139 71.717 22.063 71.154 22.069 C 70.364 22.069 69.738 22.214 69.278 22.502 C 68.832 22.777 68.608 23.235 68.608 23.873 C 68.608 24.299 68.722 24.65 68.951 24.926 C 69.194 25.201 69.521 25.439 69.929 25.64 C 70.396 25.847 70.869 26.041 71.346 26.222 C 72.136 26.522 72.826 26.836 73.414 27.162 C 74.001 27.474 74.461 27.876 74.793 28.364 C 75.125 28.853 75.291 29.51 75.291 30.337 C 75.291 31.125 75.101 31.796 74.718 32.347 C 74.335 32.885 73.778 33.299 73.05 33.587 C 72.322 33.862 71.441 34 70.407 34 C 69.322 34 68.429 33.887 67.727 33.662 C 67.037 33.424 66.552 33.224 66.27 33.062 L 66.863 31.464 C 67.17 31.639 67.618 31.827 68.205 32.027 C 68.805 32.227 69.539 32.328 70.407 32.328 C 71.364 32.328 72.074 32.165 72.533 31.84 C 73.005 31.514 73.241 31.025 73.241 30.374 C 73.241 29.874 73.107 29.471 72.839 29.171 C 72.584 28.871 72.227 28.615 71.768 28.402 C 71.308 28.189 70.771 27.969 70.158 27.743 C 69.531 27.515 68.924 27.238 68.34 26.916 C 67.833 26.642 67.394 26.257 67.056 25.79 C 66.75 25.327 66.596 24.73 66.596 24.005 C 66.596 23.241 66.774 22.595 67.132 22.069 C 67.502 21.531 68.027 21.124 68.703 20.849 C 69.38 20.561 70.178 20.416 71.097 20.416 Z M 119.604 20.416 C 120.305 20.416 120.919 20.473 121.442 20.586 C 121.966 20.699 122.394 20.83 122.726 20.981 C 123.07 21.118 123.319 21.237 123.473 21.337 L 122.879 22.934 C 122.459 22.707 122.016 22.525 121.558 22.389 C 121.047 22.226 120.44 22.145 119.738 22.145 C 118.832 22.145 118.04 22.346 117.363 22.747 C 116.7 23.135 116.182 23.705 115.812 24.457 C 115.454 25.207 115.275 26.122 115.275 27.198 C 115.275 28.2 115.435 29.084 115.754 29.848 C 116.064 30.572 116.576 31.192 117.229 31.633 C 117.881 32.058 118.691 32.273 119.661 32.273 C 120.516 32.273 121.22 32.19 121.769 32.027 C 122.317 31.865 122.751 31.702 123.07 31.539 L 123.607 33.136 C 123.327 33.311 122.827 33.498 122.112 33.698 C 121.41 33.898 120.536 34 119.489 34 C 118.238 34 117.14 33.737 116.195 33.21 C 115.25 32.685 114.516 31.914 113.992 30.9 C 113.469 29.885 113.207 28.65 113.207 27.198 C 113.207 26.109 113.374 25.145 113.706 24.306 C 114.051 23.454 114.516 22.74 115.104 22.164 C 115.681 21.594 116.373 21.152 117.133 20.867 C 117.922 20.565 118.759 20.412 119.604 20.416 Z M 47.562 20.567 C 49.438 20.567 50.868 20.912 51.852 21.601 C 52.835 22.289 53.326 23.324 53.326 24.701 C 53.326 25.641 53.084 26.398 52.599 26.974 C 52.126 27.55 51.469 27.976 50.626 28.252 C 50.856 28.54 51.124 28.891 51.431 29.304 C 51.737 29.717 52.049 30.174 52.368 30.674 C 52.7 31.164 53.02 31.671 53.326 32.197 C 53.632 32.723 53.901 33.23 54.131 33.719 L 51.947 33.719 C 51.605 33.076 51.235 32.449 50.836 31.839 C 50.461 31.231 50.065 30.636 49.649 30.055 C 49.32 29.563 48.968 29.087 48.596 28.627 C 48.468 28.627 48.34 28.634 48.213 28.647 C 48.092 28.66 47.971 28.666 47.849 28.665 L 45.972 28.665 L 45.972 33.719 L 43.999 33.719 L 43.999 20.924 C 44.535 20.799 45.129 20.711 45.779 20.661 C 46.371 20.601 46.966 20.57 47.561 20.567 Z M 64.409 22.352 L 58.185 22.352 L 58.185 26.091 L 63.72 26.091 L 63.72 27.706 L 58.185 27.706 L 58.185 32.066 L 64.87 32.066 L 64.87 33.719 L 56.212 33.719 L 56.212 20.699 L 64.409 20.699 Z M 85.844 22.352 L 79.619 22.352 L 79.619 26.091 L 85.155 26.091 L 85.155 27.706 L 79.62 27.706 L 79.62 32.066 L 86.306 32.066 L 86.306 33.719 L 77.646 33.719 L 77.646 20.699 L 85.845 20.699 L 85.845 22.352 Z M 94.576 20.699 C 95.036 21.639 95.476 22.591 95.898 23.556 C 96.318 24.52 96.74 25.521 97.161 26.561 C 97.582 27.6 98.018 28.709 98.465 29.886 C 98.925 31.063 99.408 32.341 99.919 33.719 L 97.774 33.719 C 97.586 33.164 97.388 32.613 97.181 32.065 C 96.982 31.529 96.79 30.99 96.606 30.449 L 90.65 30.449 C 90.459 30.975 90.26 31.515 90.057 32.065 C 89.853 32.604 89.653 33.155 89.462 33.719 L 87.414 33.719 C 88.031 32.05 88.656 30.384 89.291 28.721 C 89.841 27.311 90.409 25.908 90.995 24.513 C 91.549 23.227 92.137 21.955 92.757 20.699 L 94.577 20.699 Z M 105.317 20.567 C 107.194 20.567 108.624 20.912 109.607 21.601 C 110.591 22.289 111.082 23.324 111.082 24.701 C 111.082 25.641 110.839 26.398 110.354 26.974 C 109.882 27.55 109.224 27.976 108.382 28.252 C 108.612 28.54 108.88 28.891 109.187 29.304 C 109.493 29.717 109.805 30.174 110.124 30.674 C 110.456 31.164 110.776 31.671 111.082 32.197 C 111.388 32.723 111.657 33.23 111.887 33.719 L 109.704 33.719 C 109.362 33.076 108.991 32.449 108.592 31.839 C 108.217 31.231 107.821 30.636 107.405 30.055 C 107.075 29.564 106.724 29.087 106.352 28.627 C 106.224 28.627 106.096 28.634 105.969 28.647 C 105.848 28.66 105.727 28.666 105.605 28.665 L 103.728 28.665 L 103.728 33.719 L 101.755 33.719 L 101.755 20.924 C 102.291 20.799 102.885 20.711 103.535 20.661 C 104.127 20.601 104.722 20.57 105.317 20.567 Z M 127.688 26.091 L 134.027 26.091 L 134.027 20.699 L 135.999 20.699 L 135.999 33.719 L 134.027 33.719 L 134.027 27.744 L 127.688 27.744 L 127.688 33.719 L 125.714 33.719 L 125.714 20.699 L 127.688 20.699 Z M 93.064 24.061 C 92.872 24.512 92.673 24.995 92.469 25.509 C 92.265 26.009 92.054 26.542 91.837 27.105 C 91.62 27.669 91.396 28.259 91.166 28.872 L 96.07 28.872 C 95.84 28.259 95.616 27.669 95.4 27.105 C 95.195 26.571 94.984 26.039 94.768 25.509 C 94.575 25.022 94.37 24.539 94.154 24.061 C 93.975 23.627 93.791 23.196 93.6 22.767 Z M 47.714 22.239 C 47.344 22.239 47.012 22.251 46.719 22.276 C 46.425 22.301 46.176 22.328 45.972 22.352 L 45.972 27.087 L 47.39 27.087 C 48.18 27.087 48.864 27.03 49.438 26.917 C 50.025 26.792 50.478 26.555 50.798 26.205 C 51.117 25.855 51.276 25.346 51.276 24.683 C 51.276 24.043 51.117 23.548 50.798 23.197 C 50.492 22.847 50.064 22.603 49.516 22.465 C 48.928 22.308 48.322 22.232 47.714 22.239 Z M 105.471 22.239 C 105.101 22.239 104.769 22.251 104.476 22.276 C 104.226 22.297 103.977 22.323 103.728 22.352 L 103.728 27.087 L 105.146 27.087 C 105.937 27.087 106.621 27.03 107.195 26.917 C 107.782 26.792 108.237 26.556 108.556 26.205 C 108.875 25.855 109.032 25.346 109.032 24.683 C 109.032 24.044 108.875 23.548 108.556 23.197 C 108.249 22.847 107.82 22.603 107.271 22.465 C 106.684 22.308 106.078 22.232 105.471 22.239 Z M 7.276 19.15 L 17.524 19.15 L 24.801 26.427 L 8.9 26.427 L 0 17.524 L 0 0 L 7.276 0 Z M 45.972 9.6 C 46.419 9.186 46.897 8.728 47.408 8.228 L 48.94 6.726 C 49.451 6.212 49.93 5.723 50.377 5.26 C 50.823 4.784 51.212 4.364 51.544 4.001 L 53.9 4.001 C 53.492 4.439 53.038 4.921 52.54 5.446 C 51.512 6.529 50.458 7.588 49.38 8.622 C 48.883 9.111 48.379 9.594 47.868 10.069 C 48.417 10.445 48.991 10.902 49.591 11.441 C 50.219 11.994 50.813 12.583 51.372 13.206 C 51.95 13.82 52.493 14.466 52.999 15.141 C 53.497 15.791 53.925 16.42 54.282 17.021 L 51.984 17.021 C 51.607 16.43 51.191 15.864 50.74 15.328 C 50.262 14.747 49.757 14.19 49.226 13.658 C 48.709 13.124 48.166 12.616 47.599 12.135 C 47.088 11.699 46.543 11.303 45.971 10.951 L 45.971 17.021 L 43.998 17.021 L 43.998 4 L 45.971 4 L 45.971 9.599 Z M 58.092 9.393 L 64.432 9.393 L 64.432 4 L 66.404 4 L 66.404 17.02 L 64.432 17.02 L 64.432 11.045 L 58.092 11.045 L 58.092 17.02 L 56.12 17.02 L 56.12 4 L 58.094 4 L 58.094 9.392 Z M 75.406 4 C 75.866 4.939 76.306 5.891 76.728 6.855 C 77.148 7.82 77.57 8.822 77.991 9.861 C 78.413 10.901 78.847 12.009 79.294 13.186 C 79.754 14.364 80.237 15.642 80.748 17.02 L 78.604 17.02 C 78.416 16.465 78.219 15.913 78.012 15.365 C 77.808 14.815 77.615 14.275 77.437 13.749 L 71.478 13.749 C 71.288 14.275 71.09 14.814 70.886 15.365 C 70.678 15.913 70.479 16.465 70.291 17.02 L 68.242 17.02 C 68.859 15.35 69.485 13.683 70.12 12.02 C 70.67 10.61 71.238 9.208 71.825 7.813 C 72.379 6.527 72.966 5.256 73.585 4 L 75.405 4 Z M 84.559 15.347 L 90.668 15.347 L 90.668 17.02 L 82.585 17.02 L 82.585 4 L 84.559 4 Z M 98.952 4 C 99.412 4.94 99.853 5.891 100.274 6.855 C 100.696 7.82 101.117 8.822 101.538 9.861 C 101.959 10.901 102.394 12.009 102.841 13.186 C 103.3 14.364 103.785 15.642 104.296 17.02 L 102.151 17.02 C 101.963 16.465 101.765 15.913 101.558 15.365 C 101.353 14.815 101.162 14.275 100.983 13.749 L 95.026 13.749 C 94.835 14.275 94.636 14.815 94.433 15.365 C 94.225 15.913 94.027 16.465 93.839 17.02 L 91.789 17.02 C 92.406 15.35 93.032 13.683 93.667 12.02 C 94.217 10.61 94.785 9.208 95.371 7.813 C 95.926 6.527 96.513 5.256 97.134 4 Z M 36 7.95 L 27.099 16.85 L 19.149 16.85 L 19.149 8.902 L 28.051 0 L 36 0 Z M 73.893 7.361 C 73.701 7.812 73.503 8.296 73.298 8.81 C 73.094 9.31 72.883 9.842 72.666 10.405 C 72.449 10.969 72.226 11.558 71.996 12.172 L 76.898 12.172 C 76.668 11.558 76.445 10.969 76.228 10.405 C 76.023 9.871 75.812 9.34 75.596 8.81 C 75.403 8.322 75.199 7.839 74.983 7.361 C 74.804 6.927 74.619 6.495 74.428 6.066 Z M 97.439 7.361 C 97.248 7.812 97.05 8.296 96.846 8.81 C 96.629 9.339 96.418 9.871 96.213 10.405 C 95.996 10.969 95.773 11.558 95.543 12.172 L 100.446 12.172 C 100.217 11.558 99.992 10.969 99.776 10.405 C 99.571 9.871 99.36 9.34 99.144 8.81 C 98.951 8.322 98.746 7.839 98.53 7.361 C 98.351 6.927 98.167 6.495 97.976 6.066 Z" fill="#0D0C09"/></svg>
-  </a>
-  <nav class="topbar-nav">
-    <a href="research.html">Research</a>
-    <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
-    <a href="#subscribe" class="topbar-cta">Subscribe →</a>
-  </nav>
+    <a href="index.html" class="topbar-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.999 36" style="height:22px;width:auto;display:block;" aria-label="Khala Research"><path d="M 7.276 36 L 0 36 L 0 28.724 L 7.276 28.724 Z M 71.096 20.416 C 71.888 20.416 72.603 20.511 73.241 20.698 C 73.879 20.873 74.384 21.068 74.754 21.28 L 74.143 22.858 C 73.728 22.614 73.283 22.425 72.82 22.296 C 72.279 22.139 71.717 22.063 71.154 22.069 C 70.364 22.069 69.738 22.214 69.278 22.502 C 68.832 22.777 68.608 23.235 68.608 23.873 C 68.608 24.299 68.722 24.65 68.951 24.926 C 69.194 25.201 69.521 25.439 69.929 25.64 C 70.396 25.847 70.869 26.041 71.346 26.222 C 72.136 26.522 72.826 26.836 73.414 27.162 C 74.001 27.474 74.461 27.876 74.793 28.364 C 75.125 28.853 75.291 29.51 75.291 30.337 C 75.291 31.125 75.101 31.796 74.718 32.347 C 74.335 32.885 73.778 33.299 73.05 33.587 C 72.322 33.862 71.441 34 70.407 34 C 69.322 34 68.429 33.887 67.727 33.662 C 67.037 33.424 66.552 33.224 66.27 33.062 L 66.863 31.464 C 67.17 31.639 67.618 31.827 68.205 32.027 C 68.805 32.227 69.539 32.328 70.407 32.328 C 71.364 32.328 72.074 32.165 72.533 31.84 C 73.005 31.514 73.241 31.025 73.241 30.374 C 73.241 29.874 73.107 29.471 72.839 29.171 C 72.584 28.871 72.227 28.615 71.768 28.402 C 71.308 28.189 70.771 27.969 70.158 27.743 C 69.531 27.515 68.924 27.238 68.34 26.916 C 67.833 26.642 67.394 26.257 67.056 25.79 C 66.75 25.327 66.596 24.73 66.596 24.005 C 66.596 23.241 66.774 22.595 67.132 22.069 C 67.502 21.531 68.027 21.124 68.703 20.849 C 69.38 20.561 70.178 20.416 71.097 20.416 Z M 119.604 20.416 C 120.305 20.416 120.919 20.473 121.442 20.586 C 121.966 20.699 122.394 20.83 122.726 20.981 C 123.07 21.118 123.319 21.237 123.473 21.337 L 122.879 22.934 C 122.459 22.707 122.016 22.525 121.558 22.389 C 121.047 22.226 120.44 22.145 119.738 22.145 C 118.832 22.145 118.04 22.346 117.363 22.747 C 116.7 23.135 116.182 23.705 115.812 24.457 C 115.454 25.207 115.275 26.122 115.275 27.198 C 115.275 28.2 115.435 29.084 115.754 29.848 C 116.064 30.572 116.576 31.192 117.229 31.633 C 117.881 32.058 118.691 32.273 119.661 32.273 C 120.516 32.273 121.22 32.19 121.769 32.027 C 122.317 31.865 122.751 31.702 123.07 31.539 L 123.607 33.136 C 123.327 33.311 122.827 33.498 122.112 33.698 C 121.41 33.898 120.536 34 119.489 34 C 118.238 34 117.14 33.737 116.195 33.21 C 115.25 32.685 114.516 31.914 113.992 30.9 C 113.469 29.885 113.207 28.65 113.207 27.198 C 113.207 26.109 113.374 25.145 113.706 24.306 C 114.051 23.454 114.516 22.74 115.104 22.164 C 115.681 21.594 116.373 21.152 117.133 20.867 C 117.922 20.565 118.759 20.412 119.604 20.416 Z M 47.562 20.567 C 49.438 20.567 50.868 20.912 51.852 21.601 C 52.835 22.289 53.326 23.324 53.326 24.701 C 53.326 25.641 53.084 26.398 52.599 26.974 C 52.126 27.55 51.469 27.976 50.626 28.252 C 50.856 28.54 51.124 28.891 51.431 29.304 C 51.737 29.717 52.049 30.174 52.368 30.674 C 52.7 31.164 53.02 31.671 53.326 32.197 C 53.632 32.723 53.901 33.23 54.131 33.719 L 51.947 33.719 C 51.605 33.076 51.235 32.449 50.836 31.839 C 50.461 31.231 50.065 30.636 49.649 30.055 C 49.32 29.563 48.968 29.087 48.596 28.627 C 48.468 28.627 48.34 28.634 48.213 28.647 C 48.092 28.66 47.971 28.666 47.849 28.665 L 45.972 28.665 L 45.972 33.719 L 43.999 33.719 L 43.999 20.924 C 44.535 20.799 45.129 20.711 45.779 20.661 C 46.371 20.601 46.966 20.57 47.561 20.567 Z M 64.409 22.352 L 58.185 22.352 L 58.185 26.091 L 63.72 26.091 L 63.72 27.706 L 58.185 27.706 L 58.185 32.066 L 64.87 32.066 L 64.87 33.719 L 56.212 33.719 L 56.212 20.699 L 64.409 20.699 Z M 85.844 22.352 L 79.619 22.352 L 79.619 26.091 L 85.155 26.091 L 85.155 27.706 L 79.62 27.706 L 79.62 32.066 L 86.306 32.066 L 86.306 33.719 L 77.646 33.719 L 77.646 20.699 L 85.845 20.699 L 85.845 22.352 Z M 94.576 20.699 C 95.036 21.639 95.476 22.591 95.898 23.556 C 96.318 24.52 96.74 25.521 97.161 26.561 C 97.582 27.6 98.018 28.709 98.465 29.886 C 98.925 31.063 99.408 32.341 99.919 33.719 L 97.774 33.719 C 97.586 33.164 97.388 32.613 97.181 32.065 C 96.982 31.529 96.79 30.99 96.606 30.449 L 90.65 30.449 C 90.459 30.975 90.26 31.515 90.057 32.065 C 89.853 32.604 89.653 33.155 89.462 33.719 L 87.414 33.719 C 88.031 32.05 88.656 30.384 89.291 28.721 C 89.841 27.311 90.409 25.908 90.995 24.513 C 91.549 23.227 92.137 21.955 92.757 20.699 L 94.577 20.699 Z M 105.317 20.567 C 107.194 20.567 108.624 20.912 109.607 21.601 C 110.591 22.289 111.082 23.324 111.082 24.701 C 111.082 25.641 110.839 26.398 110.354 26.974 C 109.882 27.55 109.224 27.976 108.382 28.252 C 108.612 28.54 108.88 28.891 109.187 29.304 C 109.493 29.717 109.805 30.174 110.124 30.674 C 110.456 31.164 110.776 31.671 111.082 32.197 C 111.388 32.723 111.657 33.23 111.887 33.719 L 109.704 33.719 C 109.362 33.076 108.991 32.449 108.592 31.839 C 108.217 31.231 107.821 30.636 107.405 30.055 C 107.075 29.564 106.724 29.087 106.352 28.627 C 106.224 28.627 106.096 28.634 105.969 28.647 C 105.848 28.66 105.727 28.666 105.605 28.665 L 103.728 28.665 L 103.728 33.719 L 101.755 33.719 L 101.755 20.924 C 102.291 20.799 102.885 20.711 103.535 20.661 C 104.127 20.601 104.722 20.57 105.317 20.567 Z M 127.688 26.091 L 134.027 26.091 L 134.027 20.699 L 135.999 20.699 L 135.999 33.719 L 134.027 33.719 L 134.027 27.744 L 127.688 27.744 L 127.688 33.719 L 125.714 33.719 L 125.714 20.699 L 127.688 20.699 Z M 93.064 24.061 C 92.872 24.512 92.673 24.995 92.469 25.509 C 92.265 26.009 92.054 26.542 91.837 27.105 C 91.62 27.669 91.396 28.259 91.166 28.872 L 96.07 28.872 C 95.84 28.259 95.616 27.669 95.4 27.105 C 95.195 26.571 94.984 26.039 94.768 25.509 C 94.575 25.022 94.37 24.539 94.154 24.061 C 93.975 23.627 93.791 23.196 93.6 22.767 Z M 47.714 22.239 C 47.344 22.239 47.012 22.251 46.719 22.276 C 46.425 22.301 46.176 22.328 45.972 22.352 L 45.972 27.087 L 47.39 27.087 C 48.18 27.087 48.864 27.03 49.438 26.917 C 50.025 26.792 50.478 26.555 50.798 26.205 C 51.117 25.855 51.276 25.346 51.276 24.683 C 51.276 24.043 51.117 23.548 50.798 23.197 C 50.492 22.847 50.064 22.603 49.516 22.465 C 48.928 22.308 48.322 22.232 47.714 22.239 Z M 105.471 22.239 C 105.101 22.239 104.769 22.251 104.476 22.276 C 104.226 22.297 103.977 22.323 103.728 22.352 L 103.728 27.087 L 105.146 27.087 C 105.937 27.087 106.621 27.03 107.195 26.917 C 107.782 26.792 108.237 26.556 108.556 26.205 C 108.875 25.855 109.032 25.346 109.032 24.683 C 109.032 24.044 108.875 23.548 108.556 23.197 C 108.249 22.847 107.82 22.603 107.271 22.465 C 106.684 22.308 106.078 22.232 105.471 22.239 Z M 7.276 19.15 L 17.524 19.15 L 24.801 26.427 L 8.9 26.427 L 0 17.524 L 0 0 L 7.276 0 Z M 45.972 9.6 C 46.419 9.186 46.897 8.728 47.408 8.228 L 48.94 6.726 C 49.451 6.212 49.93 5.723 50.377 5.26 C 50.823 4.784 51.212 4.364 51.544 4.001 L 53.9 4.001 C 53.492 4.439 53.038 4.921 52.54 5.446 C 51.512 6.529 50.458 7.588 49.38 8.622 C 48.883 9.111 48.379 9.594 47.868 10.069 C 48.417 10.445 48.991 10.902 49.591 11.441 C 50.219 11.994 50.813 12.583 51.372 13.206 C 51.95 13.82 52.493 14.466 52.999 15.141 C 53.497 15.791 53.925 16.42 54.282 17.021 L 51.984 17.021 C 51.607 16.43 51.191 15.864 50.74 15.328 C 50.262 14.747 49.757 14.19 49.226 13.658 C 48.709 13.124 48.166 12.616 47.599 12.135 C 47.088 11.699 46.543 11.303 45.971 10.951 L 45.971 17.021 L 43.998 17.021 L 43.998 4 L 45.971 4 L 45.971 9.599 Z M 58.092 9.393 L 64.432 9.393 L 64.432 4 L 66.404 4 L 66.404 17.02 L 64.432 17.02 L 64.432 11.045 L 58.092 11.045 L 58.092 17.02 L 56.12 17.02 L 56.12 4 L 58.094 4 L 58.094 9.392 Z M 75.406 4 C 75.866 4.939 76.306 5.891 76.728 6.855 C 77.148 7.82 77.57 8.822 77.991 9.861 C 78.413 10.901 78.847 12.009 79.294 13.186 C 79.754 14.364 80.237 15.642 80.748 17.02 L 78.604 17.02 C 78.416 16.465 78.219 15.913 78.012 15.365 C 77.808 14.815 77.615 14.275 77.437 13.749 L 71.478 13.749 C 71.288 14.275 71.09 14.814 70.886 15.365 C 70.678 15.913 70.479 16.465 70.291 17.02 L 68.242 17.02 C 68.859 15.35 69.485 13.683 70.12 12.02 C 70.67 10.61 71.238 9.208 71.825 7.813 C 72.379 6.527 72.966 5.256 73.585 4 L 75.405 4 Z M 84.559 15.347 L 90.668 15.347 L 90.668 17.02 L 82.585 17.02 L 82.585 4 L 84.559 4 Z M 98.952 4 C 99.412 4.94 99.853 5.891 100.274 6.855 C 100.696 7.82 101.117 8.822 101.538 9.861 C 101.959 10.901 102.394 12.009 102.841 13.186 C 103.3 14.364 103.785 15.642 104.296 17.02 L 102.151 17.02 C 101.963 16.465 101.765 15.913 101.558 15.365 C 101.353 14.815 101.162 14.275 100.983 13.749 L 95.026 13.749 C 94.835 14.275 94.636 14.815 94.433 15.365 C 94.225 15.913 94.027 16.465 93.839 17.02 L 91.789 17.02 C 92.406 15.35 93.032 13.683 93.667 12.02 C 94.217 10.61 94.785 9.208 95.371 7.813 C 95.926 6.527 96.513 5.256 97.134 4 Z M 36 7.95 L 27.099 16.85 L 19.149 16.85 L 19.149 8.902 L 28.051 0 L 36 0 Z M 73.893 7.361 C 73.701 7.812 73.503 8.296 73.298 8.81 C 73.094 9.31 72.883 9.842 72.666 10.405 C 72.449 10.969 72.226 11.558 71.996 12.172 L 76.898 12.172 C 76.668 11.558 76.445 10.969 76.228 10.405 C 76.023 9.871 75.812 9.34 75.596 8.81 C 75.403 8.322 75.199 7.839 74.983 7.361 C 74.804 6.927 74.619 6.495 74.428 6.066 Z M 97.439 7.361 C 97.248 7.812 97.05 8.296 96.846 8.81 C 96.629 9.339 96.418 9.871 96.213 10.405 C 95.996 10.969 95.773 11.558 95.543 12.172 L 100.446 12.172 C 100.217 11.558 99.992 10.969 99.776 10.405 C 99.571 9.871 99.36 9.34 99.144 8.81 C 98.951 8.322 98.746 7.839 98.53 7.361 C 98.351 6.927 98.167 6.495 97.976 6.066 Z" fill="#0D0C09"/></svg></a>
+    <div class="topbar-center">
+      <a href="research.html">Research</a>
+      <span class="sep">/</span>
+      <span class="current">Bittensor: The Intelligence Olympics</span>
+    </div>
+    <nav class="topbar-right">
+      <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+      <a href="#subscribe" class="topbar-cta">Subscribe →</a>
+    </nav>
   </div>
 </header>
 
-<!-- ARTICLE LAYOUT -->
-<div class="article-wrap">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Ecosystem Report · Coordination Networks</div>
+      <h1 class="hero-title">Bittensor: The<br><em>Intelligence Olympics</em></h1>
+      <p class="hero-sub">Five subnets spanning inference, computer vision, compliance, drug discovery, and frontier pre-training — each crossing from experiment to commercial traction.</p>
+      <div class="hero-meta">
+        <span class="hero-meta-item"><strong>Khala Research</strong></span>
+        <span class="hero-meta-item">· February 2026</span>
+        <span class="hero-read-time">~18 MIN READ</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-label">Largest ARR Subnet</div>
+        <div class="hero-stat-value accent">$5.5M</div>
+        <div class="hero-stat-note">Chutes · annualized</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-label">Active Subnets</div>
+        <div class="hero-stat-value">128</div>
+        <div class="hero-stat-note">Expanding to 256 in 2026</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-label">TAO FDV vs OpenAI</div>
+        <div class="hero-stat-value">1 / 125</div>
+        <div class="hero-stat-note">$4B vs $500B+</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- SIDEBAR TOC -->
+<!-- PAGE LAYOUT -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="toc-label">Contents</div>
     <ul class="toc-list" id="toc">
       <li><a href="#exec-summary" data-target="exec-summary">Executive Summary</a></li>
+      <li class="toc-divider"></li>
       <li><a href="#concentration-problem" data-target="concentration-problem">1. The Concentration Problem</a></li>
       <li><a href="#subnet-economy" data-target="subnet-economy">2. The Subnet Economy</a></li>
       <li><a href="#landscape" data-target="landscape">3. Current Landscape</a></li>
       <li><a href="#coverage" data-target="coverage">4. Subnet Coverage</a></li>
-      <li class="toc-sub"><a href="#sn44" data-target="sn44">SN44 – SCORE</a></li>
-      <li class="toc-sub"><a href="#sn54" data-target="sn54">SN54 – MIID</a></li>
-      <li class="toc-sub"><a href="#sn68" data-target="sn68">SN68 – NOVA</a></li>
-      <li class="toc-sub"><a href="#sn3" data-target="sn3">SN3 – TEMPLAR</a></li>
-      <li class="toc-sub"><a href="#sn64" data-target="sn64">SN64 – CHUTES</a></li>
+      <li class="toc-sub"><a href="#sn44" data-target="sn44">SN44 · SCORE</a></li>
+      <li class="toc-sub"><a href="#sn54" data-target="sn54">SN54 · MIID</a></li>
+      <li class="toc-sub"><a href="#sn68" data-target="sn68">SN68 · NOVA</a></li>
+      <li class="toc-sub"><a href="#sn3" data-target="sn3">SN3 · TEMPLAR</a></li>
+      <li class="toc-sub"><a href="#sn64" data-target="sn64">SN64 · CHUTES</a></li>
+      <li class="toc-divider"></li>
       <li><a href="#catalysts" data-target="catalysts">5. Catalysts &amp; Risks</a></li>
       <li><a href="#closing" data-target="closing">6. Closing Thesis</a></li>
     </ul>
   </aside>
 
-  <!-- ARTICLE BODY -->
+  <!-- ARTICLE -->
   <article class="article-body">
 
-    <!-- HEADER -->
-    <header class="article-header">
-      <span class="article-tag">Ecosystem Report · Bittensor</span>
-      <h1 class="article-title">Bittensor: The Intelligence Olympics</h1>
-      <p class="article-subtitle">Five subnets spanning inference, computer vision, compliance, drug discovery, and pre-training — each demonstrating the transition from experiment to commercial traction.</p>
-      <div class="article-meta">
-        <span class="meta-item">Khala Research</span>
-        <span class="meta-item"><span class="dot">·</span> February 2026</span>
-        <span class="meta-read-time">~18 MIN READ</span>
-      </div>
-    </header>
-
-    <!-- READER NOTE -->
     <div class="note-box">
       <p><strong>Note:</strong> Khala Research is developing a systematic subnet risk scoring framework to help allocators evaluate subnet investment quality at scale. For parties interested in early access, get in touch with the Khala Research team.</p>
     </div>
 
-    <!-- KEY TAKEAWAYS -->
     <div class="takeaways-box">
-      <div class="takeaways-label">Key Takeaways</div>
+      <div class="takeaways-header">
+        <div class="takeaways-header-dot"></div>
+        <div class="takeaways-header-label">Key Takeaways</div>
+      </div>
       <ul class="takeaways-list">
         <li>Bittensor has crossed from experiment to commercial traction: enterprise contracts signed, institutional capital entering, and the first halving tightening supply.</li>
-        <li>Five subnets profiled span the full AI value chain — inference (Chutes, $5.5M ARR), computer vision (SCORE), compliance stress-testing (MIID), drug discovery (NOVA), and frontier pre-training (Templar).</li>
-        <li>Decentralized training compute is growing ~20x per year vs. 5x per year for centralized infrastructure. If the trajectory holds, the gap narrows materially within 2–3 years.</li>
-        <li>TAO's fully diluted valuation sits at ~$4B — approximately 1/125th of OpenAI alone. The question has shifted from whether decentralized AI can work to how large the market becomes.</li>
+        <li>Five subnets span the full AI value chain — inference (Chutes, $5.5M ARR), computer vision (SCORE), compliance stress-testing (MIID), drug discovery (NOVA), and frontier pre-training (Templar).</li>
+        <li>Decentralized training compute is growing ~20× per year vs. 5× for centralized. The gap narrows materially within 2–3 years if the trajectory holds.</li>
+        <li>TAO's fully diluted valuation is ~$4B — 1/125th of OpenAI alone. The question has shifted from whether decentralized AI can work to how large the market becomes.</li>
         <li>Token-incentivized competition creates a structural advantage centralized competitors cannot replicate: supply compounds with usage, not headcount or VC spend.</li>
       </ul>
     </div>
 
-    <!-- EXEC SUMMARY -->
-    <h2 id="exec-summary">Executive Summary</h2>
+    <div class="section-anchor"><h2 id="exec-summary">Executive Summary</h2></div>
+
     <p class="lead">Artificial Intelligence development is increasingly centralized, closed, and extractive. A handful of frontier labs — OpenAI, Google, Anthropic, Meta — control the most capable models, the data pipelines, the compute infrastructure, and the economic upside.</p>
 
     <p>Bittensor's answer: a decentralized network that turns intelligence into a commodity — openly priced, competitively produced, and cryptographically verified.</p>
@@ -668,24 +646,22 @@
 
     <p>Real customers are paying real money. That changes the risk profile — proven traction provides asymmetric upside for those allocating capital.</p>
 
-    <!-- SECTION 1 -->
-    <h2 id="concentration-problem">1. The Concentration Problem and Crypto's Solution</h2>
+    <div class="section-anchor"><span class="section-num">01</span><h2 id="concentration-problem">The Concentration Problem and Crypto's Solution</h2></div>
 
-    <p>Each generation of large language models has cost more to train. In 2020, OpenAI trained GPT-3 for roughly $5M. It was the best language model in the world. Today, frontier models range in estimates from $500M to over $1B. The barrier to competitive AI compounds every year, in favor of incumbents.</p>
+    <p>Each generation of large language models has cost more to train. In 2020, OpenAI trained GPT-3 for roughly $5M — the best language model in the world. Today, frontier models range from $500M to over $1B. The barrier to competitive AI compounds every year, in favor of incumbents.</p>
 
     <p>For investors, the access problem is real: the largest technology opportunity of the generation is either private, priced into mega-caps, or funneling through a single chipmaker.</p>
 
     <p>Five companies control the foundation models that will underpin the next decade of software. Between them, they command the talent pipelines, the GPU allocations, the data partnerships, and the distribution. Everyone else builds on their infrastructure, at their margins, on their terms. Bittensor is trying to change the rules.</p>
 
     <div class="callout">
-      <p>"Bittensor is no longer a bet on whether decentralized AI coordination can work. It's a bet on how big the market becomes."</p>
+      <p>Bittensor is no longer a bet on whether decentralized AI coordination can work. It's a bet on how big the market becomes.</p>
     </div>
 
-    <p>Crypto was supposed to be good at this — permissionless coordination, global capital formation, incentive alignment without gatekeepers. For years, it wasn't. Decentralized compute projects struggled to generate revenue. AI agent frameworks came and went. Token-incentivized data networks remained early-stage.</p>
+    <p>Crypto was supposed to be good at this — permissionless coordination, global capital formation, incentive alignment without gatekeepers. For years, it wasn't. Decentralized compute projects struggled to generate revenue. AI agent frameworks came and went.</p>
 
-    <p>That's starting to change. Decentralized training compute is now growing significantly faster than centralized infrastructure, and the gap is closing quicker than most realize. Bittensor is leading that shift. The thesis: token incentives can disaggregate AI development entirely. Instead of one lab training one model, a global network of miners contributes specialized capabilities and gets paid based on output.</p>
+    <p>That's starting to change. Decentralized training compute is now growing significantly faster than centralized infrastructure. Bittensor is leading that shift: token incentives disaggregate AI development entirely. Instead of one lab training one model, a global network of miners contributes specialized capabilities and gets paid based on output.</p>
 
-    <p>Three structural edges that compound with scale:</p>
     <ul>
       <li><strong>Permissionless participation —</strong> anyone can contribute if they deliver.</li>
       <li><strong>Continuous competition —</strong> underperformers lose emissions to those who produce.</li>
@@ -694,8 +670,7 @@
 
     <p>Over the past year, the network matured. Dynamic TAO made subnets directly investable. The first halving tightened supply. Multiple subnets crossed from pilots to contracts. Institutional capital followed: Grayscale's ETF filing, Deutsche Digital Assets' ETP, DCG-backed Yuma launching a subnet fund.</p>
 
-    <!-- SECTION 2 -->
-    <h2 id="subnet-economy">2. Understanding the Subnet Economy</h2>
+    <div class="section-anchor"><span class="section-num">02</span><h2 id="subnet-economy">Understanding the Subnet Economy</h2></div>
 
     <p>If Bittensor is the Olympics for AI, subnets are the individual events. Each subnet operates as its own competition with its own validators, miners, and emission share. To evaluate them, it helps to understand where they sit in the value chain.</p>
 
@@ -705,38 +680,38 @@
       <li><strong>Specialized applications</strong> target vertical markets — computer vision, compliance testing, drug discovery. Competing on use-case depth rather than general capability.</li>
     </ul>
 
-    <p>The five subnets in this report span all three layers. We picked them for technical edge, commercial traction, and market size.</p>
+    <p>The five subnets in this report span all three layers, selected for technical edge, commercial traction, and market size.</p>
 
-    <!-- SECTION 3 -->
-    <h2 id="landscape">3. The Current Bittensor Landscape</h2>
+    <div class="section-anchor"><span class="section-num">03</span><h2 id="landscape">The Current Bittensor Landscape</h2></div>
 
-    <p>Asset managers and capital allocators describe Bittensor as one of crypto's most ambitious and least understood ecosystems. Over the past 12 months, the network has grown to 128 independent subnets. It is now generating real fiat revenue — Chutes alone at $5.5M annualized — attracting institutional capital, and signing enterprise customers across multiple verticals.</p>
+    <p>Asset managers and capital allocators describe Bittensor as one of crypto's most ambitious and least understood ecosystems. Over the past 12 months, the network has grown to 128 independent subnets — generating real fiat revenue (Chutes alone at $5.5M annualized), attracting institutional capital, and signing enterprise customers across multiple verticals.</p>
 
     <p>Since TAO's TGE in 2023, Bittensor's economic model has begun to prove its genesis mission: an incentive framework to coordinate global AI talent to solve global problems. The five subnets below represent the leading edge of that commercial transition.</p>
 
-    <!-- SECTION 4 -->
-    <h2 id="coverage">4. Coverage of Subnets</h2>
+    <div class="section-anchor"><span class="section-num">04</span><h2 id="coverage">Subnet Coverage</h2></div>
 
     <!-- SN44 SCORE -->
     <div class="subnet-card" id="sn44">
       <div class="subnet-card-header">
         <div>
-          <div class="subnet-id">SN44</div>
+          <div class="subnet-tag-row">
+            <span class="subnet-id">SN44</span>
+            <span class="subnet-status status-live">Revenue-Generating</span>
+          </div>
           <div class="subnet-name">SCORE</div>
           <div class="subnet-desc">Decentralized computer vision — from camera feed to structured intelligence</div>
         </div>
-        <span class="subnet-status status-live">REVENUE-GENERATING</span>
       </div>
       <div class="subnet-stats">
         <div class="stat-cell">
           <div class="stat-label">Key Customers</div>
-          <div class="stat-value">3</div>
-          <div class="stat-note">Reading FC, AVIA, Lavance</div>
+          <div class="stat-value">Reading FC, AVIA, Lavance</div>
+          <div class="stat-note">3 signed, multi-vertical</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Cost Claim</div>
           <div class="stat-value">10–100×</div>
-          <div class="stat-note">vs. centralized providers</div>
+          <div class="stat-note">vs. centralized providers (self-reported)</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Watch For</div>
@@ -745,22 +720,19 @@
         </div>
       </div>
       <div class="subnet-body">
-        <p>Computer vision is one of the largest addressable markets in AI. Billions of cameras generate footage every day, but extracting intelligence from video still demands proprietary hardware or expensive cloud compute from Google, Nvidia, and AWS. A single football match still costs hundreds of dollars to annotate. SCORE (SN44) is Bittensor's attempt to decentralize it.</p>
-
-        <p>SCORE's Manako AI is a vision-language platform that converts live video into structured, queryable datasets. Comparable to Google's AutoML or Nvidia's Cosmos VLM, but with a key structural difference: edge cases are routed to SN44's decentralized miner network, where miners compete to expand model capabilities and are rewarded with TAO.</p>
-
-        <p>This creates a flywheel. Each new customer deployment surfaces new edge cases. Each edge case sharpens the miner network. Each improvement makes Manako more reliable and easier to sell. Over the last three months, SCORE signed paying customers across sports analytics (Reading FC), petrol station safety (AVIA, 3,000+ stations), and fleet operations (Lavance, 7,000+ stations).</p>
-
+        <p>Computer vision is one of the largest addressable markets in AI. Billions of cameras generate footage every day, but extracting intelligence from video still demands proprietary hardware or expensive cloud compute from Google, Nvidia, and AWS. A single football match still costs hundreds of dollars to annotate.</p>
+        <p>SCORE's Manako AI converts live video into structured, queryable datasets — comparable to Google's AutoML or Nvidia's Cosmos VLM, but with a key structural difference: edge cases route to SN44's decentralized miner network, where miners compete to expand model capabilities and earn TAO. Each new customer deployment surfaces new edge cases. Each edge case sharpens the miner network. Quality compounds with usage, not headcount.</p>
         <div class="signal-row">
-          <span class="signal-green">100% trial conversion</span>
-          <span class="signal-green">Multi-vertical traction</span>
-          <span class="signal-amber">ARR not disclosed</span>
-          <span class="signal-red">Cost claims self-reported</span>
+          <span class="signal-tag sig-green">100% trial conversion</span>
+          <span class="signal-tag sig-green">Multi-vertical traction</span>
+          <span class="signal-tag sig-amber">ARR not disclosed</span>
+          <span class="signal-tag sig-red">Cost claims self-reported, unaudited</span>
         </div>
-
         <p>No competitor currently offers a decentralized, incentive-driven vision platform spanning multiple verticals at SCORE's claimed price point. Google AutoML and Amazon Rekognition are image-first and scale costs linearly per call. Nvidia Cosmos operates at a different stack layer entirely.</p>
-
-        <p><strong>Verdict:</strong> Real product, real customers, active miner network. The flywheel is turning. The vision AI market is early and fragmented — no dominant platform has emerged for turning the world's camera infrastructure into intelligent data streams.</p>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Real product, real customers, active miner network. The flywheel is turning. Vision AI is early and fragmented — no dominant platform has emerged for turning the world's camera infrastructure into intelligent data streams.</span>
       </div>
     </div>
 
@@ -768,46 +740,45 @@
     <div class="subnet-card" id="sn54">
       <div class="subnet-card-header">
         <div>
-          <div class="subnet-id">SN54</div>
+          <div class="subnet-tag-row">
+            <span class="subnet-id">SN54</span>
+            <span class="subnet-status status-live">Revenue-Generating</span>
+          </div>
           <div class="subnet-name">MIID</div>
           <div class="subnet-desc">Stress-testing financial defences using decentralized adversarial AI</div>
         </div>
-        <span class="subnet-status status-live">REVENUE-GENERATING</span>
       </div>
       <div class="subnet-stats">
         <div class="stat-cell">
           <div class="stat-label">Enterprise Clients</div>
           <div class="stat-value">3 confirmed</div>
-          <div class="stat-note">20+ claimed pipeline</div>
+          <div class="stat-note">20+ claimed in pipeline</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Backing</div>
           <div class="stat-value">$900K</div>
-          <div class="stat-note">Deep Ventures + Yuma</div>
+          <div class="stat-note">Deep Ventures + Yuma incubation</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Watch For</div>
           <div class="stat-value">Named Clients</div>
-          <div class="stat-note">Revenue reinvestment mechanism</div>
+          <div class="stat-note">Revenue reinvestment disclosure</div>
         </div>
       </div>
       <div class="subnet-body">
-        <p>Financial institutions spend billions annually on compliance systems rarely tested under real attack conditions. Most institutions can't prove their defenses actually work. SN54 MIID (Multimodal Inorganic Identities Dataset) by Yanez Compliance is one of the few subnets with pre-existing enterprise customers and fiat revenue — yet has received minimal attention from the broader TAO community.</p>
-
-        <p>Incubated by Yuma and backed by a $900K seed round with Deep Ventures as institutional investor, MIID generates synthetic identities and adversarial scenarios used to stress-test real-world KYC, AML, and digital identity defenses. It's a decentralized red team for financial crime prevention.</p>
-
-        <p>Miners produce variations of IDs — name transliterations, deepfake biometrics. Validators evaluate how effectively submissions expose weaknesses in detection systems, rewarding miners based on bypass success, detection latency, and adversarial realism. The output is sold to financial institutions to harden their defenses.</p>
-
+        <p>Financial institutions spend billions annually on compliance systems rarely tested under real attack conditions. Most institutions can't prove their defenses actually work. SN54 MIID (Multimodal Inorganic Identities Dataset) by Yanez Compliance has pre-existing enterprise customers and fiat revenue — yet has received minimal attention from the broader TAO community.</p>
+        <p>Incubated by Yuma, backed by a $900K seed with Deep Ventures, MIID generates synthetic identities and adversarial scenarios to stress-test KYC, AML, and digital identity defenses. Miners produce ID variations (name transliterations, deepfake biometrics); validators reward miners based on bypass success, detection latency, and adversarial realism. The output is sold to financial institutions to harden their defenses.</p>
         <div class="signal-row">
-          <span class="signal-green">Regulatory spend — sticky in downturns</span>
-          <span class="signal-green">Unique adversarial positioning</span>
-          <span class="signal-amber">Pipeline un-named</span>
-          <span class="signal-red">Revenue reinvestment not published</span>
+          <span class="signal-tag sig-green">Regulatory spend — sticky in downturns</span>
+          <span class="signal-tag sig-green">Unique adversarial positioning</span>
+          <span class="signal-tag sig-amber">Pipeline clients un-named</span>
+          <span class="signal-tag sig-red">Revenue reinvestment mechanism not published</span>
         </div>
-
-        <p>The compliance data market is dominated by slow, centralized vendors. LSEG/Refinitiv World-Check and LexisNexis update datasets periodically — meaning every time a new sanctions evasion technique emerges, there's a gap between the attack and the response. MIID attacks the systems rather than running detection itself. That distinction matters.</p>
-
-        <p><strong>Verdict:</strong> Real enterprise traction in a lucrative, sticky market. The challenge now is converting the pipeline and scaling relationships. $900K is thin for enterprise sales into regulated finance — watch for the next fundraise.</p>
+        <p>The compliance data market is dominated by slow, centralized vendors — LSEG/Refinitiv World-Check and LexisNexis update periodically, meaning there's always a gap between a new sanctions evasion technique and the response. MIID attacks the systems rather than running detection. That distinction matters.</p>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Real enterprise traction in a lucrative, sticky market. The challenge: converting the pipeline and scaling relationships. $900K is thin for enterprise sales into regulated finance. Watch for the next fundraise.</span>
       </div>
     </div>
 
@@ -815,46 +786,45 @@
     <div class="subnet-card" id="sn68">
       <div class="subnet-card-header">
         <div>
-          <div class="subnet-id">SN68</div>
+          <div class="subnet-tag-row">
+            <span class="subnet-id">SN68</span>
+            <span class="subnet-status status-building">Pre-Revenue</span>
+          </div>
           <div class="subnet-name">NOVA</div>
           <div class="subnet-desc">Decentralized drug discovery — mining for molecules instead of hashes</div>
         </div>
-        <span class="subnet-status status-building">PRE-REVENUE</span>
       </div>
       <div class="subnet-stats">
         <div class="stat-cell">
           <div class="stat-label">Market Size</div>
           <div class="stat-value">$1.5T+</div>
-          <div class="stat-note">Global drug discovery</div>
+          <div class="stat-note">Global drug discovery TAM</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Hit Quality</div>
           <div class="stat-value">+418%</div>
-          <div class="stat-note">vs. baseline (reported)</div>
+          <div class="stat-note">vs. baseline (self-reported)</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Watch For</div>
-          <div class="stat-value">Wet-lab</div>
-          <div class="stat-note">Q1–Q2 validation start</div>
+          <div class="stat-value">Wet-lab start</div>
+          <div class="stat-note">Q1–Q2 2026 validation</div>
         </div>
       </div>
       <div class="subnet-body">
-        <p>The business of drug discovery is often binary: succeed and your drug is worth billions, fail and it's worth zero. 90%+ of candidates fail in clinical trials. Costs can exceed $2.6B and up to 10 years to bring a drug to market. Metanova (SN68) is building a collective intelligence platform to accelerate the earliest stage of that pipeline.</p>
-
-        <p>Think Recursion or Insilico, but open-sourced. Metanova crowdsources molecular design through Bittensor rather than building proprietary R&amp;D teams. Two competition formats: Compound challenges (miners submit candidate molecules for defined protein targets) and Blueprint challenges (miners submit search algorithms that explore chemical space more efficiently). Both tracks create a feedback loop — better algorithms improve the molecule discovery engine over time.</p>
-
-        <p>Miners submit synthesizable candidate molecules from a hybrid chemical universe combining the SAVI-2020 database and five combinatorial reaction templates mimicking real-world synthesis. Only one active submission per miner at a time creates winner-takes-all dynamics that reward genuine innovation over volume.</p>
-
+        <p>Drug discovery is binary: succeed and your compound is worth billions; fail and it's worth zero. 90%+ of candidates fail in clinical trials. Costs can exceed $2.6B and 10 years to bring a drug to market. Metanova (SN68) crowdsources molecular design through Bittensor — Recursion or Insilico, but open-sourced and token-incentivized.</p>
+        <p>Two competition formats: Compound challenges (miners submit candidate molecules for defined protein targets) and Blueprint challenges (miners submit search algorithms exploring chemical space more efficiently). Both create a feedback loop — better algorithms improve the molecule discovery engine over time. Near-zero marginal screening cost vs. centralized R&D burning millions.</p>
         <div class="signal-row">
-          <span class="signal-green">MOU with Yalotein Bio (Yale PhD-led)</span>
-          <span class="signal-green">Near-zero marginal screening cost</span>
-          <span class="signal-amber">Wet-lab validation Q1–Q2</span>
-          <span class="signal-red">No revenue yet</span>
+          <span class="signal-tag sig-green">MOU with Yalotein Bio (Yale PhD-led)</span>
+          <span class="signal-tag sig-green">Near-zero marginal screening cost</span>
+          <span class="signal-tag sig-amber">Wet-lab validation Q1–Q2 2026</span>
+          <span class="signal-tag sig-red">No revenue yet; path to licensing unclear</span>
         </div>
-
-        <p>The centralized competition is well-funded: Recursion ($2.1B market cap), Insilico Medicine ($500M+ raises), Absci (~$380M), and Isomorphic Labs (Alphabet/DeepMind, $3B in pharma partnerships). Near-zero marginal screening cost and on-chain record-keeping are structural advantages — if wet-lab validation lands.</p>
-
-        <p><strong>Verdict:</strong> Drug discovery is something else entirely — a $1.5T+ industry with a structurally broken pipeline where a single breakthrough compound generates hundreds of millions in licensing revenue. The risk is real: wet-lab validation is expensive, and the path from virtual screening to therapeutic candidate is long. But the upside is asymmetric.</p>
+        <p>Centralized competition is well-funded: Recursion ($2.1B market cap), Insilico ($500M+ raised), Isomorphic Labs (DeepMind, $3B in pharma partnerships). NOVA's structural advantage is cost and throughput — if wet-lab validation lands.</p>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">A $1.5T+ industry with a structurally broken pipeline. The risk is real — wet-lab validation is expensive, and the path from virtual screening to therapeutic candidate is long. The upside is asymmetric. Highest variance bet of the five.</span>
       </div>
     </div>
 
@@ -862,11 +832,13 @@
     <div class="subnet-card" id="sn3">
       <div class="subnet-card-header">
         <div>
-          <div class="subnet-id">SN3</div>
+          <div class="subnet-tag-row">
+            <span class="subnet-id">SN3</span>
+            <span class="subnet-status status-building">In Training</span>
+          </div>
           <div class="subnet-name">TEMPLAR</div>
           <div class="subnet-desc">Building frontier models without frontier budgets</div>
         </div>
-        <span class="subnet-status status-building">IN TRAINING</span>
       </div>
       <div class="subnet-stats">
         <div class="stat-cell">
@@ -877,7 +849,7 @@
         <div class="stat-cell">
           <div class="stat-label">Compute Growth</div>
           <div class="stat-value">~20×/yr</div>
-          <div class="stat-note">vs. 5× for centralized</div>
+          <div class="stat-note">vs. ~5× for centralized</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Academic</div>
@@ -886,22 +858,19 @@
         </div>
       </div>
       <div class="subnet-body">
-        <p>Frontier model pre-training is increasingly concentrated. The compute required doubles every 6 to 10 months, pricing out anyone but the major labs. Templar is emerging as one of the most credible decentralized pre-training platforms — and uniquely, it's permissionless. Prime Intellect, Nous, and Pluralis all curate or gate their participants. Templar doesn't.</p>
-
-        <p>SparseLoCo is Templar's communication-efficient optimizer. It compresses gradients by ~97% while outperforming uncompressed baselines — in plain terms, sending a zip file instead of a raw folder and getting better results than no compression at all. This enables 72B parameter training over the public internet with 6% communication overhead.</p>
-
-        <p>Performance: outperforms DiLoCo (DeepMind) and DeMo (Nous) on loss and communication efficiency. The Templar-1B run — 20,000+ cycles, ~200 GPUs — matches centralized baselines across HellaSwag, PIQA, and ARC-E. Covenant 72B, launched September 2025, is the first attempt at frontier-relevant scale; at the first checkpoint it outperforms all completed decentralized pre-training runs.</p>
-
+        <p>Frontier model pre-training is increasingly concentrated. The compute required doubles every 6–10 months, pricing out anyone but the major labs. Templar is emerging as the most credible decentralized pre-training platform — and uniquely, it's permissionless. Prime Intellect, Nous, and Pluralis all curate or gate participants. Templar doesn't.</p>
+        <p>SparseLoCo compresses gradients by ~97% while outperforming uncompressed baselines — enabling 72B parameter training over the public internet with just 6% communication overhead. The Templar-1B run (20,000+ cycles, ~200 GPUs) matches centralized baselines across HellaSwag, PIQA, and ARC-E. At first checkpoint, Covenant 72B outperforms all completed decentralized pre-training runs on measured benchmarks.</p>
         <div class="signal-row">
-          <span class="signal-green">Only fully permissionless training in production</span>
-          <span class="signal-green">NeurIPS acceptance — first for Bittensor</span>
-          <span class="signal-amber">72B benchmarks pending</span>
-          <span class="signal-red">~300× smaller than frontier datacenters</span>
+          <span class="signal-tag sig-green">Only fully permissionless training in production</span>
+          <span class="signal-tag sig-green">NeurIPS acceptance — first for Bittensor ecosystem</span>
+          <span class="signal-tag sig-amber">72B final benchmarks pending</span>
+          <span class="signal-tag sig-red">~300× smaller than frontier datacenters today</span>
         </div>
-
-        <p>The revenue flywheel: 100% of training-as-a-service fees fund Covenant token buybacks, creating a direct link between commercial demand and miner incentives. Full-stack coverage across three subnets (pre-training, compute, post-training/RL) gives the Templar team vertical integration that competitors lack.</p>
-
-        <p><strong>Verdict:</strong> Templar's trajectory hinges on Covenant 72B final benchmarks. If the model matches or exceeds centralized baselines at equivalent scale, the thesis is validated. Epoch AI data provides the macro tailwind: decentralized training compute is growing 4× faster than centralized infrastructure.</p>
+        <p>The revenue flywheel: 100% of training-as-a-service fees fund Covenant token buybacks, linking commercial demand directly to miner incentives. Full-stack coverage across three subnets (pre-training, compute, post-training/RL) gives Templar vertical integration competitors lack. Epoch AI data: decentralized training compute grows 4× faster than centralized infrastructure.</p>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">The thesis hinges on Covenant 72B final benchmarks. If the model matches or exceeds centralized baselines at equivalent scale, decentralized pre-training is validated. The macro tailwind is clear — the gap narrows significantly within 2–3 years at current growth rates.</span>
       </div>
     </div>
 
@@ -909,145 +878,104 @@
     <div class="subnet-card" id="sn64">
       <div class="subnet-card-header">
         <div>
-          <div class="subnet-id">SN64</div>
+          <div class="subnet-tag-row">
+            <span class="subnet-id">SN64</span>
+            <span class="subnet-status status-live">Revenue-Generating</span>
+          </div>
           <div class="subnet-name">CHUTES</div>
           <div class="subnet-desc">The #1 subnet on TAO — the inference layer that pays for itself</div>
         </div>
-        <span class="subnet-status status-live">REVENUE-GENERATING</span>
       </div>
       <div class="subnet-stats">
         <div class="stat-cell">
           <div class="stat-label">ARR</div>
           <div class="stat-value">$5.5M</div>
-          <div class="stat-note">55% pay-as-you-go</div>
+          <div class="stat-note">55% pay-as-you-go (organic)</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Users</div>
           <div class="stat-value">696K+</div>
-          <div class="stat-note">Excluding OpenRouter</div>
+          <div class="stat-note">Excluding OpenRouter volume</div>
         </div>
         <div class="stat-cell">
           <div class="stat-label">Models</div>
           <div class="stat-value">50+</div>
-          <div class="stat-note">LLMs, diffusion, speech</div>
+          <div class="stat-note">LLMs, diffusion, speech, embeddings</div>
         </div>
       </div>
       <div class="subnet-body">
-        <p>AI inference is where value gets captured. Training builds the model; inference is where it earns money. The global inference market: $116B in 2025, growing 17–19% CAGR toward $250–540B by 2030–2034. Chutes is an open-source, decentralized compute provider for deploying, scaling, and running open-source models in production — and it publishes a live revenue dashboard, making it one of the most transparent revenue subnets in crypto.</p>
-
-        <p>Revenue breakdown: 55% pay-as-you-go, 25% sponsored inference, 5% subscribers, 5% bounties. Pay-as-you-go dominating signals genuine developer usage rather than marketing subsidies. But with 25% still sponsored, the organic-to-sponsored ratio is the key metric to watch as Chutes matures.</p>
-
-        <p>The four-stage compute flywheel: miners register GPUs and deploy models as "chutes," granite hardware fingerprinting verifies authenticity via CUDA stress tests, developers send inference requests and miners compete to serve them, validators audit fairness. Revenue flows in as fiat; miners are scored on compute (55%), speed (20%), availability (20%), and bounties (5%) over rolling 7-day windows.</p>
-
+        <p>AI inference is where value gets captured. Training builds the model; inference is where it earns money. Global inference market: $116B in 2025, growing 17–19% CAGR toward $250–540B by 2030–2034. Chutes is an open-source, decentralized compute provider for deploying and running open-source models in production — and publishes a live revenue dashboard, making it one of the most transparent revenue subnets in crypto.</p>
+        <p>Revenue breakdown: 55% pay-as-you-go, 25% sponsored inference, 5% subscribers, 5% bounties. Pay-as-you-go dominating signals genuine developer usage, not marketing subsidies. But 25% sponsored means the organic-to-sponsored ratio is the key metric to watch. Chutes ranks as OpenRouter's #1 provider and consistently offers newly released open-source models first (DeepSeek V3, Kimi K2), driving developer trial and sticky usage.</p>
         <div class="signal-row">
-          <span class="signal-green">#1 provider on OpenRouter</span>
-          <span class="signal-green">First-mover on new models (DeepSeek, Kimi)</span>
-          <span class="signal-amber">25% sponsored revenue</span>
-          <span class="signal-red">Single validator operator (Rayon Labs)</span>
+          <span class="signal-tag sig-green">#1 provider on OpenRouter</span>
+          <span class="signal-tag sig-green">First-mover on new model releases</span>
+          <span class="signal-tag sig-amber">25% sponsored revenue — watch ratio</span>
+          <span class="signal-tag sig-red">Single validator operator concentration (Rayon Labs)</span>
         </div>
-
-        <p>The real moat is the incentive-aligned supply side. Miners are economically motivated to provide compute through TAO emissions, creating a supply floor that centralized startups can't match without VC subsidies. For context, OpenRouter — serving 5M+ developers — processes ~1T tokens per day. About 20–25% of Chutes' daily volume flows through OpenRouter.</p>
-
-        <p><strong>Verdict:</strong> $5.5M annualized is modest against centralized providers, but it's the strongest revenue signal in Bittensor. The central question: whether the incentive-aligned supply side translates into a sustainable moat, or gets overwhelmed by VC-backed competitors racing to the price floor.</p>
+        <p>The real moat is the incentive-aligned supply side. Miners earn through TAO emissions, creating a supply floor that VC-funded competitors can't match without continued fundraising or margin compression. For context: OpenRouter processes ~1T tokens/day. Chutes runs ~100B–120B tokens/day, with 20–25% flowing through OpenRouter.</p>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">$5.5M annualized is modest against centralized providers, but it's the strongest revenue signal in Bittensor. The central question: does the incentive-aligned supply side translate into a durable moat, or get overwhelmed by VC-backed competitors racing to the price floor?</span>
       </div>
     </div>
 
-    <!-- SECTION 5 -->
-    <h2 id="catalysts">5. Catalysts and Risk Factors</h2>
+    <div class="section-anchor"><span class="section-num">05</span><h2 id="catalysts">Catalysts and Risk Factors</h2></div>
 
     <p>The investment case for TAO and its subnet ecosystem hinges on a series of near-term catalysts and identifiable risks. The disconnect between commercial traction and market valuation creates potential asymmetry for investors who believe decentralized approaches can capture meaningful share of the AI infrastructure market.</p>
 
-    <table class="catalyst-table">
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Catalyst / Risk</th>
-          <th>Timeline</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="cat-positive">Catalyst</span></td>
-          <td>Institutional capital: $170M+ across Yuma Funds, Grayscale ETF, Deutsche Digital Assets ETP</td>
-          <td>Live</td>
-        </tr>
-        <tr>
-          <td><span class="cat-positive">Catalyst</span></td>
-          <td>TAO halving — supply shock with no corresponding emission increase</td>
-          <td>Live</td>
-        </tr>
-        <tr>
-          <td><span class="cat-positive">Catalyst</span></td>
-          <td>Chutes organic-to-sponsored revenue ratio shift toward 70%+</td>
-          <td>Q2–Q3 2026</td>
-        </tr>
-        <tr>
-          <td><span class="cat-positive">Catalyst</span></td>
-          <td>Templar Covenant 72B final benchmarks vs. centralized baselines</td>
-          <td>H1 2026</td>
-        </tr>
-        <tr>
-          <td><span class="cat-positive">Catalyst</span></td>
-          <td>SCORE and MIID contract renewals and formal ARR disclosures</td>
-          <td>H1 2026</td>
-        </tr>
-        <tr>
-          <td><span class="cat-positive">Catalyst</span></td>
-          <td>NOVA wet-lab validation begins with Yalotein Bio</td>
-          <td>Q1–Q2 2026</td>
-        </tr>
-        <tr>
-          <td><span class="cat-risk">Risk</span></td>
-          <td>Subnet competition from centralized AI labs moving down-market</td>
-          <td>Ongoing</td>
-        </tr>
-        <tr>
-          <td><span class="cat-risk">Risk</span></td>
-          <td>TAO inflation pressure not offset by subnet expansion from 128 to 256</td>
-          <td>H2 2026</td>
-        </tr>
-        <tr>
-          <td><span class="cat-risk">Risk</span></td>
-          <td>Validator concentration risk — Chutes relies heavily on single operator</td>
-          <td>Ongoing</td>
-        </tr>
-        <tr>
-          <td><span class="cat-risk">Risk</span></td>
-          <td>Revenue quality — sponsored inference understates true organic demand</td>
-          <td>Ongoing</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="catalyst-section">
+      <table class="catalyst-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Catalyst / Risk</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="cat-positive">↑ Catalyst</td><td>Institutional capital: $170M+ across Yuma Funds, Grayscale ETF, Deutsche Digital Assets ETP</td><td class="cat-timeline">Live</td></tr>
+          <tr><td class="cat-positive">↑ Catalyst</td><td>TAO halving — supply shock with no corresponding emission increase</td><td class="cat-timeline">Live</td></tr>
+          <tr><td class="cat-positive">↑ Catalyst</td><td>Chutes organic-to-sponsored ratio shift toward 70%+</td><td class="cat-timeline">Q2–Q3 2026</td></tr>
+          <tr><td class="cat-positive">↑ Catalyst</td><td>Templar Covenant 72B final benchmarks vs. centralized baselines</td><td class="cat-timeline">H1 2026</td></tr>
+          <tr><td class="cat-positive">↑ Catalyst</td><td>SCORE and MIID contract renewals and formal ARR disclosures</td><td class="cat-timeline">H1 2026</td></tr>
+          <tr><td class="cat-positive">↑ Catalyst</td><td>NOVA wet-lab validation begins with Yalotein Bio</td><td class="cat-timeline">Q1–Q2 2026</td></tr>
+          <tr><td class="cat-risk">↓ Risk</td><td>Subnet competition from centralized AI labs moving down-market</td><td class="cat-timeline">Ongoing</td></tr>
+          <tr><td class="cat-risk">↓ Risk</td><td>TAO inflation pressure not offset by subnet expansion 128 → 256</td><td class="cat-timeline">H2 2026</td></tr>
+          <tr><td class="cat-risk">↓ Risk</td><td>Validator concentration — Chutes depends heavily on single operator</td><td class="cat-timeline">Ongoing</td></tr>
+          <tr><td class="cat-risk">↓ Risk</td><td>Revenue quality — sponsored inference overstates true organic demand</td><td class="cat-timeline">Ongoing</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-    <!-- SECTION 6 -->
-    <h2 id="closing">6. Closing Thesis</h2>
+    <div class="section-anchor"><span class="section-num">06</span><h2 id="closing">Closing Thesis</h2></div>
 
     <p>The five subnets in this report span inference compute, computer vision, regulatory compliance, drug discovery, and model pre-training. What they share is a structural advantage that centralized competitors cannot replicate: token-incentivized competition that compounds output quality with usage, not headcount.</p>
 
     <p>We're not naive about the gap between early traction and sustainable commercial scale. This report profiles 5 out of 128 subnets. Not all will succeed. But the ones generating revenue, signing enterprise contracts, and passing academic peer review are no longer experiments — these are early-stage AI companies with an unusual cost structure and a novel go-to-market.</p>
 
     <div class="callout">
-      <p>"Today, centralized AI labs collectively command valuations above $1 trillion. TAO's fully diluted valuation sits at approximately $4 billion — roughly 1/125th of OpenAI alone. The question has shifted. It's no longer whether decentralized AI can work. These subnets are showing it can."</p>
+      <p>Today, centralized AI labs collectively command valuations above $1 trillion. TAO's fully diluted valuation sits at approximately $4 billion — 1/125th of OpenAI alone. The question has shifted. It's no longer whether decentralized AI can work. These subnets are showing it can.</p>
     </div>
 
     <p>For allocators with a genuine long-term horizon, the asymmetry is clear. Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
 
-    <!-- SUBSCRIBE -->
     <div class="subscribe-strip" id="subscribe">
-      <h3>Original research on the tokenised AI economy</h3>
-      <p>No paywall. No sponsored content. Just primary analysis.</p>
-      <form class="subscribe-form" onsubmit="return false;">
-        <input type="email" placeholder="your@email.com">
-        <button type="submit">Join the Research</button>
+      <div>
+        <div class="sub-heading">Original research on the tokenised AI economy</div>
+        <div class="sub-body">No paywall. No conflicts. Primary analysis from analysts who operate inside the protocols they cover.</div>
+      </div>
+      <form class="sub-form" onsubmit="return false;">
+        <input class="sub-input" type="email" placeholder="your@email.com">
+        <button class="sub-btn" type="submit">Join the Research →</button>
       </form>
     </div>
 
   </article>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-left">© 2026 Khala Research. All rights reserved.</div>
+<footer class="footer">
+  <div class="footer-left">© 2026 Khala Research — for informational purposes only. Nothing herein constitutes investment advice.</div>
   <nav class="footer-right">
     <a href="research.html">Research</a>
     <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
@@ -1055,38 +983,25 @@
 </footer>
 
 <script>
-  // ─── READING PROGRESS BAR ───
-  const bar = document.getElementById('progress-bar');
+// Progress bar
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  bar.style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
 
-  function updateProgress() {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = Math.min(progress, 100) + '%';
-  }
-
-  window.addEventListener('scroll', updateProgress, { passive: true });
-  updateProgress();
-
-  // ─── ACTIVE TOC LINK ───
-  const sections = document.querySelectorAll('h2[id], .subnet-card[id]');
-  const tocLinks = document.querySelectorAll('.toc-list a[data-target]');
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        tocLinks.forEach(link => {
-          link.classList.toggle('active', link.dataset.target === id);
-        });
-      }
-    });
-  }, {
-    rootMargin: '-56px 0px -60% 0px',
-    threshold: 0
+// TOC active link
+const headings = document.querySelectorAll('h2[id], .subnet-card[id]');
+const links = document.querySelectorAll('.toc-list a[data-target]');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.toggle('active', l.dataset.target === e.target.id));
+    }
   });
-
-  sections.forEach(s => observer.observe(s));
+}, { rootMargin: '-56px 0px -55% 0px' });
+headings.forEach(h => io.observe(h));
 </script>
 </body>
 </html>
