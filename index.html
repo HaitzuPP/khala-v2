@@ -1550,6 +1550,81 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 
 html { scroll-behavior: smooth; }
 
+
+/* HERO SIGNAL METER */
+.hero-signal-meter {
+  position: absolute; top: 100px; right: 36px;
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+  z-index: 20;
+  opacity: 0; animation: fade-in-right .6s ease 2.8s forwards;
+}
+@keyframes fade-in-right { from{opacity:0;transform:translateX(8px)} to{opacity:1;transform:none} }
+.hsm-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing:.12em;
+  color: rgba(255,255,255,.25); text-transform: uppercase;
+}
+.hsm-bars { display: flex; gap: 3px; align-items: flex-end; }
+.hsm-bar {
+  width: 4px; border-radius: 1px;
+  background: rgba(255,255,255,.12);
+  transition: height .4s ease, background .4s ease;
+}
+.hsm-bar.active { background: var(--cyan); }
+.hsm-bar.high { background: var(--orange); }
+.hsm-val {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  color: var(--cyan); letter-spacing:.04em; text-align: right;
+}
+.hsm-sub {
+  font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,.2);
+  letter-spacing:.06em;
+}
+/* TAO node click indicator */
+.tn[data-clickable] { cursor: pointer !important; }
+.tn[data-clickable]:active { transform: scale(0.9) !important; }
+.hero-click-hint {
+  position: absolute; bottom: 70px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono); font-size: 9px; letter-spacing:.1em; text-align: center;
+  color: rgba(255,255,255,.2); text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0; animation: scroll-cue-in 1s ease 4s forwards;
+  pointer-events: none;
+}
+
+
+/* Proof strip firm tooltips */
+.proof-item {
+  position: relative; cursor: default;
+}
+.proof-item::after {
+  content: attr(data-focus);
+  position: absolute; top: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink); color: rgba(255,255,255,.8);
+  font-family: var(--mono); font-size: 9.5px; letter-spacing:.04em;
+  padding: 5px 10px; border-radius: 2px; white-space: nowrap;
+  pointer-events: none; opacity: 0;
+  transition: opacity .15s; z-index: 50;
+}
+.proof-item:hover::after { opacity: 1; }
+
+
+/* Thesis keyboard nav */
+.td { outline: none; }
+.td:focus { border-color: var(--orange) !important; }
+.thesis-kb-hint {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing:.06em;
+  color: var(--ink3); margin-top: 16px;
+  display: flex; align-items: center; gap: 6px;
+}
+.thesis-kb-key {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 16px; border: 1px solid var(--border);
+  border-radius: 2px; font-size: 9px; color: var(--ink2);
+  background: var(--parch);
+}
+
 </style>
 </head>
 <body>
@@ -1694,8 +1769,8 @@ html { scroll-behavior: smooth; }
 <!-- SOCIAL PROOF STRIP -->
 <div class="proof-strip">
   <div class="marquee-track">
-    <div class="marquee-inner"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Cumberland</span></div>
-    <div class="marquee-inner" aria-hidden="true"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Cumberland</span></div>
+    <div class="marquee-inner"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="L1 coordination networks · TAO holders">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Protocol infrastructure · early Bittensor">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="DeFi + AI infrastructure research">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="AI × crypto thesis active since 2023">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Digital assets + AI compute markets">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Deep crypto research · on-chain analytics">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Web3 gaming + AI agent applications">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Institutional liquidity · market making">Cumberland</span></div>
+    <div class="marquee-inner" aria-hidden="true"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="L1 coordination networks · TAO holders">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Protocol infrastructure · early Bittensor">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="DeFi + AI infrastructure research">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="AI × crypto thesis active since 2023">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Digital assets + AI compute markets">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Deep crypto research · on-chain analytics">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Web3 gaming + AI agent applications">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Institutional liquidity · market making">Cumberland</span></div>
   </div>
 </div>
 
@@ -1907,7 +1982,7 @@ html { scroll-behavior: smooth; }
         <div class="thesis-stat"><div class="thesis-stat-v">~58×</div><div class="thesis-stat-l">EV/ARR — Top Subnet</div></div>
         <div class="thesis-stat"><div class="thesis-stat-v">&lt;3yr</div><div class="thesis-stat-l">To Production Revenue</div></div>
       </div>
-      <div class="td reveal">
+      <div class="td reveal" tabindex="0">
         <div class="td-n">01</div>
         <div>
           <div class="td-h">The constraint is <em>coordination,</em> not compute.</div>
@@ -1918,7 +1993,7 @@ html { scroll-behavior: smooth; }
           </div>
         </div>
       </div>
-      <div class="td reveal">
+      <div class="td reveal" tabindex="0">
         <div class="td-n">02</div>
         <div>
           <div class="td-h">Tokenisation is the <em>first mechanism</em> capable of solving this at scale.</div>
@@ -1929,7 +2004,7 @@ html { scroll-behavior: smooth; }
           </div>
         </div>
       </div>
-      <div class="td reveal">
+      <div class="td reveal" tabindex="0">
         <div class="td-n">03</div>
         <div>
           <div class="td-h">The winning protocols<br><em>have not yet been priced.</em></div>
@@ -1939,6 +2014,11 @@ html { scroll-behavior: smooth; }
             <span class="td-evidence-line">Comp: SaaS trades at 150–250× ARR. That gap closes.</span>
           </div>
         </div>
+      </div>
+      <div class="thesis-kb-hint">
+        <span class="thesis-kb-key">Tab</span> navigate thesis points
+        <span style="margin-left:8px">·</span>
+        <span class="thesis-kb-key">↑</span><span class="thesis-kb-key">↓</span> scroll
       </div>
     </div>
   </div>
@@ -2597,6 +2677,55 @@ document.querySelectorAll('[data-tls-count]').forEach(el => tlsIO.observe(el));
   const s = document.createElement('style');
   s.textContent = '@keyframes sub-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }';
   document.head.appendChild(s);
+})();
+
+
+/* ── HERO SIGNAL METER ANIMATION ── */
+(function() {
+  const bars = document.querySelectorAll('#hsm-bars .hsm-bar');
+  const val = document.getElementById('hsm-val');
+  const sub = document.getElementById('hsm-sub');
+  if(!bars.length) return;
+  const heights = [8,12,18,10,22,14,26,16];
+  const activeCount = [3,4,5,6,7,6,5,4,3,2,3,4,5,6,7,8,7,6];
+  let tick = 0;
+  const labels = [
+    '128 subnets live','127 subnets live','128 subnets live',
+    '5 profiled in depth','$5.5M peak ARR','58× EV/ARR','dTAO alpha live','128 subnets live'
+  ];
+  const subs = [
+    '7,200 TAO/day · updating','Yuma Consensus active','emission epoch 3,241',
+    '7,200 TAO/day · live','SN-64 Chutes leading','vs. 200× SaaS','per-subnet token','halving ~2025'
+  ];
+  setInterval(() => {
+    tick++;
+    const ac = activeCount[tick % activeCount.length];
+    bars.forEach((b, i) => {
+      const newH = Math.max(4, heights[i] + Math.round((Math.random()-.5)*10));
+      b.style.height = newH + 'px';
+      b.classList.toggle('active', i < ac);
+      b.classList.toggle('high', i === Math.floor(ac*0.8));
+    });
+    if(val) val.textContent = labels[tick % labels.length];
+    if(sub) sub.textContent = subs[tick % subs.length];
+  }, 1200);
+})();
+
+/* ── TAO NODE CLICK → SCROLL TO THESIS ── */
+(function() {
+  // Find the TAO token node and make it clickable
+  const tns = document.querySelectorAll('.tn');
+  tns.forEach(tn => {
+    const sym = tn.querySelector('.tn-sym');
+    if(sym && sym.textContent.trim() === 'TAO') {
+      tn.setAttribute('data-clickable', '1');
+      tn.title = 'Click to explore the thesis';
+      tn.addEventListener('click', () => {
+        const thesis = document.getElementById('thesis');
+        if(thesis) thesis.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  });
 })();
 
 </script>
