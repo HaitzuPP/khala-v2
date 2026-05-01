@@ -55,8 +55,16 @@ body::after {
   width: 0%; height: 3px;
   background: var(--orange);
   z-index: 9999;
-  transition: width .04s linear;
+  transition: width .08s linear;
 }
+#progress-section-label {
+  position: fixed; top: 6px; right: 16px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--orange); opacity: 0; transition: opacity .4s;
+  z-index: 10000; pointer-events: none; white-space: nowrap;
+}
+#progress-section-label.visible { opacity: 1; }
 
 /* ─── TOPBAR ─── */
 .topbar {
@@ -529,11 +537,164 @@ body::after {
 }
 
 a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: default; }
+
+/* ===== DYNAMISM FEATURES ===== */
+
+/* Feature 7: Hero grain animation + gradient shift */
+@keyframes grad-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes grain-drift {
+  0%,100% { transform: translate(0,0) scale(1); }
+  25%      { transform: translate(-2px,3px) scale(1.01); }
+  50%      { transform: translate(3px,-2px) scale(0.99); }
+  75%      { transform: translate(-1px,-3px) scale(1.01); }
+}
+/* hero gradient animation applied via JS to avoid overriding existing background */
+.hero-grain-overlay {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain-drift 0.4s steps(1) infinite;
+}
+.hero { position: relative; overflow: hidden; }
+.hero-inner { position: relative; z-index: 1; }
+
+/* Feature 3: Scroll reveals */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .45s ease-out, transform .45s ease-out;
+}
+.reveal-on-scroll.revealed {
+  opacity: 1; transform: translateY(0);
+}
+
+/* Feature 2: Subnet network graph */
+.subnet-network-wrap {
+  margin: 36px 0;
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 28px 24px;
+  position: relative; overflow: hidden;
+}
+.subnet-network-wrap > h3 {
+  color: rgba(243,238,227,.45);
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  margin: 0 0 20px; font-weight: 400;
+}
+.sn-viz {
+  position: relative;
+  height: 200px;
+}
+.sn-edges-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  pointer-events: none;
+}
+.sn-chip {
+  position: absolute;
+  background: rgba(243,238,227,.07);
+  border: 1px solid rgba(243,238,227,.18);
+  border-radius: 6px;
+  padding: 7px 12px;
+  color: var(--cream);
+  font-family: 'Geist Mono', monospace;
+  white-space: nowrap; cursor: default;
+  transition: background .2s, border-color .25s, transform .2s;
+  animation: sn-float var(--dur,4s) ease-in-out var(--delay,0s) infinite;
+}
+.sn-chip:hover {
+  background: rgba(217,79,42,.15);
+  border-color: var(--orange);
+  z-index: 2;
+}
+.sn-chip-id { color: var(--orange); font-size: 9px; display: block; margin-bottom: 2px; letter-spacing: .1em; }
+.sn-chip-name { color: rgba(243,238,227,.92); font-size: 12px; font-family: 'Geist', sans-serif; font-weight: 600; }
+.sn-chip-rev { color: rgba(243,238,227,.38); font-size: 9px; margin-top: 1px; display: block; }
+@keyframes sn-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+.sn-hub {
+  position: absolute;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: rgba(217,79,42,.12);
+  border: 2px solid rgba(217,79,42,.55);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--orange);
+  font-family: 'Geist Mono', monospace; font-size: 11px; font-weight: 700;
+  animation: sn-float 5s ease-in-out infinite;
+  cursor: default; z-index: 1;
+}
+
+/* Feature 5: Value chain diagram */
+.value-chain-wrap {
+  margin: 36px 0;
+  background: var(--parch);
+  border-radius: 10px;
+  padding: 24px 20px;
+}
+.value-chain-wrap > h3 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-60); margin: 0 0 16px; font-weight: 400;
+}
+.vc-row { display: flex; gap: 0; align-items: stretch; }
+.vc-node {
+  flex: 1; padding: 14px 16px;
+  border: 1px solid rgba(13,12,9,.14);
+  border-right: none;
+  background: white;
+  opacity: 0; transform: translateX(-16px);
+  transition: opacity .4s ease-out, transform .4s ease-out;
+}
+.vc-node:first-child { border-radius: 6px 0 0 6px; }
+.vc-node:last-child { border-right: 1px solid rgba(13,12,9,.14); border-radius: 0 6px 6px 0; }
+.vc-node.vc-revealed { opacity: 1; transform: translateX(0); }
+.vc-node-label { font-family: 'Geist Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--orange); margin-bottom: 5px; }
+.vc-node-title { font-family: 'Geist', sans-serif; font-weight: 700; font-size: 13px; color: var(--ink); margin-bottom: 5px; }
+.vc-node-examples { font-size: 11px; color: var(--ink-60); line-height: 1.5; }
+
+/* Feature 8: TOC fill bars */
+.toc-list a { position: relative; overflow: hidden; }
+.toc-fill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: rgba(217,79,42,.09);
+  width: 0%; pointer-events: none;
+  transition: width .25s ease-out;
+}
+
+/* Feature 9: Signal tag stagger */
+.signal-row .signal-tag {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity .25s ease-out, transform .25s ease-out;
+}
+.signal-row.tags-revealed .signal-tag {
+  opacity: 1; transform: translateX(0);
+}
+
+/* Feature 6: Callout typewriter cursor */
+.tw-cursor {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: var(--orange);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: tw-blink .65s step-end infinite;
+}
+@keyframes tw-blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
 </style>
 </head>
 <body>
 
 <div id="progress-bar"></div>
+<div id="progress-section-label"></div>
 
 <!-- TOPBAR -->
 <header class="topbar">
@@ -553,7 +714,8 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
+  <div class="hero-grain-overlay"></div>
+    <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-eyebrow">Ecosystem Report · Coordination Networks</div>
       <h1 class="hero-title">Bittensor: The<br><em>Intelligence Olympics</em></h1>
@@ -654,7 +816,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 
     <p>Five companies control the foundation models that will underpin the next decade of software. Between them, they command the talent pipelines, the GPU allocations, the data partnerships, and the distribution. Everyone else builds on their infrastructure, at their margins, on their terms. Bittensor is trying to change the rules.</p>
 
-    <div class="callout">
+    <div class="callout reveal-on-scroll">
       <p>Bittensor is no longer a bet on whether decentralized AI coordination can work. It's a bet on how big the market becomes.</p>
     </div>
 
@@ -671,6 +833,27 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     <p>Over the past year, the network matured. Dynamic TAO made subnets directly investable. The first halving tightened supply. Multiple subnets crossed from pilots to contracts. Institutional capital followed: Grayscale's ETF filing, Deutsche Digital Assets' ETP, DCG-backed Yuma launching a subnet fund.</p>
 
     <div class="section-anchor"><span class="section-num">02</span><h2 id="subnet-economy">Understanding the Subnet Economy</h2></div>
+    <!-- VALUE CHAIN DIAGRAM -->
+    <div class="value-chain-wrap reveal-on-scroll" id="value-chain">
+      <h3>AI Value Chain — Where Subnets Sit</h3>
+      <div class="vc-row">
+        <div class="vc-node" data-vc-delay="0">
+          <div class="vc-node-label">Layer 1</div>
+          <div class="vc-node-title">Pre-Training</div>
+          <div class="vc-node-examples">SN3 Templar — distributed frontier model training across decentralized compute nodes globally</div>
+        </div>
+        <div class="vc-node" data-vc-delay="140">
+          <div class="vc-node-label">Layer 2</div>
+          <div class="vc-node-title">Inference</div>
+          <div class="vc-node-examples">SN64 Chutes — $5.5M ARR serving open-source models at enterprise scale</div>
+        </div>
+        <div class="vc-node" data-vc-delay="280">
+          <div class="vc-node-label">Layer 3</div>
+          <div class="vc-node-title">Specialized AI</div>
+          <div class="vc-node-examples">SN44 SCORE · SN54 MIID · SN68 NOVA — domain applications with enterprise contracts and live revenue</div>
+        </div>
+      </div>
+    </div>
 
     <p>If Bittensor is the Olympics for AI, subnets are the individual events. Each subnet operates as its own competition with its own validators, miners, and emission share. To evaluate them, it helps to understand where they sit in the value chain.</p>
 
@@ -683,6 +866,39 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     <p>The five subnets in this report span all three layers, selected for technical edge, commercial traction, and market size.</p>
 
     <div class="section-anchor"><span class="section-num">03</span><h2 id="landscape">The Current Bittensor Landscape</h2></div>
+    <!-- SUBNET NETWORK GRAPH -->
+    <div class="subnet-network-wrap reveal-on-scroll" id="sn-network">
+      <h3>Live Subnet Ecosystem — 5 Active Networks</h3>
+      <div class="sn-viz" id="sn-viz-root">
+        <svg class="sn-edges-svg" id="sn-edges-svg"></svg>
+        <div class="sn-hub" id="sn-hub" style="left:calc(50% - 26px);top:calc(50% - 26px);">TAO</div>
+        <div class="sn-chip" data-sn-id="sn44" style="left:3%;top:8%;--dur:4.3s;--delay:0s;">
+          <span class="sn-chip-id">SN44</span>
+          <span class="sn-chip-name">SCORE</span>
+          <span class="sn-chip-rev">Computer Vision</span>
+        </div>
+        <div class="sn-chip" data-sn-id="sn54" style="left:3%;top:62%;--dur:3.7s;--delay:0.6s;">
+          <span class="sn-chip-id">SN54</span>
+          <span class="sn-chip-name">MIID</span>
+          <span class="sn-chip-rev">Compliance AI</span>
+        </div>
+        <div class="sn-chip" data-sn-id="sn68" style="right:3%;top:8%;--dur:4.8s;--delay:1.1s;">
+          <span class="sn-chip-id">SN68</span>
+          <span class="sn-chip-name">NOVA</span>
+          <span class="sn-chip-rev">Drug Discovery</span>
+        </div>
+        <div class="sn-chip" data-sn-id="sn3" style="right:3%;top:62%;--dur:3.4s;--delay:0.3s;">
+          <span class="sn-chip-id">SN3</span>
+          <span class="sn-chip-name">TEMPLAR</span>
+          <span class="sn-chip-rev">Pre-Training</span>
+        </div>
+        <div class="sn-chip" data-sn-id="sn64" style="left:calc(50% - 58px);top:2%;--dur:5.1s;--delay:0.8s;">
+          <span class="sn-chip-id">SN64</span>
+          <span class="sn-chip-name">CHUTES</span>
+          <span class="sn-chip-rev">$5.5M ARR · Inference</span>
+        </div>
+      </div>
+    </div>
 
     <p>Asset managers and capital allocators describe Bittensor as one of crypto's most ambitious and least understood ecosystems. Over the past 12 months, the network has grown to 128 independent subnets — generating real fiat revenue (Chutes alone at $5.5M annualized), attracting institutional capital, and signing enterprise customers across multiple verticals.</p>
 
@@ -691,7 +907,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     <div class="section-anchor"><span class="section-num">04</span><h2 id="coverage">Subnet Coverage</h2></div>
 
     <!-- SN44 SCORE -->
-    <div class="subnet-card" id="sn44">
+    <div class="subnet-card reveal-on-scroll" id="sn44">
       <div class="subnet-card-header">
         <div>
           <div class="subnet-tag-row">
@@ -737,7 +953,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     </div>
 
     <!-- SN54 MIID -->
-    <div class="subnet-card" id="sn54">
+    <div class="subnet-card reveal-on-scroll" id="sn54">
       <div class="subnet-card-header">
         <div>
           <div class="subnet-tag-row">
@@ -783,7 +999,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     </div>
 
     <!-- SN68 NOVA -->
-    <div class="subnet-card" id="sn68">
+    <div class="subnet-card reveal-on-scroll" id="sn68">
       <div class="subnet-card-header">
         <div>
           <div class="subnet-tag-row">
@@ -829,7 +1045,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     </div>
 
     <!-- SN3 TEMPLAR -->
-    <div class="subnet-card" id="sn3">
+    <div class="subnet-card reveal-on-scroll" id="sn3">
       <div class="subnet-card-header">
         <div>
           <div class="subnet-tag-row">
@@ -875,7 +1091,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     </div>
 
     <!-- SN64 CHUTES -->
-    <div class="subnet-card" id="sn64">
+    <div class="subnet-card reveal-on-scroll" id="sn64">
       <div class="subnet-card-header">
         <div>
           <div class="subnet-tag-row">
@@ -954,7 +1170,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 
     <p>We're not naive about the gap between early traction and sustainable commercial scale. This report profiles 5 out of 128 subnets. Not all will succeed. But the ones generating revenue, signing enterprise contracts, and passing academic peer review are no longer experiments — these are early-stage AI companies with an unusual cost structure and a novel go-to-market.</p>
 
-    <div class="callout">
+    <div class="callout reveal-on-scroll">
       <p>Today, centralized AI labs collectively command valuations above $1 trillion. TAO's fully diluted valuation sits at approximately $4 billion — 1/125th of OpenAI alone. The question has shifted. It's no longer whether decentralized AI can work. These subnets are showing it can.</p>
     </div>
 
@@ -983,15 +1199,52 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 </footer>
 
 <script>
-// Progress bar
+/* ============================================================
+   FEATURE 3: Progress bar + section label
+   ============================================================ */
 const bar = document.getElementById('progress-bar');
+const sectionLabel = document.getElementById('progress-section-label');
+
+const SECTIONS = [
+  { id: 'exec-summary',          label: 'Executive Summary' },
+  { id: 'concentration-problem', label: '01 · Concentration Problem' },
+  { id: 'subnet-economy',        label: '02 · Subnet Economy' },
+  { id: 'landscape',             label: '03 · Landscape' },
+  { id: 'coverage',              label: '04 · Coverage' },
+  { id: 'sn44',                  label: 'SN44 SCORE' },
+  { id: 'sn54',                  label: 'SN54 MIID' },
+  { id: 'sn68',                  label: 'SN68 NOVA' },
+  { id: 'sn3',                   label: 'SN3 TEMPLAR' },
+  { id: 'sn64',                  label: 'SN64 CHUTES' },
+];
+
+function getCurrentSection() {
+  const scroll = window.scrollY + 120;
+  let cur = SECTIONS[0].label;
+  for (const s of SECTIONS) {
+    const el = document.getElementById(s.id);
+    if (el && el.getBoundingClientRect().top + window.scrollY <= scroll) cur = s.label;
+  }
+  return cur;
+}
+
 window.addEventListener('scroll', () => {
   const h = document.documentElement;
   const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
   bar.style.width = Math.min(pct, 100) + '%';
+  if (sectionLabel) {
+    if (pct > 2 && pct < 99) {
+      sectionLabel.textContent = getCurrentSection();
+      sectionLabel.classList.add('visible');
+    } else {
+      sectionLabel.classList.remove('visible');
+    }
+  }
 }, { passive: true });
 
-// TOC active link
+/* ============================================================
+   TOC active link (original)
+   ============================================================ */
 const headings = document.querySelectorAll('h2[id], .subnet-card[id]');
 const links = document.querySelectorAll('.toc-list a[data-target]');
 const io = new IntersectionObserver(entries => {
@@ -1002,6 +1255,208 @@ const io = new IntersectionObserver(entries => {
   });
 }, { rootMargin: '-56px 0px -55% 0px' });
 headings.forEach(h => io.observe(h));
+
+/* ============================================================
+   FEATURE 3: Scroll reveals
+   ============================================================ */
+const revealEls = document.querySelectorAll('.reveal-on-scroll');
+const revealIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealIO.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealIO.observe(el));
+
+/* ============================================================
+   FEATURE 2: Subnet network graph — draw SVG edges
+   ============================================================ */
+function drawSnEdges() {
+  const viz = document.getElementById('sn-viz-root');
+  const svg = document.getElementById('sn-edges-svg');
+  const hub = document.getElementById('sn-hub');
+  if (!viz || !svg || !hub) return;
+  svg.innerHTML = '';
+  const vr = viz.getBoundingClientRect();
+  const hr = hub.getBoundingClientRect();
+  const hx = hr.left + hr.width / 2 - vr.left;
+  const hy = hr.top + hr.height / 2 - vr.top;
+  viz.querySelectorAll('.sn-chip[data-sn-id]').forEach(chip => {
+    const cr = chip.getBoundingClientRect();
+    const cx = cr.left + cr.width / 2 - vr.left;
+    const cy = cr.top + cr.height / 2 - vr.top;
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', hx); line.setAttribute('y1', hy);
+    line.setAttribute('x2', cx); line.setAttribute('y2', cy);
+    line.setAttribute('stroke', 'rgba(217,79,42,0.28)');
+    line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke-dasharray', '4 5');
+    svg.appendChild(line);
+  });
+}
+window.addEventListener('load', () => { setTimeout(drawSnEdges, 100); });
+window.addEventListener('resize', drawSnEdges);
+
+/* ============================================================
+   FEATURE 4: Subnet card hover counter animation
+   ============================================================ */
+function animateCount(el, target, dur) {
+  const isFloat = String(target).includes('.');
+  const decimals = isFloat ? (String(target).split('.')[1] || '').length : 0;
+  const t0 = performance.now();
+  function step(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    const val = target * eased;
+    el.textContent = isFloat ? val.toFixed(decimals) : Math.round(val).toLocaleString();
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+document.querySelectorAll('.subnet-card').forEach(card => {
+  const statVals = card.querySelectorAll('.stat-value');
+  statVals.forEach(sv => { sv.dataset.orig = sv.textContent.trim(); });
+
+  card.addEventListener('mouseenter', () => {
+    statVals.forEach(sv => {
+      const orig = sv.dataset.orig || '';
+      const m = orig.match(/([\d,]+\.?\d*)/);
+      if (m) {
+        const num = parseFloat(m[1].replace(/,/g, ''));
+        if (!isNaN(num) && num > 0 && num < 1e6) {
+          const pre = orig.slice(0, orig.indexOf(m[1]));
+          const suf = orig.slice(orig.indexOf(m[1]) + m[1].length);
+          sv.innerHTML = '';
+          const span = document.createElement('span');
+          sv.appendChild(document.createTextNode(pre));
+          sv.appendChild(span);
+          sv.appendChild(document.createTextNode(suf));
+          animateCount(span, num, 600);
+          return;
+        }
+      }
+      sv.textContent = orig;
+    });
+  });
+
+  card.addEventListener('mouseleave', () => {
+    statVals.forEach(sv => { sv.textContent = sv.dataset.orig; });
+  });
+});
+
+/* ============================================================
+   FEATURE 5: Value chain slide-in
+   ============================================================ */
+const vcWrap = document.getElementById('value-chain');
+if (vcWrap) {
+  const vcIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      document.querySelectorAll('.vc-node').forEach(node => {
+        const delay = parseInt(node.dataset.vcDelay || '0');
+        setTimeout(() => node.classList.add('vc-revealed'), delay);
+      });
+      vcIO.disconnect();
+    });
+  }, { threshold: 0.2 });
+  vcIO.observe(vcWrap);
+}
+
+/* ============================================================
+   FEATURE 6: Callout typewriter effect
+   ============================================================ */
+const twIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const p = e.target.querySelector('p');
+    if (!p || p.dataset.twDone) return;
+    p.dataset.twDone = '1';
+    const text = p.textContent;
+    p.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'tw-cursor';
+    p.appendChild(cursor);
+    let i = 0;
+    function typeChar() {
+      if (i < text.length) {
+        p.insertBefore(document.createTextNode(text[i++]), cursor);
+        setTimeout(typeChar, 20);
+      } else {
+        setTimeout(() => cursor.remove(), 900);
+      }
+    }
+    setTimeout(typeChar, 250);
+    twIO.unobserve(e.target);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.callout').forEach(c => twIO.observe(c));
+
+/* ============================================================
+   FEATURE 7: Hero grain — animate background gradient
+   ============================================================ */
+(function () {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+  const orig = getComputedStyle(hero).background;
+  // Extend gradient with animated shift
+  hero.style.backgroundSize = '250% 250%';
+  let t = 0;
+  function animGrad() {
+    t += 0.002;
+    const x = 50 + 40 * Math.sin(t);
+    const y = 50 + 30 * Math.cos(t * 1.3);
+    hero.style.backgroundPosition = x + '% ' + y + '%';
+    requestAnimationFrame(animGrad);
+  }
+  animGrad();
+})();
+
+/* ============================================================
+   FEATURE 8: TOC fill bars
+   ============================================================ */
+(function () {
+  const tocLinks = Array.from(document.querySelectorAll('.toc-list a[data-target]'));
+  tocLinks.forEach(l => {
+    const fill = document.createElement('span');
+    fill.className = 'toc-fill';
+    l.insertBefore(fill, l.firstChild);
+  });
+  const sectionEls = tocLinks.map(l => document.getElementById(l.dataset.target)).filter(Boolean);
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    sectionEls.forEach((sec, i) => {
+      const next = sectionEls[i + 1];
+      const secTop = sec.getBoundingClientRect().top + scrollY;
+      const secBot = next ? next.getBoundingClientRect().top + scrollY : document.body.scrollHeight;
+      const progress = Math.max(0, Math.min(1, (scrollY + window.innerHeight * 0.5 - secTop) / (secBot - secTop)));
+      const fill = tocLinks[i] && tocLinks[i].querySelector('.toc-fill');
+      if (fill) fill.style.width = (progress * 100) + '%';
+    });
+  }, { passive: true });
+})();
+
+/* ============================================================
+   FEATURE 9: Signal tag staggered entrance
+   ============================================================ */
+const sigIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const tags = e.target.querySelectorAll('.signal-tag');
+    tags.forEach((tag, i) => {
+      setTimeout(() => {
+        tag.style.opacity = '1';
+        tag.style.transform = 'translateX(0)';
+      }, i * 80);
+    });
+    e.target.classList.add('tags-revealed');
+    sigIO.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.signal-row').forEach(r => sigIO.observe(r));
 </script>
 </body>
 </html>
