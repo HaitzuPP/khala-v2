@@ -564,6 +564,13 @@
     .subnet-stats .stat-cell { border-right: none; border-bottom: var(--rule); }
     .subnet-stats .stat-cell:last-child { border-bottom: none; }
   }
+
+  /* ─── UNCLICKABLE LINKS ─── */
+  a[href="#"] {
+    color: rgba(13,12,9,.30) !important;
+    pointer-events: none;
+    cursor: default;
+  }
 </style>
 </head>
 <body>
