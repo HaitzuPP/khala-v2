@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bittensor: The Intelligence Olympics · Khala Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F3EEE3;
+    --parch: #EAE4D4;
+    --ink: #0D0C09;
+    --ink-60: rgba(13,12,9,.60);
+    --ink-30: rgba(13,12,9,.30);
+    --ink-10: rgba(13,12,9,.10);
+    --orange: #D94F2A;
+    --cyan: #0A9FB8;
+    --rule: 1px solid var(--ink-10);
+    --r: 2px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Crimson Text', Georgia, serif;
+    font-size: 20px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── READING PROGRESS BAR ─── */
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--orange);
+    z-index: 9999;
+    transition: width 0.05s linear;
+    transform-origin: left;
+  }
+
+  /* ─── TOPBAR ─── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--cream);
+    border-bottom: var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 56px;
+  }
+  .topbar-logo { display: flex; align-items: center; text-decoration: none; }
+  .topbar-logo svg { height: 22px; width: auto; }
+  .topbar-nav { display: flex; align-items: center; gap: 24px; }
+  .topbar-nav a {
+    font-family: 'Geist', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-60);
+    text-decoration: none;
+    letter-spacing: .03em;
+    transition: color .15s;
+  }
+  .topbar-nav a:hover { color: var(--ink); }
+  .topbar-cta {
+    font-family: 'Geist', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink) !important;
+    border: 1px solid var(--ink);
+    padding: 6px 14px;
+    border-radius: var(--r);
+    text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .topbar-cta:hover { background: var(--ink); color: var(--cream) !important; }
+
+  /* ─── ARTICLE LAYOUT ─── */
+  .article-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0 60px;
+    align-items: start;
+  }
+
+  /* ─── SIDEBAR TOC ─── */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    padding: 48px 0 48px;
+    grid-column: 1;
+  }
+  .toc-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-30);
+    margin-bottom: 16px;
+  }
+  .toc-list { list-style: none; }
+  .toc-list li { margin-bottom: 4px; }
+  .toc-list a {
+    font-family: 'Geist', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--ink-60);
+    text-decoration: none;
+    line-height: 1.5;
+    display: block;
+    padding: 3px 0 3px 10px;
+    border-left: 2px solid transparent;
+    transition: color .15s, border-color .15s;
+  }
+  .toc-list a:hover { color: var(--ink); }
+  .toc-list a.active { color: var(--ink); border-left-color: var(--orange); font-weight: 500; }
+  .toc-list .toc-sub a { padding-left: 20px; font-size: 11.5px; color: var(--ink-30); }
+  .toc-list .toc-sub a:hover, .toc-list .toc-sub a.active { color: var(--ink-60); }
+
+  /* ─── ARTICLE BODY ─── */
+  .article-body {
+    grid-column: 2;
+    padding: 48px 0 96px;
+    max-width: 700px;
+  }
+
+  /* ─── ARTICLE HEADER ─── */
+  .article-header { margin-bottom: 48px; border-bottom: var(--rule); padding-bottom: 40px; }
+  .article-tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .article-title {
+    font-family: 'Baskervville', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -.01em;
+    margin-bottom: 20px;
+    color: var(--ink);
+  }
+  .article-subtitle {
+    font-family: 'Crimson Text', serif;
+    font-size: 21px;
+    font-style: italic;
+    color: var(--ink-60);
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-family: 'Geist', sans-serif;
+    font-size: 12.5px;
+    color: var(--ink-60);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .meta-item .dot { color: var(--ink-30); }
+  .meta-read-time {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    color: var(--ink-30);
+    border: 1px solid var(--ink-10);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* ─── NOTE BOX ─── */
+  .note-box {
+    background: var(--parch);
+    border-left: 3px solid var(--orange);
+    padding: 16px 20px;
+    margin-bottom: 40px;
+    border-radius: 0 var(--r) var(--r) 0;
+  }
+  .note-box p {
+    font-family: 'Geist', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink-60);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .note-box strong { color: var(--ink); }
+
+  /* ─── KEY TAKEAWAYS ─── */
+  .takeaways-box {
+    background: var(--parch);
+    border: 1px solid var(--ink-10);
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    border-radius: var(--r);
+  }
+  .takeaways-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-30);
+    margin-bottom: 18px;
+  }
+  .takeaways-list { list-style: none; }
+  .takeaways-list li {
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink);
+    padding: 10px 0 10px 22px;
+    border-bottom: 1px solid var(--ink-10);
+    position: relative;
+  }
+  .takeaways-list li:last-child { border-bottom: none; }
+  .takeaways-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    font-size: 8px;
+    color: var(--orange);
+  }
+
+  /* ─── SECTION HEADINGS ─── */
+  .article-body h2 {
+    font-family: 'Baskervville', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin: 56px 0 20px;
+    padding-top: 8px;
+  }
+  .article-body h2:first-of-type { margin-top: 0; }
+
+  .article-body h3 {
+    font-family: 'Geist', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--ink);
+    margin: 36px 0 14px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+
+  /* ─── PROSE ─── */
+  .article-body p {
+    font-family: 'Crimson Text', serif;
+    font-size: 20px;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+  .article-body p.lead {
+    font-size: 22px;
+    font-style: italic;
+    color: var(--ink-60);
+    line-height: 1.6;
+  }
+
+  /* ─── SUBNET PROFILE CARDS ─── */
+  .subnet-card {
+    border: 1px solid var(--ink-10);
+    border-radius: var(--r);
+    margin: 40px 0;
+    overflow: hidden;
+  }
+  .subnet-card-header {
+    background: var(--parch);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: var(--rule);
+  }
+  .subnet-id {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    color: var(--orange);
+    margin-bottom: 4px;
+  }
+  .subnet-name {
+    font-family: 'Baskervville', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .subnet-desc {
+    font-family: 'Crimson Text', serif;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-60);
+    margin-top: 4px;
+  }
+  .subnet-status {
+    font-family: 'Geist', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .status-live { background: #1a7a3a22; color: #1a7a3a; border: 1px solid #1a7a3a44; }
+  .status-building { background: #d4a01722; color: #a07808; border: 1px solid #d4a01744; }
+
+  .subnet-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: var(--rule);
+  }
+  .stat-cell {
+    padding: 16px 24px;
+    border-right: var(--rule);
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-30);
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-family: 'Geist', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .stat-note {
+    font-family: 'Geist', sans-serif;
+    font-size: 11px;
+    color: var(--ink-30);
+    margin-top: 2px;
+  }
+
+  .subnet-body { padding: 24px; }
+  .subnet-body p {
+    font-size: 17.5px;
+    line-height: 1.68;
+    margin-bottom: 16px;
+  }
+
+  /* ─── BULLET LISTS ─── */
+  .article-body ul {
+    margin: 0 0 22px 0;
+    padding: 0;
+    list-style: none;
+  }
+  .article-body ul li {
+    font-family: 'Crimson Text', serif;
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--ink);
+    padding: 6px 0 6px 22px;
+    position: relative;
+    border-bottom: 1px solid var(--ink-10);
+  }
+  .article-body ul li:last-child { border-bottom: none; }
+  .article-body ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    font-size: 13px;
+    color: var(--orange);
+  }
+  .article-body ul li strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ─── SIGNAL TAGS ─── */
+  .signal-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 24px;
+  }
+  .signal-tag {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .signal-green { background: #1a7a3a18; color: #1a7a3a; border: 1px solid #1a7a3a30; }
+  .signal-red { background: #c0392b18; color: #c0392b; border: 1px solid #c0392b30; }
+  .signal-amber { background: #d4a01718; color: #a07808; border: 1px solid #d4a01730; }
+
+  /* ─── CALLOUT ─── */
+  .callout {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 24px 28px;
+    border-radius: var(--r);
+    margin: 36px 0;
+  }
+  .callout p {
+    font-family: 'Baskervville', serif;
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.45;
+    margin: 0;
+    color: var(--cream);
+  }
+
+  /* ─── CATALYST TABLE ─── */
+  .catalyst-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0 32px;
+    font-family: 'Geist', sans-serif;
+    font-size: 13px;
+  }
+  .catalyst-table th {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-30);
+    font-family: 'Geist Mono', monospace;
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--ink-10);
+    text-align: left;
+  }
+  .catalyst-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--ink-10);
+    vertical-align: top;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .catalyst-table tr:last-child td { border-bottom: none; }
+  .catalyst-table .cat-positive { color: #1a7a3a; font-weight: 500; }
+  .catalyst-table .cat-risk { color: #c0392b; font-weight: 500; }
+
+  /* ─── SUBSCRIBE STRIP ─── */
+  .subscribe-strip {
+    border-top: var(--rule);
+    border-bottom: var(--rule);
+    padding: 40px 0;
+    margin: 60px 0 0;
+    text-align: center;
+  }
+  .subscribe-strip h3 {
+    font-family: 'Baskervville', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: initial;
+    text-transform: none;
+  }
+  .subscribe-strip p {
+    font-size: 17px;
+    color: var(--ink-60);
+    margin-bottom: 20px;
+  }
+  .subscribe-form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .subscribe-form input {
+    font-family: 'Geist', sans-serif;
+    font-size: 14px;
+    padding: 10px 16px;
+    border: 1px solid var(--ink-10);
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: var(--r);
+    width: 260px;
+    outline: none;
+  }
+  .subscribe-form input:focus { border-color: var(--ink-30); }
+  .subscribe-form button {
+    font-family: 'Geist', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 20px;
+    background: var(--ink);
+    color: var(--cream);
+    border: none;
+    border-radius: var(--r);
+    cursor: pointer;
+    letter-spacing: .03em;
+    transition: opacity .15s;
+  }
+  .subscribe-form button:hover { opacity: .8; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: var(--rule);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-left {
+    font-family: 'Geist', sans-serif;
+    font-size: 12px;
+    color: var(--ink-30);
+  }
+  .footer-right { display: flex; gap: 20px; }
+  .footer-right a {
+    font-family: 'Geist', sans-serif;
+    font-size: 12px;
+    color: var(--ink-30);
+    text-decoration: none;
+  }
+  .footer-right a:hover { color: var(--ink); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .article-wrap {
+      grid-template-columns: 1fr;
+      padding: 0 20px;
+    }
+    .sidebar { display: none; }
+    .article-body { grid-column: 1; padding: 32px 0 64px; }
+    .topbar { padding: 0 20px; }
+    .subnet-stats { grid-template-columns: 1fr 1fr; }
+    .subnet-stats .stat-cell:nth-child(2) { border-right: none; }
+    .subnet-stats .stat-cell:nth-child(3) { border-top: var(--rule); grid-column: 1 / -1; }
+  }
+  @media (max-width: 500px) {
+    body { font-size: 18px; }
+    .article-body h2 { font-size: 24px; }
+    .article-title { font-size: 28px; }
+    .subnet-stats { grid-template-columns: 1fr; }
+    .subnet-stats .stat-cell { border-right: none; border-bottom: var(--rule); }
+    .subnet-stats .stat-cell:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- READING PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <a href="index.html" class="topbar-logo">
+    <svg viewBox="0 0 136 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 28.08V7.92H5.136V15.696H13.104V7.92H18.24V28.08H13.104V19.92H5.136V28.08H0Z" fill="#0D0C09"/>
+      <path d="M28.512 28.08H23.568L31.2 7.92H36.528L44.16 28.08H39.024L37.392 23.424H30.144L28.512 28.08ZM31.44 19.728H36.096L33.792 13.104H33.744L31.44 19.728Z" fill="#0D0C09"/>
+      <path d="M47.232 28.08V7.92H55.824C57.424 7.92 58.816 8.192 60 8.736C61.184 9.264 62.104 10.048 62.76 11.088C63.432 12.112 63.768 13.36 63.768 14.832C63.768 16.304 63.432 17.56 62.76 18.6C62.104 19.624 61.184 20.408 60 20.952C58.816 21.48 57.424 21.744 55.824 21.744H52.368V28.08H47.232ZM52.368 17.808H55.44C56.464 17.808 57.272 17.544 57.864 17.016C58.472 16.488 58.776 15.76 58.776 14.832C58.776 13.904 58.472 13.176 57.864 12.648C57.272 12.12 56.464 11.856 55.44 11.856H52.368V17.808Z" fill="#0D0C09"/>
+      <path d="M67.296 28.08V7.92H72.432V28.08H67.296Z" fill="#0D0C09"/>
+      <path d="M83.568 28.08H78.432V7.92H86.832C88.288 7.92 89.584 8.16 90.72 8.64C91.872 9.104 92.784 9.8 93.456 10.728C94.128 11.64 94.464 12.784 94.464 14.16C94.464 15.184 94.224 16.104 93.744 16.92C93.28 17.72 92.608 18.376 91.728 18.888L95.184 28.08H89.76L86.832 19.92H83.568V28.08ZM83.568 16.128H86.448C87.408 16.128 88.16 15.896 88.704 15.432C89.264 14.968 89.544 14.32 89.544 13.488C89.544 12.656 89.264 12.008 88.704 11.544C88.16 11.08 87.408 10.848 86.448 10.848H83.568V16.128Z" fill="#0D0C09"/>
+      <path d="M98.496 28.08V7.92H112.752V11.856H103.632V16.032H111.888V19.872H103.632V24.144H113.04V28.08H98.496Z" fill="#0D0C09"/>
+      <path d="M115.92 28.08L123.504 18.144L116.208 7.92H122.16L126.576 14.352H126.624L131.04 7.92H136.8L129.504 18.048L137.136 28.08H131.136L126.528 21.792H126.48L121.872 28.08H115.92Z" fill="#0D0C09"/>
+    </svg>
+  </a>
+  <nav class="topbar-nav">
+    <a href="research.html">Research</a>
+    <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+    <a href="#subscribe" class="topbar-cta">Subscribe →</a>
+  </nav>
+</header>
+
+<!-- ARTICLE LAYOUT -->
+<div class="article-wrap">
+
+  <!-- SIDEBAR TOC -->
+  <aside class="sidebar">
+    <div class="toc-label">Contents</div>
+    <ul class="toc-list" id="toc">
+      <li><a href="#exec-summary" data-target="exec-summary">Executive Summary</a></li>
+      <li><a href="#concentration-problem" data-target="concentration-problem">1. The Concentration Problem</a></li>
+      <li><a href="#subnet-economy" data-target="subnet-economy">2. The Subnet Economy</a></li>
+      <li><a href="#landscape" data-target="landscape">3. Current Landscape</a></li>
+      <li><a href="#coverage" data-target="coverage">4. Subnet Coverage</a></li>
+      <li class="toc-sub"><a href="#sn44" data-target="sn44">SN44 – SCORE</a></li>
+      <li class="toc-sub"><a href="#sn54" data-target="sn54">SN54 – MIID</a></li>
+      <li class="toc-sub"><a href="#sn68" data-target="sn68">SN68 – NOVA</a></li>
+      <li class="toc-sub"><a href="#sn3" data-target="sn3">SN3 – TEMPLAR</a></li>
+      <li class="toc-sub"><a href="#sn64" data-target="sn64">SN64 – CHUTES</a></li>
+      <li><a href="#catalysts" data-target="catalysts">5. Catalysts &amp; Risks</a></li>
+      <li><a href="#closing" data-target="closing">6. Closing Thesis</a></li>
+    </ul>
+  </aside>
+
+  <!-- ARTICLE BODY -->
+  <article class="article-body">
+
+    <!-- HEADER -->
+    <header class="article-header">
+      <span class="article-tag">Ecosystem Report · Bittensor</span>
+      <h1 class="article-title">Bittensor: The Intelligence Olympics</h1>
+      <p class="article-subtitle">Five subnets spanning inference, computer vision, compliance, drug discovery, and pre-training — each demonstrating the transition from experiment to commercial traction.</p>
+      <div class="article-meta">
+        <span class="meta-item">Khala Research</span>
+        <span class="meta-item"><span class="dot">·</span> February 2026</span>
+        <span class="meta-read-time">~18 MIN READ</span>
+      </div>
+    </header>
+
+    <!-- READER NOTE -->
+    <div class="note-box">
+      <p><strong>Note:</strong> Khala Research is developing a systematic subnet risk scoring framework to help allocators evaluate subnet investment quality at scale. For parties interested in early access, get in touch with the Khala Research team.</p>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="takeaways-box">
+      <div class="takeaways-label">Key Takeaways</div>
+      <ul class="takeaways-list">
+        <li>Bittensor has crossed from experiment to commercial traction: enterprise contracts signed, institutional capital entering, and the first halving tightening supply.</li>
+        <li>Five subnets profiled span the full AI value chain — inference (Chutes, $5.5M ARR), computer vision (SCORE), compliance stress-testing (MIID), drug discovery (NOVA), and frontier pre-training (Templar).</li>
+        <li>Decentralized training compute is growing ~20x per year vs. 5x per year for centralized infrastructure. If the trajectory holds, the gap narrows materially within 2–3 years.</li>
+        <li>TAO's fully diluted valuation sits at ~$4B — approximately 1/125th of OpenAI alone. The question has shifted from whether decentralized AI can work to how large the market becomes.</li>
+        <li>Token-incentivized competition creates a structural advantage centralized competitors cannot replicate: supply compounds with usage, not headcount or VC spend.</li>
+      </ul>
+    </div>
+
+    <!-- EXEC SUMMARY -->
+    <h2 id="exec-summary">Executive Summary</h2>
+    <p class="lead">Artificial Intelligence development is increasingly centralized, closed, and extractive. A handful of frontier labs — OpenAI, Google, Anthropic, Meta — control the most capable models, the data pipelines, the compute infrastructure, and the economic upside.</p>
+
+    <p>Bittensor's answer: a decentralized network that turns intelligence into a commodity — openly priced, competitively produced, and cryptographically verified.</p>
+
+    <p>The network has evolved from a set of experimental incentives into functioning AI infrastructure with paying customers. The ecosystem now shows:</p>
+
+    <ul>
+      <li><strong>Signed enterprise contracts:</strong> Reading FC, 3,000+ AVIA petrol stations, $10B+ market cap payments companies (under NDA).</li>
+      <li><strong>Institutional capital entering:</strong> Grayscale Trust products, DCG's Yuma receiving financing from Connecticut Innovations, TAO ETPs.</li>
+      <li><strong>Academic validation:</strong> Templar's SparseLoCo accepted at NeurIPS OPT2025 — the first Bittensor-originating research at a major ML conference.</li>
+      <li><strong>Technical milestones:</strong> Largest permissionless pre-training run ever conducted (Covenant 72B).</li>
+    </ul>
+
+    <p>Real customers are paying real money. That changes the risk profile — proven traction provides asymmetric upside for those allocating capital.</p>
+
+    <!-- SECTION 1 -->
+    <h2 id="concentration-problem">1. The Concentration Problem and Crypto's Solution</h2>
+
+    <p>Each generation of large language models has cost more to train. In 2020, OpenAI trained GPT-3 for roughly $5M. It was the best language model in the world. Today, frontier models range in estimates from $500M to over $1B. The barrier to competitive AI compounds every year, in favor of incumbents.</p>
+
+    <p>For investors, the access problem is real: the largest technology opportunity of the generation is either private, priced into mega-caps, or funneling through a single chipmaker.</p>
+
+    <p>Five companies control the foundation models that will underpin the next decade of software. Between them, they command the talent pipelines, the GPU allocations, the data partnerships, and the distribution. Everyone else builds on their infrastructure, at their margins, on their terms. Bittensor is trying to change the rules.</p>
+
+    <div class="callout">
+      <p>"Bittensor is no longer a bet on whether decentralized AI coordination can work. It's a bet on how big the market becomes."</p>
+    </div>
+
+    <p>Crypto was supposed to be good at this — permissionless coordination, global capital formation, incentive alignment without gatekeepers. For years, it wasn't. Decentralized compute projects struggled to generate revenue. AI agent frameworks came and went. Token-incentivized data networks remained early-stage.</p>
+
+    <p>That's starting to change. Decentralized training compute is now growing significantly faster than centralized infrastructure, and the gap is closing quicker than most realize. Bittensor is leading that shift. The thesis: token incentives can disaggregate AI development entirely. Instead of one lab training one model, a global network of miners contributes specialized capabilities and gets paid based on output.</p>
+
+    <p>Three structural edges that compound with scale:</p>
+    <ul>
+      <li><strong>Permissionless participation —</strong> anyone can contribute if they deliver.</li>
+      <li><strong>Continuous competition —</strong> underperformers lose emissions to those who produce.</li>
+      <li><strong>Token-based capital efficiency —</strong> no Series C required to scale.</li>
+    </ul>
+
+    <p>Over the past year, the network matured. Dynamic TAO made subnets directly investable. The first halving tightened supply. Multiple subnets crossed from pilots to contracts. Institutional capital followed: Grayscale's ETF filing, Deutsche Digital Assets' ETP, DCG-backed Yuma launching a subnet fund.</p>
+
+    <!-- SECTION 2 -->
+    <h2 id="subnet-economy">2. Understanding the Subnet Economy</h2>
+
+    <p>If Bittensor is the Olympics for AI, subnets are the individual events. Each subnet operates as its own competition with its own validators, miners, and emission share. To evaluate them, it helps to understand where they sit in the value chain.</p>
+
+    <ul>
+      <li><strong>Pre-training</strong> builds foundation models from scratch. Capital-intensive, technically demanding, highest potential moat.</li>
+      <li><strong>Inference</strong> deploys trained models at scale. Thinner margins, but immediate feedback: serve good inference at competitive prices or you don't earn.</li>
+      <li><strong>Specialized applications</strong> target vertical markets — computer vision, compliance testing, drug discovery. Competing on use-case depth rather than general capability.</li>
+    </ul>
+
+    <p>The five subnets in this report span all three layers. We picked them for technical edge, commercial traction, and market size.</p>
+
+    <!-- SECTION 3 -->
+    <h2 id="landscape">3. The Current Bittensor Landscape</h2>
+
+    <p>Asset managers and capital allocators describe Bittensor as one of crypto's most ambitious and least understood ecosystems. Over the past 12 months, the network has grown to 128 independent subnets. It is now generating real fiat revenue — Chutes alone at $5.5M annualized — attracting institutional capital, and signing enterprise customers across multiple verticals.</p>
+
+    <p>Since TAO's TGE in 2023, Bittensor's economic model has begun to prove its genesis mission: an incentive framework to coordinate global AI talent to solve global problems. The five subnets below represent the leading edge of that commercial transition.</p>
+
+    <!-- SECTION 4 -->
+    <h2 id="coverage">4. Coverage of Subnets</h2>
+
+    <!-- SN44 SCORE -->
+    <div class="subnet-card" id="sn44">
+      <div class="subnet-card-header">
+        <div>
+          <div class="subnet-id">SN44</div>
+          <div class="subnet-name">SCORE</div>
+          <div class="subnet-desc">Decentralized computer vision — from camera feed to structured intelligence</div>
+        </div>
+        <span class="subnet-status status-live">REVENUE-GENERATING</span>
+      </div>
+      <div class="subnet-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Key Customers</div>
+          <div class="stat-value">3</div>
+          <div class="stat-note">Reading FC, AVIA, Lavance</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Cost Claim</div>
+          <div class="stat-value">10–100×</div>
+          <div class="stat-note">vs. centralized providers</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Watch For</div>
+          <div class="stat-value">ARR Disclosure</div>
+          <div class="stat-note">Multi-year contract conversions</div>
+        </div>
+      </div>
+      <div class="subnet-body">
+        <p>Computer vision is one of the largest addressable markets in AI. Billions of cameras generate footage every day, but extracting intelligence from video still demands proprietary hardware or expensive cloud compute from Google, Nvidia, and AWS. A single football match still costs hundreds of dollars to annotate. SCORE (SN44) is Bittensor's attempt to decentralize it.</p>
+
+        <p>SCORE's Manako AI is a vision-language platform that converts live video into structured, queryable datasets. Comparable to Google's AutoML or Nvidia's Cosmos VLM, but with a key structural difference: edge cases are routed to SN44's decentralized miner network, where miners compete to expand model capabilities and are rewarded with TAO.</p>
+
+        <p>This creates a flywheel. Each new customer deployment surfaces new edge cases. Each edge case sharpens the miner network. Each improvement makes Manako more reliable and easier to sell. Over the last three months, SCORE signed paying customers across sports analytics (Reading FC), petrol station safety (AVIA, 3,000+ stations), and fleet operations (Lavance, 7,000+ stations).</p>
+
+        <div class="signal-row">
+          <span class="signal-green">100% trial conversion</span>
+          <span class="signal-green">Multi-vertical traction</span>
+          <span class="signal-amber">ARR not disclosed</span>
+          <span class="signal-red">Cost claims self-reported</span>
+        </div>
+
+        <p>No competitor currently offers a decentralized, incentive-driven vision platform spanning multiple verticals at SCORE's claimed price point. Google AutoML and Amazon Rekognition are image-first and scale costs linearly per call. Nvidia Cosmos operates at a different stack layer entirely.</p>
+
+        <p><strong>Verdict:</strong> Real product, real customers, active miner network. The flywheel is turning. The vision AI market is early and fragmented — no dominant platform has emerged for turning the world's camera infrastructure into intelligent data streams.</p>
+      </div>
+    </div>
+
+    <!-- SN54 MIID -->
+    <div class="subnet-card" id="sn54">
+      <div class="subnet-card-header">
+        <div>
+          <div class="subnet-id">SN54</div>
+          <div class="subnet-name">MIID</div>
+          <div class="subnet-desc">Stress-testing financial defences using decentralized adversarial AI</div>
+        </div>
+        <span class="subnet-status status-live">REVENUE-GENERATING</span>
+      </div>
+      <div class="subnet-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Enterprise Clients</div>
+          <div class="stat-value">3 confirmed</div>
+          <div class="stat-note">20+ claimed pipeline</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Backing</div>
+          <div class="stat-value">$900K</div>
+          <div class="stat-note">Deep Ventures + Yuma</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Watch For</div>
+          <div class="stat-value">Named Clients</div>
+          <div class="stat-note">Revenue reinvestment mechanism</div>
+        </div>
+      </div>
+      <div class="subnet-body">
+        <p>Financial institutions spend billions annually on compliance systems rarely tested under real attack conditions. Most institutions can't prove their defenses actually work. SN54 MIID (Multimodal Inorganic Identities Dataset) by Yanez Compliance is one of the few subnets with pre-existing enterprise customers and fiat revenue — yet has received minimal attention from the broader TAO community.</p>
+
+        <p>Incubated by Yuma and backed by a $900K seed round with Deep Ventures as institutional investor, MIID generates synthetic identities and adversarial scenarios used to stress-test real-world KYC, AML, and digital identity defenses. It's a decentralized red team for financial crime prevention.</p>
+
+        <p>Miners produce variations of IDs — name transliterations, deepfake biometrics. Validators evaluate how effectively submissions expose weaknesses in detection systems, rewarding miners based on bypass success, detection latency, and adversarial realism. The output is sold to financial institutions to harden their defenses.</p>
+
+        <div class="signal-row">
+          <span class="signal-green">Regulatory spend — sticky in downturns</span>
+          <span class="signal-green">Unique adversarial positioning</span>
+          <span class="signal-amber">Pipeline un-named</span>
+          <span class="signal-red">Revenue reinvestment not published</span>
+        </div>
+
+        <p>The compliance data market is dominated by slow, centralized vendors. LSEG/Refinitiv World-Check and LexisNexis update datasets periodically — meaning every time a new sanctions evasion technique emerges, there's a gap between the attack and the response. MIID attacks the systems rather than running detection itself. That distinction matters.</p>
+
+        <p><strong>Verdict:</strong> Real enterprise traction in a lucrative, sticky market. The challenge now is converting the pipeline and scaling relationships. $900K is thin for enterprise sales into regulated finance — watch for the next fundraise.</p>
+      </div>
+    </div>
+
+    <!-- SN68 NOVA -->
+    <div class="subnet-card" id="sn68">
+      <div class="subnet-card-header">
+        <div>
+          <div class="subnet-id">SN68</div>
+          <div class="subnet-name">NOVA</div>
+          <div class="subnet-desc">Decentralized drug discovery — mining for molecules instead of hashes</div>
+        </div>
+        <span class="subnet-status status-building">PRE-REVENUE</span>
+      </div>
+      <div class="subnet-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Market Size</div>
+          <div class="stat-value">$1.5T+</div>
+          <div class="stat-note">Global drug discovery</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Hit Quality</div>
+          <div class="stat-value">+418%</div>
+          <div class="stat-note">vs. baseline (reported)</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Watch For</div>
+          <div class="stat-value">Wet-lab</div>
+          <div class="stat-note">Q1–Q2 validation start</div>
+        </div>
+      </div>
+      <div class="subnet-body">
+        <p>The business of drug discovery is often binary: succeed and your drug is worth billions, fail and it's worth zero. 90%+ of candidates fail in clinical trials. Costs can exceed $2.6B and up to 10 years to bring a drug to market. Metanova (SN68) is building a collective intelligence platform to accelerate the earliest stage of that pipeline.</p>
+
+        <p>Think Recursion or Insilico, but open-sourced. Metanova crowdsources molecular design through Bittensor rather than building proprietary R&amp;D teams. Two competition formats: Compound challenges (miners submit candidate molecules for defined protein targets) and Blueprint challenges (miners submit search algorithms that explore chemical space more efficiently). Both tracks create a feedback loop — better algorithms improve the molecule discovery engine over time.</p>
+
+        <p>Miners submit synthesizable candidate molecules from a hybrid chemical universe combining the SAVI-2020 database and five combinatorial reaction templates mimicking real-world synthesis. Only one active submission per miner at a time creates winner-takes-all dynamics that reward genuine innovation over volume.</p>
+
+        <div class="signal-row">
+          <span class="signal-green">MOU with Yalotein Bio (Yale PhD-led)</span>
+          <span class="signal-green">Near-zero marginal screening cost</span>
+          <span class="signal-amber">Wet-lab validation Q1–Q2</span>
+          <span class="signal-red">No revenue yet</span>
+        </div>
+
+        <p>The centralized competition is well-funded: Recursion ($2.1B market cap), Insilico Medicine ($500M+ raises), Absci (~$380M), and Isomorphic Labs (Alphabet/DeepMind, $3B in pharma partnerships). Near-zero marginal screening cost and on-chain record-keeping are structural advantages — if wet-lab validation lands.</p>
+
+        <p><strong>Verdict:</strong> Drug discovery is something else entirely — a $1.5T+ industry with a structurally broken pipeline where a single breakthrough compound generates hundreds of millions in licensing revenue. The risk is real: wet-lab validation is expensive, and the path from virtual screening to therapeutic candidate is long. But the upside is asymmetric.</p>
+      </div>
+    </div>
+
+    <!-- SN3 TEMPLAR -->
+    <div class="subnet-card" id="sn3">
+      <div class="subnet-card-header">
+        <div>
+          <div class="subnet-id">SN3</div>
+          <div class="subnet-name">TEMPLAR</div>
+          <div class="subnet-desc">Building frontier models without frontier budgets</div>
+        </div>
+        <span class="subnet-status status-building">IN TRAINING</span>
+      </div>
+      <div class="subnet-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Current Run</div>
+          <div class="stat-value">Covenant 72B</div>
+          <div class="stat-note">Largest permissionless run ever</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Compute Growth</div>
+          <div class="stat-value">~20×/yr</div>
+          <div class="stat-note">vs. 5× for centralized</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Academic</div>
+          <div class="stat-value">NeurIPS OPT2025</div>
+          <div class="stat-note">SparseLoCo + Gauntlet accepted</div>
+        </div>
+      </div>
+      <div class="subnet-body">
+        <p>Frontier model pre-training is increasingly concentrated. The compute required doubles every 6 to 10 months, pricing out anyone but the major labs. Templar is emerging as one of the most credible decentralized pre-training platforms — and uniquely, it's permissionless. Prime Intellect, Nous, and Pluralis all curate or gate their participants. Templar doesn't.</p>
+
+        <p>SparseLoCo is Templar's communication-efficient optimizer. It compresses gradients by ~97% while outperforming uncompressed baselines — in plain terms, sending a zip file instead of a raw folder and getting better results than no compression at all. This enables 72B parameter training over the public internet with 6% communication overhead.</p>
+
+        <p>Performance: outperforms DiLoCo (DeepMind) and DeMo (Nous) on loss and communication efficiency. The Templar-1B run — 20,000+ cycles, ~200 GPUs — matches centralized baselines across HellaSwag, PIQA, and ARC-E. Covenant 72B, launched September 2025, is the first attempt at frontier-relevant scale; at the first checkpoint it outperforms all completed decentralized pre-training runs.</p>
+
+        <div class="signal-row">
+          <span class="signal-green">Only fully permissionless training in production</span>
+          <span class="signal-green">NeurIPS acceptance — first for Bittensor</span>
+          <span class="signal-amber">72B benchmarks pending</span>
+          <span class="signal-red">~300× smaller than frontier datacenters</span>
+        </div>
+
+        <p>The revenue flywheel: 100% of training-as-a-service fees fund Covenant token buybacks, creating a direct link between commercial demand and miner incentives. Full-stack coverage across three subnets (pre-training, compute, post-training/RL) gives the Templar team vertical integration that competitors lack.</p>
+
+        <p><strong>Verdict:</strong> Templar's trajectory hinges on Covenant 72B final benchmarks. If the model matches or exceeds centralized baselines at equivalent scale, the thesis is validated. Epoch AI data provides the macro tailwind: decentralized training compute is growing 4× faster than centralized infrastructure.</p>
+      </div>
+    </div>
+
+    <!-- SN64 CHUTES -->
+    <div class="subnet-card" id="sn64">
+      <div class="subnet-card-header">
+        <div>
+          <div class="subnet-id">SN64</div>
+          <div class="subnet-name">CHUTES</div>
+          <div class="subnet-desc">The #1 subnet on TAO — the inference layer that pays for itself</div>
+        </div>
+        <span class="subnet-status status-live">REVENUE-GENERATING</span>
+      </div>
+      <div class="subnet-stats">
+        <div class="stat-cell">
+          <div class="stat-label">ARR</div>
+          <div class="stat-value">$5.5M</div>
+          <div class="stat-note">55% pay-as-you-go</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Users</div>
+          <div class="stat-value">696K+</div>
+          <div class="stat-note">Excluding OpenRouter</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Models</div>
+          <div class="stat-value">50+</div>
+          <div class="stat-note">LLMs, diffusion, speech</div>
+        </div>
+      </div>
+      <div class="subnet-body">
+        <p>AI inference is where value gets captured. Training builds the model; inference is where it earns money. The global inference market: $116B in 2025, growing 17–19% CAGR toward $250–540B by 2030–2034. Chutes is an open-source, decentralized compute provider for deploying, scaling, and running open-source models in production — and it publishes a live revenue dashboard, making it one of the most transparent revenue subnets in crypto.</p>
+
+        <p>Revenue breakdown: 55% pay-as-you-go, 25% sponsored inference, 5% subscribers, 5% bounties. Pay-as-you-go dominating signals genuine developer usage rather than marketing subsidies. But with 25% still sponsored, the organic-to-sponsored ratio is the key metric to watch as Chutes matures.</p>
+
+        <p>The four-stage compute flywheel: miners register GPUs and deploy models as "chutes," granite hardware fingerprinting verifies authenticity via CUDA stress tests, developers send inference requests and miners compete to serve them, validators audit fairness. Revenue flows in as fiat; miners are scored on compute (55%), speed (20%), availability (20%), and bounties (5%) over rolling 7-day windows.</p>
+
+        <div class="signal-row">
+          <span class="signal-green">#1 provider on OpenRouter</span>
+          <span class="signal-green">First-mover on new models (DeepSeek, Kimi)</span>
+          <span class="signal-amber">25% sponsored revenue</span>
+          <span class="signal-red">Single validator operator (Rayon Labs)</span>
+        </div>
+
+        <p>The real moat is the incentive-aligned supply side. Miners are economically motivated to provide compute through TAO emissions, creating a supply floor that centralized startups can't match without VC subsidies. For context, OpenRouter — serving 5M+ developers — processes ~1T tokens per day. About 20–25% of Chutes' daily volume flows through OpenRouter.</p>
+
+        <p><strong>Verdict:</strong> $5.5M annualized is modest against centralized providers, but it's the strongest revenue signal in Bittensor. The central question: whether the incentive-aligned supply side translates into a sustainable moat, or gets overwhelmed by VC-backed competitors racing to the price floor.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <h2 id="catalysts">5. Catalysts and Risk Factors</h2>
+
+    <p>The investment case for TAO and its subnet ecosystem hinges on a series of near-term catalysts and identifiable risks. The disconnect between commercial traction and market valuation creates potential asymmetry for investors who believe decentralized approaches can capture meaningful share of the AI infrastructure market.</p>
+
+    <table class="catalyst-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Catalyst / Risk</th>
+          <th>Timeline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cat-positive">Catalyst</span></td>
+          <td>Institutional capital: $170M+ across Yuma Funds, Grayscale ETF, Deutsche Digital Assets ETP</td>
+          <td>Live</td>
+        </tr>
+        <tr>
+          <td><span class="cat-positive">Catalyst</span></td>
+          <td>TAO halving — supply shock with no corresponding emission increase</td>
+          <td>Live</td>
+        </tr>
+        <tr>
+          <td><span class="cat-positive">Catalyst</span></td>
+          <td>Chutes organic-to-sponsored revenue ratio shift toward 70%+</td>
+          <td>Q2–Q3 2026</td>
+        </tr>
+        <tr>
+          <td><span class="cat-positive">Catalyst</span></td>
+          <td>Templar Covenant 72B final benchmarks vs. centralized baselines</td>
+          <td>H1 2026</td>
+        </tr>
+        <tr>
+          <td><span class="cat-positive">Catalyst</span></td>
+          <td>SCORE and MIID contract renewals and formal ARR disclosures</td>
+          <td>H1 2026</td>
+        </tr>
+        <tr>
+          <td><span class="cat-positive">Catalyst</span></td>
+          <td>NOVA wet-lab validation begins with Yalotein Bio</td>
+          <td>Q1–Q2 2026</td>
+        </tr>
+        <tr>
+          <td><span class="cat-risk">Risk</span></td>
+          <td>Subnet competition from centralized AI labs moving down-market</td>
+          <td>Ongoing</td>
+        </tr>
+        <tr>
+          <td><span class="cat-risk">Risk</span></td>
+          <td>TAO inflation pressure not offset by subnet expansion from 128 to 256</td>
+          <td>H2 2026</td>
+        </tr>
+        <tr>
+          <td><span class="cat-risk">Risk</span></td>
+          <td>Validator concentration risk — Chutes relies heavily on single operator</td>
+          <td>Ongoing</td>
+        </tr>
+        <tr>
+          <td><span class="cat-risk">Risk</span></td>
+          <td>Revenue quality — sponsored inference understates true organic demand</td>
+          <td>Ongoing</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- SECTION 6 -->
+    <h2 id="closing">6. Closing Thesis</h2>
+
+    <p>The five subnets in this report span inference compute, computer vision, regulatory compliance, drug discovery, and model pre-training. What they share is a structural advantage that centralized competitors cannot replicate: token-incentivized competition that compounds output quality with usage, not headcount.</p>
+
+    <p>We're not naive about the gap between early traction and sustainable commercial scale. This report profiles 5 out of 128 subnets. Not all will succeed. But the ones generating revenue, signing enterprise contracts, and passing academic peer review are no longer experiments — these are early-stage AI companies with an unusual cost structure and a novel go-to-market.</p>
+
+    <div class="callout">
+      <p>"Today, centralized AI labs collectively command valuations above $1 trillion. TAO's fully diluted valuation sits at approximately $4 billion — roughly 1/125th of OpenAI alone. The question has shifted. It's no longer whether decentralized AI can work. These subnets are showing it can."</p>
+    </div>
+
+    <p>For allocators with a genuine long-term horizon, the asymmetry is clear. Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
+
+    <!-- SUBSCRIBE -->
+    <div class="subscribe-strip" id="subscribe">
+      <h3>Original research on the tokenised AI economy</h3>
+      <p>No paywall. No sponsored content. Just primary analysis.</p>
+      <form class="subscribe-form" onsubmit="return false;">
+        <input type="email" placeholder="your@email.com">
+        <button type="submit">Join the Research</button>
+      </form>
+    </div>
+
+  </article>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2026 Khala Research. All rights reserved.</div>
+  <nav class="footer-right">
+    <a href="research.html">Research</a>
+    <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+  </nav>
+</footer>
+
+<script>
+  // ─── READING PROGRESS BAR ───
+  const bar = document.getElementById('progress-bar');
+
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(progress, 100) + '%';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ─── ACTIVE TOC LINK ───
+  const sections = document.querySelectorAll('h2[id], .subnet-card[id]');
+  const tocLinks = document.querySelectorAll('.toc-list a[data-target]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        tocLinks.forEach(link => {
+          link.classList.toggle('active', link.dataset.target === id);
+        });
+      }
+    });
+  }, {
+    rootMargin: '-56px 0px -60% 0px',
+    threshold: 0
+  });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
