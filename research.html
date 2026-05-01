@@ -352,6 +352,61 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   .report-row--live {
     cursor: pointer;
   }
+
+/* ===== RESEARCH DYNAMISM ===== */
+
+/* Feature 8: Report row entrance stagger */
+.report-row {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .4s ease-out, transform .4s ease-out, background .15s;
+}
+.report-row.row-visible { opacity: 1; transform: translateY(0); }
+.report-row--locked.row-visible { opacity: .45; }
+
+/* Feature 9: Featured card tilt */
+.featured-inner {
+  transform-style: preserve-3d;
+  transition: transform .08s ease-out, border-color .2s;
+  will-change: transform;
+}
+
+/* Feature 10: Filter crossfade + sliding underline */
+.filter-btn {
+  position: relative;
+  transition: color .2s;
+}
+.filter-btn::after {
+  content: '';
+  position: absolute; bottom: -1px; left: 50%; right: 50%;
+  height: 2px; background: var(--ink);
+  transition: left .25s ease-out, right .25s ease-out;
+}
+.filter-btn.active::after { left: 0; right: 0; }
+
+.report-list { position: relative; }
+.report-list.filtering .report-row {
+  transition: opacity .2s ease-out, transform .2s ease-out;
+}
+
+/* Feature 7: Stat counter */
+.pas-value em { display: inline-block; }
+
+/* Featured card shimmer on load */
+.featured-inner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.025) 50%, transparent 65%);
+  background-size: 300% 100%;
+  border-radius: inherit;
+  animation: feat-shimmer 5s ease-in-out 0.8s 1 forwards;
+  pointer-events: none; z-index: 0;
+}
+@keyframes feat-shimmer {
+  0%   { background-position: 200% 0; opacity: 1; }
+  100% { background-position: -200% 0; opacity: 0; }
+}
+
 </style>
 </head>
 <body>
@@ -376,7 +431,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   <div class="page-aside">
     <div class="page-aside-stat">
       <div class="pas-label">Coverage</div>
-      <div class="pas-value"><em>5</em> reports across 5 sectors</div>
+      <div class="pas-value"><em id="stat-count">0</em> reports across <span id="stat-count2">0</span> sectors</div>
     </div>
     <div class="page-aside-stat">
       <div class="pas-label">Methodology</div>
@@ -632,5 +687,102 @@ filterBtns.forEach(btn => {
   });
 });
 </script>
+
+<script>
+/* Feature 7: Stat counter */
+(function(){
+  function countUp(el, target, dur) {
+    const t0 = performance.now();
+    function step(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      const v = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      el.textContent = v;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  const el1 = document.getElementById('stat-count');
+  const el2 = document.getElementById('stat-count2');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      countUp(el1, 5, 800);
+      countUp(el2, 5, 1100);
+      io.disconnect();
+    });
+  }, { threshold: 0.5 });
+  if (el1) io.observe(el1.closest('.page-aside-stat') || el1);
+})();
+
+/* Feature 8: Report row entrance stagger */
+(function(){
+  const rows = document.querySelectorAll('.report-row');
+  const rowIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const idx = Array.from(rows).indexOf(e.target);
+      setTimeout(() => e.target.classList.add('row-visible'), idx * 80);
+      rowIO.unobserve(e.target);
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+  rows.forEach(r => rowIO.observe(r));
+})();
+
+/* Feature 9: Featured card mouse-tilt */
+(function(){
+  const card = document.querySelector('.featured-inner');
+  if (!card) return;
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width  - 0.5;
+    const y = (e.clientY - r.top)  / r.height - 0.5;
+    card.style.transform = `perspective(900px) rotateY(${x * 5}deg) rotateX(${-y * 4}deg) scale(1.008)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+})();
+
+/* Feature 10: Filter crossfade */
+(function(){
+  const btns = document.querySelectorAll('.filter-btn:not(.filter-btn--soon)');
+  const list = document.getElementById('reportList');
+  const countEl = document.getElementById('visibleCount');
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('filter-btn--soon')) return;
+      btns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      const rows = list.querySelectorAll('.report-row');
+
+      // Fade out
+      rows.forEach(r => { r.style.opacity = '0'; r.style.transform = 'translateY(8px)'; });
+
+      setTimeout(() => {
+        let vis = 0;
+        rows.forEach(r => {
+          const show = cat === 'all' || r.dataset.category === cat;
+          r.style.display = show ? '' : 'none';
+          if (show) vis++;
+        });
+        // Fade in staggered
+        let i = 0;
+        rows.forEach(r => {
+          if (r.style.display === 'none') return;
+          const delay = i++ * 60;
+          setTimeout(() => {
+            r.style.opacity = r.classList.contains('report-row--locked') ? '0.45' : '1';
+            r.style.transform = 'translateY(0)';
+          }, delay);
+        });
+        if (countEl) countEl.textContent = `Showing ${String(vis).padStart(2,'0')} of 05`;
+      }, 180);
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

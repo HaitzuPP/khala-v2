@@ -764,6 +764,96 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
     .featured-band { padding: 0 20px; }
     .featured-inner { padding: 36px 0; }
   }
+
+/* ===== HOME DYNAMISM ===== */
+
+/* Feature 1: Marquee */
+.proof-strip { overflow: hidden; padding: 0 !important; position: relative; }
+.proof-strip::before, .proof-strip::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none;
+}
+.proof-strip::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+.proof-strip::after  { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
+.marquee-track {
+  display: flex; align-items: center; gap: 0;
+  white-space: nowrap;
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-inner { display: flex; align-items: center; gap: 0; flex-shrink: 0; padding: 11px 0; }
+@keyframes marquee-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Feature 2: Timeline stagger */
+.tl {
+  opacity: 0;
+  transform: translateX(-18px);
+  transition: opacity .4s ease-out, transform .4s ease-out;
+}
+.tl.tl-visible { opacity: 1; transform: translateX(0); }
+.tl.now.tl-visible .tl-dot {
+  box-shadow: 0 0 0 0 rgba(217,79,42,.5);
+  animation: tl-pulse 2s ease-out 0.5s infinite;
+}
+@keyframes tl-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(217,79,42,.45); }
+  70%  { box-shadow: 0 0 0 8px rgba(217,79,42,0); }
+  100% { box-shadow: 0 0 0 0 rgba(217,79,42,0); }
+}
+
+/* Feature 3: Token viz hover ripple */
+.tn-ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(217,79,42,.15);
+  border: 1px solid rgba(217,79,42,.3);
+  width: 0; height: 0; left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  animation: ripple-out .6s ease-out forwards;
+}
+@keyframes ripple-out {
+  from { width: 0; height: 0; opacity: 1; }
+  to   { width: 80px; height: 80px; opacity: 0; }
+}
+
+/* Feature 4: Hero-left gradient breath */
+.hero-left {
+  background: linear-gradient(135deg, rgba(217,79,42,.03) 0%, transparent 60%, rgba(10,159,184,.03) 100%);
+  background-size: 300% 300%;
+  animation: hero-breathe 14s ease-in-out infinite;
+}
+@keyframes hero-breathe {
+  0%,100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Feature 5: Methodology strip sequence */
+.method-item { opacity: 0; transform: translateY(16px); transition: opacity .45s ease-out, transform .45s ease-out; }
+.method-item.method-visible { opacity: 1; transform: translateY(0); }
+.method-n {
+  display: inline-block;
+  transition: color .3s;
+}
+.method-item.method-active .method-n { color: var(--orange); transform: scale(1.15); }
+
+/* Feature 6: Featured band shimmer */
+.featured-band { position: relative; overflow: hidden; }
+.featured-band::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.04) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: band-shimmer 6s ease-in-out 1s infinite;
+  pointer-events: none;
+}
+@keyframes band-shimmer {
+  0%,100% { background-position: 200% 0; }
+  50%      { background-position: -200% 0; }
+}
+
 </style>
 </head>
 <body>
@@ -880,48 +970,35 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 
 <!-- SOCIAL PROOF STRIP -->
 <div class="proof-strip">
-  <span class="proof-label">Followed by teams at</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Multicoin Capital</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Polychain</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Paradigm</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">a16z crypto</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Galaxy Digital</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Delphi Digital</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Animoca Brands</span>
-  <span class="proof-dot">·</span>
-  <span class="proof-item">Cumberland</span>
+  <div class="marquee-track">
+    <div class="marquee-inner"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Cumberland</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Grayscale</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">DCG</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Jump Crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Dragonfly</span></div>
+    <div class="marquee-inner" aria-hidden="true"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Cumberland</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Grayscale</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">DCG</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Jump Crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item">Dragonfly</span></div>
+  </div>
 </div>
 
 <!-- TIMELINE -->
 <div class="timeline">
-  <div class="tl"><div class="tl-dot"></div><div class="tl-yr">1947</div><div class="tl-ev">Bell Labs coordinates the transistor</div></div>
-  <div class="tl"><div class="tl-dot"></div><div class="tl-yr">1969</div><div class="tl-ev">ARPA coordinates the internet</div></div>
-  <div class="tl"><div class="tl-dot"></div><div class="tl-yr">1991</div><div class="tl-ev">CERN opens the Web</div></div>
-  <div class="tl"><div class="tl-dot"></div><div class="tl-yr">2008</div><div class="tl-ev">Satoshi coordinates Bitcoin</div></div>
-  <div class="tl"><div class="tl-dot"></div><div class="tl-yr">2023</div><div class="tl-ev">Generative AI goes mainstream</div></div>
-  <div class="tl now"><div class="tl-dot"></div><div class="tl-yr">Now</div><div class="tl-ev">Tokenised networks coordinate frontier AI</div></div>
+  <div class="tl" data-tl-i="0"><div class="tl-dot"></div><div class="tl-yr">1947</div><div class="tl-ev">Bell Labs coordinates the transistor</div></div>
+  <div class="tl" data-tl-i="1"><div class="tl-dot"></div><div class="tl-yr">1969</div><div class="tl-ev">ARPA coordinates the internet</div></div>
+  <div class="tl" data-tl-i="2"><div class="tl-dot"></div><div class="tl-yr">1991</div><div class="tl-ev">CERN opens the Web</div></div>
+  <div class="tl" data-tl-i="3"><div class="tl-dot"></div><div class="tl-yr">2008</div><div class="tl-ev">Satoshi coordinates Bitcoin</div></div>
+  <div class="tl" data-tl-i="4"><div class="tl-dot"></div><div class="tl-yr">2023</div><div class="tl-ev">Generative AI goes mainstream</div></div>
+  <div class="tl now" data-tl-i="5"><div class="tl-dot"></div><div class="tl-yr">Now</div><div class="tl-ev">Tokenised networks coordinate frontier AI</div></div>
 </div>
 
 <!-- METHODOLOGY STRIP -->
 <div class="method-strip">
-  <div class="method-item reveal">
+  <div class="method-item reveal" data-method-i="0">
     <div class="method-n">01</div>
     <div class="method-label">Track</div>
     <div class="method-desc">On-chain protocol metrics, capital flows, and subnet economics, updated continuously.</div>
   </div>
-  <div class="method-item reveal">
+  <div class="method-item reveal" data-method-i="1">
     <div class="method-n">02</div>
     <div class="method-label">Analyse</div>
     <div class="method-desc">First-principles research by founders who have operated inside the protocols they cover.</div>
   </div>
-  <div class="method-item reveal">
+  <div class="method-item reveal" data-method-i="2">
     <div class="method-n">03</div>
     <div class="method-label">Signal</div>
     <div class="method-desc">Falsifiable theses, named positions, delivered before consensus arrives.</div>
@@ -1263,6 +1340,68 @@ revealEls.forEach(el => revealObs.observe(el));
   <span class="mobile-cta-text">Original crypto × AI research.</span>
   <a href="#subscribe" class="mobile-cta-btn">Subscribe →</a>
 </div>
+
+
+<script>
+/* Feature 2: Timeline stagger */
+(function(){
+  const tls = document.querySelectorAll('.tl[data-tl-i]');
+  const tlIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = parseInt(e.target.dataset.tlI || 0);
+      setTimeout(() => e.target.classList.add('tl-visible'), i * 90);
+      tlIO.unobserve(e.target);
+    });
+  }, { threshold: 0.15 });
+  tls.forEach(t => tlIO.observe(t));
+})();
+
+/* Feature 3: Token viz hover ripple + edge highlight */
+(function(){
+  const viz = document.getElementById('tokenViz');
+  if (!viz) return;
+  viz.querySelectorAll('.tn').forEach(tn => {
+    tn.addEventListener('mouseenter', () => {
+      const ripple = document.createElement('div');
+      ripple.className = 'tn-ripple';
+      tn.querySelector('.tn-chip').style.position = 'relative';
+      tn.querySelector('.tn-chip').appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+      // Brighten edges connected to this node
+      const id = tn.dataset.id;
+      const svg = viz.querySelector('svg');
+      if (svg) {
+        svg.querySelectorAll('line').forEach(l => {
+          if (l.dataset.from === id || l.dataset.to === id) {
+            l.style.stroke = 'rgba(217,79,42,0.6)';
+            l.style.strokeWidth = '1.5';
+            setTimeout(() => { l.style.stroke = ''; l.style.strokeWidth = ''; }, 500);
+          }
+        });
+      }
+    });
+  });
+})();
+
+/* Feature 5: Methodology strip sequence animation */
+(function(){
+  const items = document.querySelectorAll('.method-item[data-method-i]');
+  const mIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = parseInt(e.target.dataset.methodI || 0);
+      setTimeout(() => {
+        e.target.classList.add('method-visible');
+        setTimeout(() => e.target.classList.remove('method-active'), 600);
+        e.target.classList.add('method-active');
+      }, i * 160);
+      mIO.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+  items.forEach(el => mIO.observe(el));
+})();
+</script>
 
 </body>
 </html>
