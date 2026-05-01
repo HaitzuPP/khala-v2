@@ -1446,6 +1446,110 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 .sc { transition: opacity .3s, transform .3s; }
 .sc.sc-hidden { opacity: 0.15; transform: scale(0.97); pointer-events: none; }
 
+
+/* SUBSCRIBE v2 */
+.subscribe { position: relative; overflow: hidden; }
+.sub-form { position: relative; }
+.sub-input { transition: border-color .25s, box-shadow .25s; }
+.sub-input:focus {
+  border-color: var(--orange) !important;
+  box-shadow: 0 0 0 3px rgba(217,79,42,.1);
+  outline: none;
+}
+.sub-btn {
+  transition: background .2s, transform .15s;
+  position: relative; overflow: hidden;
+}
+.sub-btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,.12);
+  transform: translateX(-100%);
+  transition: transform .3s;
+}
+.sub-btn:hover::after { transform: translateX(0); }
+.sub-btn:active { transform: scale(0.97); }
+.sub-success {
+  display: none; align-items: center; gap: 10px;
+  padding: 12px 18px; background: rgba(26,122,58,.1);
+  border: 1px solid rgba(26,122,58,.25); border-radius: 2px;
+  font-family: var(--mono); font-size: 12px; color: #1a7a3a;
+  letter-spacing: .04em;
+}
+.sub-success.show { display: flex; }
+.sub-success-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #1a7a3a; flex-shrink: 0;
+  animation: sub-dot-pulse 2s ease-in-out infinite;
+}
+@keyframes sub-dot-pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+/* frequency visual */
+.sub-freq-strip {
+  display: flex; gap: 6px; align-items: center; margin: 16px 0 12px;
+}
+.sub-freq-bar {
+  height: 28px; border-radius: 2px; background: var(--orange);
+  opacity: 0.15; cursor: default;
+  transition: opacity .2s;
+  position: relative;
+}
+.sub-freq-bar:hover { opacity: 0.6; }
+.sub-freq-bar.has-report { opacity: 0.75; }
+.sub-freq-bar.has-report:hover { opacity: 1; }
+.sub-freq-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing:.06em;
+  color: var(--ink3); text-transform: uppercase;
+  writing-mode: vertical-rl; padding: 4px 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.sub-freq-title {
+  font-family: var(--mono); font-size: 10px; letter-spacing:.08em;
+  color: var(--ink3); text-transform: uppercase; margin-bottom: 8px;
+}
+.sub-freq-tooltip {
+  position: absolute; bottom: calc(100% + 6px); left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink); color: #fff;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing:.04em;
+  padding: 5px 10px; border-radius: 2px; white-space: nowrap;
+  pointer-events: none; opacity: 0; transition: opacity .15s;
+}
+.sub-freq-bar:hover .sub-freq-tooltip { opacity: 1; }
+
+
+/* THESIS LEFT LIVE STATS */
+.thesis-live-stats {
+  margin-top: 28px; display: flex; flex-direction: column; gap: 14px;
+}
+.tls-item {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: 2px;
+  position: relative; overflow: hidden;
+  transition: border-color .2s;
+}
+.tls-item:hover { border-color: var(--orange); }
+.tls-item::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--orange); opacity: 0;
+  transition: opacity .2s;
+}
+.tls-item:hover::before { opacity: 1; }
+.tls-val {
+  font-family: var(--bask); font-size: 28px; color: var(--ink); line-height: 1;
+}
+.tls-lbl {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing:.08em;
+  text-transform: uppercase; color: var(--ink3);
+}
+.tls-sub {
+  font-family: var(--crim); font-size: 12.5px; color: var(--ink2);
+  margin-top: 3px; font-style: italic;
+}
+
+
+html { scroll-behavior: smooth; }
+
 </style>
 </head>
 <body>
@@ -2053,17 +2157,32 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 
 <!-- SUBSCRIBE -->
 <section class="subscribe" style="background:var(--parch);">
-  <div class="section-label" style="margin-bottom:22px;">Join the Research</div>
+  <div class="section-label" style="margin-bottom:16px;">Join the Research</div>
+  <div class="sub-editorial">"The best research<br>on AI × crypto, delivered<br>before consensus arrives."</div>
   <h2 class="sub-title">Be first.<br><em>Not second.</em></h2>
-  <p class="sub-body">Original research on the tokenised AI economy. Covering Bittensor, decentralised compute, agentic finance, and AI data infrastructure.</p>
-  <div class="sub-form">
-    <input class="sub-input" type="email" placeholder="your@fund.com">
-    <button class="sub-btn">Subscribe →</button>
+  <p class="sub-body">Original research on the tokenised AI economy. Covering Bittensor, decentralised compute, agentic finance, and AI data infrastructure. No paywall. No ads. No conflicts.</p>
+
+  <div style="margin-bottom:20px;">
+    <div class="sub-freq-title">Publication cadence — last 12 months</div>
+    <div class="sub-freq-strip">
+      <div class="sub-freq-bar" style="width:14px" title="Q2 2025"><div class="sub-freq-tooltip">Q2 2025 — quiet</div></div>
+      <div class="sub-freq-bar" style="width:14px" title="Q3 2025"><div class="sub-freq-tooltip">Q3 2025 — quiet</div></div>
+      <div class="sub-freq-bar has-report" style="width:14px" title="Q4 2025"><div class="sub-freq-tooltip">Q4 2025 — SURF report</div></div>
+      <div class="sub-freq-bar has-report" style="width:14px" title="Q1 2026"><div class="sub-freq-tooltip">Q1 2026 — Bittensor report</div></div>
+      <div class="sub-freq-bar" style="width:14px" title="Q2 2026"><div class="sub-freq-tooltip">Q2 2026 — 3 forthcoming</div></div>
+      <span style="font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-left:6px">2 live · 3 forthcoming</span>
+    </div>
   </div>
-  <div class="sub-note">No spam. Unsubscribe at any time.</div>
-  <div class="sub-social" style="margin-top:16px;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);">
-    Joining a growing list of researchers, allocators &amp; founders tracking this space.
+
+  <div class="sub-form" id="sub-form-wrap">
+    <input class="sub-input" type="email" placeholder="your@fund.com" id="sub-email-input">
+    <button class="sub-btn" id="sub-submit-btn">Subscribe →</button>
   </div>
+  <div class="sub-success" id="sub-success">
+    <div class="sub-success-dot"></div>
+    <span>You're on the list. Next report drops soon.</span>
+  </div>
+  <div class="sub-note">No spam. Unsubscribe at any time. Followed by teams at Multicoin, Paradigm, a16z, Galaxy.</div>
 </section>
 
 <!-- FOOTER -->
@@ -2422,6 +2541,63 @@ sfBtns.forEach(btn => {
     });
   });
 });
+
+
+/* ── SUBSCRIBE INTERACTION ── */
+(function() {
+  const btn = document.getElementById('sub-submit-btn');
+  const input = document.getElementById('sub-email-input');
+  const form = document.getElementById('sub-form-wrap');
+  const success = document.getElementById('sub-success');
+  if(!btn || !input) return;
+  input.addEventListener('keydown', e => { if(e.key === 'Enter') btn.click(); });
+  btn.addEventListener('click', () => {
+    const val = input.value.trim();
+    if(!val || !val.includes('@')) {
+      input.style.borderColor = 'var(--orange)';
+      input.style.animation = 'sub-shake .3s ease';
+      setTimeout(() => { input.style.animation = ''; input.style.borderColor = ''; }, 400);
+      input.focus();
+      return;
+    }
+    btn.textContent = '✓ Subscribed';
+    btn.style.background = '#1a7a3a';
+    btn.style.borderColor = '#1a7a3a';
+    form.style.opacity = '0.4';
+    form.style.pointerEvents = 'none';
+    if(success) success.classList.add('show');
+  });
+})();
+
+/* ── THESIS LIVE STAT COUNTERS ── */
+const tlsIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.tlsCount||0);
+      const prefix = el.dataset.tlsPrefix||'';
+      const suffix = el.dataset.tlsSuffix||'';
+      let start = 0; const dur = 1400; const t0 = performance.now();
+      const step = (now) => {
+        const p = Math.min((now-t0)/dur,1);
+        const ease = 1 - Math.pow(1-p,3);
+        const v = Math.round(ease * target);
+        el.textContent = prefix + v + suffix;
+        if(p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      tlsIO.unobserve(el);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('[data-tls-count]').forEach(el => tlsIO.observe(el));
+
+/* ── SUBSCRIBE SHAKE KEYFRAME (dynamic) ── */
+(function(){
+  const s = document.createElement('style');
+  s.textContent = '@keyframes sub-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }';
+  document.head.appendChild(s);
+})();
 
 </script>
 
