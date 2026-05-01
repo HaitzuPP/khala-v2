@@ -689,6 +689,30 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 }
 @keyframes tw-blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
 
+
+/* Disclosure */
+.disclosure-section {
+  background: var(--parch);
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+}
+.disclosure-inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.disclosure-label {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-60); margin-bottom: 10px;
+}
+.disclosure-section p {
+  font-family: 'Geist', sans-serif;
+  font-size: 11.5px; line-height: 1.75;
+  color: var(--ink-60);
+}
+.disclosure-section a { color: var(--ink-60); }
+
 </style>
 </head>
 <body>
@@ -719,7 +743,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     <div class="hero-left">
       <div class="hero-eyebrow">Ecosystem Report · Coordination Networks</div>
       <h1 class="hero-title">Bittensor: The<br><em>Intelligence Olympics</em></h1>
-      <p class="hero-sub">Five subnets spanning inference, computer vision, compliance, drug discovery, and frontier pre-training — each crossing from experiment to commercial traction.</p>
+      <p class="hero-sub">$5.5M ARR. Signed enterprise contracts. A NeurIPS paper. The largest permissionless pre-training run ever attempted. This report identifies which of the 128 active Bittensor subnets are generating real revenue — and which are burning emissions to simulate it.</p>
       <div class="hero-meta">
         <span class="hero-meta-item"><strong>Khala Research</strong></span>
         <span class="hero-meta-item">· February 2026</span>
@@ -730,7 +754,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
       <div class="hero-stat">
         <div class="hero-stat-label">Largest ARR Subnet</div>
         <div class="hero-stat-value accent">$5.5M</div>
-        <div class="hero-stat-note">Chutes · annualized</div>
+        <div class="hero-stat-note">Chutes · annualized · <a href="https://taostats.io" target="_blank" style="color:rgba(243,238,227,.5);font-size:10px;">taostats</a></div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-label">Active Subnets</div>
@@ -773,10 +797,6 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
   <!-- ARTICLE -->
   <article class="article-body">
 
-    <div class="note-box">
-      <p><strong>Note:</strong> Khala Research is developing a systematic subnet risk scoring framework to help allocators evaluate subnet investment quality at scale. For parties interested in early access, get in touch with the Khala Research team.</p>
-    </div>
-
     <div class="takeaways-box">
       <div class="takeaways-header">
         <div class="takeaways-header-dot"></div>
@@ -800,13 +820,17 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     <p>The network has evolved from a set of experimental incentives into functioning AI infrastructure with paying customers. The ecosystem now shows:</p>
 
     <ul>
-      <li><strong>Signed enterprise contracts:</strong> Reading FC, 3,000+ AVIA petrol stations, $10B+ market cap payments companies (under NDA).</li>
-      <li><strong>Institutional capital entering:</strong> Grayscale Trust products, DCG's Yuma receiving financing from Connecticut Innovations, TAO ETPs.</li>
-      <li><strong>Academic validation:</strong> Templar's SparseLoCo accepted at NeurIPS OPT2025 — the first Bittensor-originating research at a major ML conference.</li>
+      <li><strong>Signed enterprise contracts:</strong> <a href="https://readingfc.co.uk" target="_blank">Reading FC</a>, 3,000+ AVIA petrol stations, $10B+ market cap payments companies (under NDA).</li>
+      <li><strong>Institutional capital entering:</strong> <a href="https://grayscale.com" target="_blank">Grayscale</a> Trust products, DCG's <a href="https://taostats.io" target="_blank">Yuma</a> receiving financing from Connecticut Innovations, TAO ETPs.</li>
+      <li><strong>Academic validation:</strong> Templar's SparseLoCo accepted at <a href="https://neurips.cc" target="_blank">NeurIPS OPT2025</a> — the first Bittensor-originating research at a major ML conference.</li>
       <li><strong>Technical milestones:</strong> Largest permissionless pre-training run ever conducted (Covenant 72B).</li>
     </ul>
 
     <p>Real customers are paying real money. That changes the risk profile — proven traction provides asymmetric upside for those allocating capital.</p>
+
+    <div class="note-box" style="margin-bottom: 48px;">
+      <p><strong>Methodology note:</strong> Khala Research is developing a systematic subnet risk scoring framework to help allocators evaluate investment quality at scale. Revenue figures and performance claims cited in this report are sourced from public subnet dashboards and company disclosures. For early access to the scoring framework, contact the Khala Research team.</p>
+    </div>
 
     <div class="section-anchor"><span class="section-num">01</span><h2 id="concentration-problem">The Concentration Problem and Crypto's Solution</h2></div>
 
@@ -939,7 +963,7 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
         <p>Computer vision is one of the largest addressable markets in AI. Billions of cameras generate footage every day, but extracting intelligence from video still demands proprietary hardware or expensive cloud compute from Google, Nvidia, and AWS. A single football match still costs hundreds of dollars to annotate.</p>
         <p>SCORE's Manako AI converts live video into structured, queryable datasets — comparable to Google's AutoML or Nvidia's Cosmos VLM, but with a key structural difference: edge cases route to SN44's decentralized miner network, where miners compete to expand model capabilities and earn TAO. Each new customer deployment surfaces new edge cases. Each edge case sharpens the miner network. Quality compounds with usage, not headcount.</p>
         <div class="signal-row">
-          <span class="signal-tag sig-green">100% trial conversion</span>
+          <span class="signal-tag sig-green">100% trial conversion (self-reported)</span>
           <span class="signal-tag sig-green">Multi-vertical traction</span>
           <span class="signal-tag sig-amber">ARR not disclosed</span>
           <span class="signal-tag sig-red">Cost claims self-reported, unaudited</span>
@@ -1188,6 +1212,13 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
     </div>
 
   </article>
+</div>
+
+<div class="disclosure-section">
+  <div class="disclosure-inner">
+    <div class="disclosure-label">Disclosure</div>
+    <p>This report is produced by Khala Research for informational purposes only and does not constitute investment advice or a solicitation to buy or sell any asset. Khala Research and its principals may hold positions in TAO and in assets discussed in this report. All revenue figures, ARR estimates, and performance claims — including $5.5M ARR (Chutes), trial conversion rates (SCORE), and MOU references (NOVA / Yalotein Bio) — are sourced from public subnet dashboards and company disclosures and have not been independently audited. Readers should conduct their own due diligence. Past performance of any protocol is not indicative of future results.</p>
+  </div>
 </div>
 
 <footer class="footer">
