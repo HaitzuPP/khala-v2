@@ -788,16 +788,6 @@ html[data-theme="dark"] .disclosure-section { border-color: var(--border) !impor
 html[data-theme="dark"] .vc-node { border-color: var(--border); background: var(--parch); }
 html[data-theme="dark"] .vc-connector { background: var(--border); }
 html[data-theme="dark"] blockquote { border-color: var(--orange); background: rgba(217,79,42,.06); }
-.theme-toggle {
-  background: none; border: none; cursor: pointer;
-  color: var(--ink3, rgba(13,12,9,.4)); padding: 5px 8px;
-  display: flex; align-items: center;
-  transition: color .15s; line-height: 1;
-  margin-right: 6px;
-}
-.theme-toggle:hover { color: var(--ink); }
-
-
 /* ── Article dark mode pass 3 ────────────────────────────── */
 html, html * { transition: background-color .22s ease, border-color .22s ease, color .18s ease; }
 html[data-theme="dark"] .hero::before { opacity: .04; }
@@ -808,23 +798,19 @@ html[data-theme="dark"] .verdict-label { color: var(--ink3); }
 
 
 /* ── Theme pill ──────────────────────────────────────────── */
-.theme-pill {
-  display: flex; align-items: center;
-  border: 1px solid var(--bmed);
-  border-radius: 2px; overflow: hidden;
-  margin-right: 10px;
+.theme-toggle {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--border); background: transparent;
+  color: var(--ink2); cursor: pointer; flex-shrink: 0;
+  transition: color .2s, border-color .2s, background .2s;
 }
-.tp-opt {
-  font-family: var(--mono); font-size: 10px;
-  letter-spacing: .07em; text-transform: uppercase;
-  padding: 6px 11px; background: none; border: none;
-  cursor: pointer; color: var(--ink3);
-  transition: background .15s, color .15s; line-height: 1;
-}
-.tp-opt.active { background: var(--ink); color: var(--cream); }
-.tp-opt:not(.active):hover { color: var(--ink); background: rgba(13,12,9,.05); }
-html[data-theme="dark"] .tp-opt:not(.active):hover { background: rgba(237,232,220,.07); }
-html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cream); }
+.theme-toggle:hover { color: var(--ink); border-color: var(--bmed); background: rgba(13,12,9,.05); }
+html[data-theme="dark"] .theme-toggle:hover { background: rgba(237,232,220,.08); }
+/* Show sun in light mode, moon in dark mode */
+.ti-dark { display: none; }
+html[data-theme="dark"] .ti-dark { display: block; }
+html[data-theme="dark"] .ti-light { display: none; }
 
 
 /* Reading progress */
@@ -1769,26 +1755,20 @@ setTimeout(() => {
 <script>
 
 
-// ── Theme pill ────────────────────────────────────────────
+// ── Theme toggle ──────────────────────────────────────────
 (function(){
-  const pill = document.getElementById('theme-pill');
-  if(!pill) return;
-  const opts = pill.querySelectorAll('.tp-opt');
-  const sync = () => {
-    const d = document.documentElement.getAttribute('data-theme')==='dark';
-    opts.forEach(o => o.classList.toggle('active', o.dataset.mode===(d?'dark':'light')));
-  };
-  sync();
-  opts.forEach(o => o.addEventListener('click', () => {
-    if(o.dataset.mode==='dark'){
-      document.documentElement.setAttribute('data-theme','dark');
-      localStorage.setItem('khala-theme','dark');
-    } else {
+  var btn = document.getElementById('theme-pill');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if(isDark){
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('khala-theme','light');
+    } else {
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('khala-theme','dark');
     }
-    sync();
-  }));
+  });
 })();
 
 // ── Article subscribe mailto fallback ────────────────────
