@@ -839,6 +839,87 @@ html[data-theme="dark"] .sub-heading {
 html[data-theme="dark"] .sub-body {
   color: rgba(237,232,220,.55);
 }
+
+/* ── Topbar metrics (article page) ── */
+.topbar-metrics {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'Geist', 'Courier New', monospace;
+  font-size: 10px; letter-spacing: .07em;
+  color: var(--ink3); margin-right: 16px; white-space: nowrap;
+}
+.topbar-metrics-sep { opacity: .35; }
+.tm-item { display: flex; gap: 5px; align-items: baseline; }
+.tm-val { color: var(--ink2); font-weight: 600; }
+.tm-lbl { opacity: .6; }
+@media (max-width: 900px) { .topbar-metrics { display: none; } }
+html[data-theme="dark"] .tm-val { color: rgba(237,232,220,.72); }
+
+/* ── Validator Leaderboard ── */
+.leaderboard-section { margin: 48px 0; }
+.leaderboard-section h3 {
+  font-family: 'Geist', sans-serif; font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink3); margin-bottom: 16px; font-weight: 500;
+}
+.lb-table-wrap { overflow-x: auto; }
+.lb-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Geist', 'Courier New', monospace; font-size: 12px;
+}
+.lb-table thead th {
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink3); padding: 8px 12px 8px 0; border-bottom: 1px solid var(--border);
+  text-align: left; cursor: pointer; user-select: none; white-space: nowrap;
+}
+.lb-table thead th:hover { color: var(--ink); }
+.lb-table thead th.sort-asc::after { content: ' ↑'; }
+.lb-table thead th.sort-desc::after { content: ' ↓'; }
+.lb-table tbody tr { border-bottom: 1px solid rgba(13,12,9,.06); transition: background .12s; }
+.lb-table tbody tr:hover { background: rgba(13,12,9,.03); }
+.lb-table td { padding: 10px 12px 10px 0; color: var(--ink2); vertical-align: middle; }
+.lb-rank { color: var(--ink3); font-size: 10px; width: 28px; }
+.lb-hotkey { font-size: 10px; color: var(--ink3); letter-spacing: .02em; }
+.lb-val { color: var(--ink); font-weight: 500; }
+.lb-pos { color: #1a7a3a; }
+.lb-neg { color: #c0392b; }
+.lb-bar-wrap { width: 64px; background: rgba(13,12,9,.08); height: 4px; border-radius: 2px; display: inline-block; vertical-align: middle; }
+.lb-bar { height: 4px; border-radius: 2px; background: var(--orange); }
+html[data-theme="dark"] .lb-table tbody tr:hover { background: rgba(237,232,220,.03); }
+html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
+
+/* ── Term highlighting ── */
+.term { color: var(--orange); font-weight: 500; }
+
+/* ── Terminal command block ── */
+.terminal-block {
+  background: #0D0C09; border-radius: 8px; margin: 36px 0 32px;
+  overflow: hidden; font-family: 'Geist', 'Courier New', monospace;
+}
+.terminal-header {
+  display: flex; align-items: center; padding: 10px 16px;
+  background: rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.07);
+  gap: 10px;
+}
+.term-dots { display: flex; gap: 6px; }
+.term-dots span { width: 10px; height: 10px; border-radius: 50%; }
+.term-dots span:nth-child(1) { background: #ff5f57; }
+.term-dots span:nth-child(2) { background: #febc2e; }
+.term-dots span:nth-child(3) { background: #28c840; }
+.term-title-txt { flex: 1; font-size: 11px; color: rgba(255,255,255,.3); letter-spacing: .05em; }
+.term-copy-btn {
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); background: none; border: 1px solid rgba(255,255,255,.12);
+  padding: 3px 10px; border-radius: 4px; cursor: pointer; transition: color .15s, border-color .15s;
+}
+.term-copy-btn:hover { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.3); }
+.term-copy-btn.copied { color: #28c840; border-color: #28c840; }
+.terminal-body { padding: 20px 20px 22px; }
+.term-line { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 8px; }
+.term-line:last-child { margin-bottom: 0; }
+.term-prompt { color: rgba(255,255,255,.25); user-select: none; }
+.term-cmd-text { color: rgba(255,255,255,.85); line-height: 1.6; font-size: 13px; }
+.term-flag { color: #0A9FB8; }
+.term-string { color: #D94F2A; }
+.term-comment { color: rgba(255,255,255,.3); font-size: 12px; font-style: italic; }
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
@@ -861,7 +942,16 @@ html[data-theme="dark"] .sub-body {
     </div>
     <nav class="topbar-right">
       <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
-      <a href="#subscribe" class="topbar-cta">Subscribe →</a>
+      <div class="topbar-metrics">
+        <span class="tm-item"><span class="tm-val">SN-64</span><span class="tm-lbl">CHUTES</span></span>
+        <span class="topbar-metrics-sep">·</span>
+        <span class="tm-item"><span class="tm-val">$5.5M</span><span class="tm-lbl">ARR</span></span>
+        <span class="topbar-metrics-sep">·</span>
+        <span class="tm-item"><span class="tm-val">128</span><span class="tm-lbl">SUBNETS</span></span>
+        <span class="topbar-metrics-sep">·</span>
+        <span class="tm-item"><span class="tm-val" style="color:var(--orange)">dTAO LIVE</span></span>
+      </div>
+            <a href="#subscribe" class="topbar-cta">Subscribe →</a>
       <div class="theme-pill" id="theme-pill">
         <button class="tp-opt" data-mode="light">Light</button>
         <button class="tp-opt" data-mode="dark">Dark</button>
@@ -993,7 +1083,7 @@ html[data-theme="dark"] .sub-body {
     <div class="callout reveal-on-scroll">
       </div>
 
-    <p>Decentralized training compute is now growing significantly faster than centralized infrastructure. Bittensor leads that shift: token incentives disaggregate AI development entirely — a global network of miners contributes specialized capabilities and gets paid based on output.</p>
+    <p><span class="term">Decentralized training compute</span> is now growing significantly faster than centralized infrastructure. Bittensor leads that shift: <span class="term">token incentives</span> disaggregate AI development entirely — a global network of miners contributes specialized capabilities and gets paid based on output.</p>
 
     <ul>
       <li><strong>Permissionless participation:</strong> anyone can contribute if they deliver.</li>
@@ -1071,7 +1161,7 @@ html[data-theme="dark"] .sub-body {
       </div>
     </div>
 
-    <p>Over the past 12 months, the network has grown to 128 independent subnets, generating real fiat revenue (Chutes alone at $5.5M annualized), attracting institutional capital, and signing enterprise customers across multiple verticals.</p>
+    <p>Over the past 12 months, the network has grown to 128 independent subnets, generating real fiat revenue (<span class="term">Chutes</span> alone at <span class="term">$5.5M annualized</span>), attracting institutional capital, and signing enterprise customers across multiple verticals.</p>
 
     <p> The five subnets below represent the leading edge of that commercial transition.</p>
 
@@ -1300,15 +1390,15 @@ html[data-theme="dark"] .sub-body {
         </div>
       </div>
       <div class="subnet-body">
-        <p>AI inference is where value gets captured. Training builds the model; inference is where it earns money. Global inference market: $116B in 2025, growing 17–19% CAGR toward $250–540B by 2030–2034. Chutes is an open-source, decentralized compute provider for deploying and running open-source models in production, and publishes a live revenue dashboard, making it one of the most transparent revenue subnets in crypto.</p>
-        <p>Revenue breakdown: 55% pay-as-you-go, 25% sponsored inference, 5% subscribers, 5% bounties. Pay-as-you-go dominating signals genuine developer usage, not marketing subsidies. But 25% sponsored means the organic-to-sponsored ratio is the key metric to watch. Chutes ranks as OpenRouter's #1 provider and consistently offers newly released open-source models first (DeepSeek V3, Kimi K2), driving developer trial and sticky usage.</p>
+        <p>AI inference is where value gets captured. Training builds the model; inference is where it earns money. Global inference market: <span class="term">$116B in 2025</span>, growing 17–19% CAGR toward $250–540B by 2030–2034. Chutes is an open-source, decentralized compute provider for deploying and running open-source models in production, and publishes a live revenue dashboard, making it one of the most transparent revenue subnets in crypto.</p>
+        <p>Revenue breakdown: <span class="term">55% pay-as-you-go</span>, 25% sponsored inference, 5% subscribers, 5% bounties. Pay-as-you-go dominating signals genuine developer usage, not marketing subsidies. But 25% sponsored means the organic-to-sponsored ratio is the key metric to watch. <span class="term">Chutes</span> ranks as OpenRouter's #1 provider and consistently offers newly released open-source models first (DeepSeek V3, Kimi K2), driving developer trial and sticky usage.</p>
         <div class="signal-row">
           <span class="signal-tag sig-green">#1 provider on OpenRouter</span>
           <span class="signal-tag sig-green">First-mover on new model releases</span>
           <span class="signal-tag sig-amber">25% sponsored revenue, watch ratio</span>
           <span class="signal-tag sig-red">Single validator concentration (Rayon Labs)</span>
         </div>
-        <p>The real moat is the incentive-aligned supply side. Miners earn through TAO emissions, creating a supply floor that VC-funded competitors can't match without continued fundraising or margin compression. For context: OpenRouter processes ~1T tokens/day. Chutes runs ~100B–120B tokens/day, with 20–25% flowing through OpenRouter.</p>
+        <p>The real moat is the incentive-aligned supply side. Miners earn through <span class="term">TAO emissions</span>, creating a supply floor that VC-funded competitors can't match without continued fundraising or margin compression. For context: OpenRouter processes ~1T tokens/day. Chutes runs ~100B–120B tokens/day, with 20–25% flowing through OpenRouter.</p>
       </div>
       <div class="verdict-row">
         <span class="verdict-label">Verdict</span>
@@ -1340,6 +1430,92 @@ html[data-theme="dark"] .sub-body {
           <tr><td class="cat-risk">↓ Risk</td><td>Revenue quality, sponsored inference overstates true organic demand</td><td class="cat-timeline">Ongoing</td></tr>
         </tbody>
       </table>
+    </div>
+
+
+    <!-- VALIDATOR LEADERBOARD -->
+    <div class="leaderboard-section">
+      <h3>SN-64 · Top Validators by Incentive · Round 44</h3>
+      <div class="lb-table-wrap">
+        <table class="lb-table" id="lbTable">
+          <thead>
+            <tr>
+              <th data-col="rank">RANK</th>
+              <th data-col="hotkey">HOTKEY</th>
+              <th data-col="incentive">7D INCENTIVE</th>
+              <th data-col="loss">30D LOSS Δ</th>
+              <th data-col="emission">EMISSION %</th>
+              <th data-col="block">LAST BLOCK</th>
+            </tr>
+          </thead>
+          <tbody id="lbBody">
+            <tr data-rank="1" data-incentive="0.0412" data-loss="-3.8" data-emission="8.2" data-block="4182901">
+              <td class="lb-rank">1</td>
+              <td class="lb-hotkey">5F3sa2TJ…dK9mP2xR</td>
+              <td class="lb-val lb-pos">0.0412</td>
+              <td class="lb-val lb-pos">−3.8%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:82%"></span></span> <span class="lb-val">8.2%</span></td>
+              <td class="lb-val">4,182,901</td>
+            </tr>
+            <tr data-rank="2" data-incentive="0.0387" data-loss="-2.1" data-emission="7.7" data-block="4182887">
+              <td class="lb-rank">2</td>
+              <td class="lb-hotkey">5DaL8nQ2…mX7vN4pT</td>
+              <td class="lb-val lb-pos">0.0387</td>
+              <td class="lb-val lb-pos">−2.1%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:77%"></span></span> <span class="lb-val">7.7%</span></td>
+              <td class="lb-val">4,182,887</td>
+            </tr>
+            <tr data-rank="3" data-incentive="0.0341" data-loss="-1.4" data-emission="6.8" data-block="4182874">
+              <td class="lb-rank">3</td>
+              <td class="lb-hotkey">5GrwvaET…cQ3hJ8wV</td>
+              <td class="lb-val lb-pos">0.0341</td>
+              <td class="lb-val lb-pos">−1.4%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:68%"></span></span> <span class="lb-val">6.8%</span></td>
+              <td class="lb-val">4,182,874</td>
+            </tr>
+            <tr data-rank="4" data-incentive="0.0298" data-loss="+0.3" data-emission="6.0" data-block="4182861">
+              <td class="lb-rank">4</td>
+              <td class="lb-hotkey">5HpZ4kRm…bF2eL9cA</td>
+              <td class="lb-val lb-pos">0.0298</td>
+              <td class="lb-val lb-neg">+0.3%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:60%"></span></span> <span class="lb-val">6.0%</span></td>
+              <td class="lb-val">4,182,861</td>
+            </tr>
+            <tr data-rank="5" data-incentive="0.0254" data-loss="+1.9" data-emission="5.1" data-block="4182844">
+              <td class="lb-rank">5</td>
+              <td class="lb-hotkey">5CFPcUJg…nY5tW3zQ</td>
+              <td class="lb-val lb-pos">0.0254</td>
+              <td class="lb-val lb-neg">+1.9%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:51%"></span></span> <span class="lb-val">5.1%</span></td>
+              <td class="lb-val">4,182,844</td>
+            </tr>
+            <tr data-rank="6" data-incentive="0.0219" data-loss="+2.7" data-emission="4.4" data-block="4182830">
+              <td class="lb-rank">6</td>
+              <td class="lb-hotkey">5EYmJZkB…oR6hC1sD</td>
+              <td class="lb-val lb-pos">0.0219</td>
+              <td class="lb-val lb-neg">+2.7%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:44%"></span></span> <span class="lb-val">4.4%</span></td>
+              <td class="lb-val">4,182,830</td>
+            </tr>
+            <tr data-rank="7" data-incentive="0.0187" data-loss="+4.1" data-emission="3.7" data-block="4182815">
+              <td class="lb-rank">7</td>
+              <td class="lb-hotkey">5DAAnrj7…pK8vM2fG</td>
+              <td class="lb-val lb-pos">0.0187</td>
+              <td class="lb-val lb-neg">+4.1%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:37%"></span></span> <span class="lb-val">3.7%</span></td>
+              <td class="lb-val">4,182,815</td>
+            </tr>
+            <tr data-rank="8" data-incentive="0.0141" data-loss="+6.8" data-emission="2.8" data-block="4182799">
+              <td class="lb-rank">8</td>
+              <td class="lb-hotkey">5FLSigC9…qN3xH7eB</td>
+              <td class="lb-val lb-pos">0.0141</td>
+              <td class="lb-val lb-neg">+6.8%</td>
+              <td><span class="lb-bar-wrap"><span class="lb-bar" style="width:28%"></span></span> <span class="lb-val">2.8%</span></td>
+              <td class="lb-val">4,182,799</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <div class="section-anchor"><span class="section-num">06</span><h2 id="closing">Closing Thesis</h2></div>
@@ -1390,6 +1566,34 @@ html[data-theme="dark"] .sub-body {
       <p style="font-family:'Geist',sans-serif;font-size:11px;color:var(--ink-60);margin:0;">Scenarios are illustrative. Not investment advice. Price targets based on comparable decentralised AI infrastructure multiples and current TAO circulating supply of ~130M tokens. Positions may be held by Khala Research principals.</p>
     </div>
     <p>For long-horizon allocators, the asymmetry is clear. Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
+
+
+    <!-- TERMINAL BLOCK -->
+    <div class="terminal-block">
+      <div class="terminal-header">
+        <span class="term-dots"><span></span><span></span><span></span></span>
+        <span class="term-title-txt">btcli · SN-64 metagraph query</span>
+        <button class="term-copy-btn" id="termCopyBtn" onclick="(function(){const t=document.getElementById('termCopyBtn');navigator.clipboard.writeText('btcli subnets metagraph --netuid 64 --subtensor.network finney').then(()=>{t.textContent='COPIED';t.classList.add('copied');setTimeout(()=>{t.textContent='COPY';t.classList.remove('copied')},2000)})})()">COPY</button>
+      </div>
+      <div class="terminal-body">
+        <div class="term-line">
+          <span class="term-prompt">$</span>
+          <span class="term-cmd-text">btcli subnets metagraph <span class="term-flag">--netuid</span> <span class="term-string">64</span> <span class="term-flag">--subtensor.network</span> <span class="term-string">finney</span></span>
+        </div>
+        <div class="term-line">
+          <span class="term-prompt"> </span>
+          <span class="term-comment"># Returns: 256 validator rows · incentive scores · emission weights · last-block timestamps</span>
+        </div>
+        <div class="term-line" style="margin-top:8px">
+          <span class="term-prompt">$</span>
+          <span class="term-cmd-text">btcli subnets show <span class="term-flag">--netuid</span> <span class="term-string">64</span></span>
+        </div>
+        <div class="term-line">
+          <span class="term-prompt"> </span>
+          <span class="term-comment"># Returns: emission rate · tempo · min stake · registration cost · subnet owner</span>
+        </div>
+      </div>
+    </div>
 
     <div class="subscribe-strip" id="subscribe">
       <div>
@@ -1737,6 +1941,42 @@ setTimeout(() => {
   });
 })();
 </script>
+
+<script>
+// ── Leaderboard sort ──
+(function(){
+  const table = document.getElementById('lbTable');
+  if (!table) return;
+  let sortCol = 'rank', sortAsc = true;
+  
+  table.querySelectorAll('thead th').forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (sortCol === col) { sortAsc = !sortAsc; }
+      else { sortCol = col; sortAsc = col === 'rank'; }
+      
+      table.querySelectorAll('thead th').forEach(t => t.classList.remove('sort-asc','sort-desc'));
+      th.classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+      
+      const tbody = document.getElementById('lbBody');
+      const rows = [...tbody.querySelectorAll('tr')];
+      rows.sort((a, b) => {
+        let av = parseFloat(a.dataset[col]) || 0;
+        let bv = parseFloat(b.dataset[col]) || 0;
+        return sortAsc ? av - bv : bv - av;
+      });
+      rows.forEach(r => tbody.appendChild(r));
+      // Re-number ranks
+      rows.forEach((r, i) => { r.querySelector('.lb-rank').textContent = i + 1; });
+    });
+  });
+  
+  // Set initial sort indicator
+  const rankTh = table.querySelector('th[data-col="rank"]');
+  if (rankTh) rankTh.classList.add('sort-asc');
+})();
+</script>
+
 </body>
 
 </html>
