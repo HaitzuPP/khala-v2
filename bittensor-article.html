@@ -47,6 +47,7 @@ body {
   font-size: 20px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 body::after {
   content: '';
@@ -444,7 +445,9 @@ h2[id], .subnet-card[id] { scroll-margin-top: 72px; }
 .sig-amber { background: rgba(160,120,8,.08); color: #a07808; border: 1px solid rgba(160,120,8,.20); }
 
 /* ─── CATALYST TABLE ─── */
-.catalyst-section { margin: 28px 0 40px; }
+.catalyst-section { margin: 28px 0 40px;   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .catalyst-table {
   width: 100%; border-collapse: collapse;
   font-family: 'Geist', sans-serif; font-size: 13px;
@@ -727,7 +730,9 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 .scenario-table .sc-base td:first-child { color: var(--ink); font-weight: 600; }
 .scenario-table .sc-bull td:first-child { color: #1a7a3a; font-weight: 600; }
 .scenario-table .sc-price { font-family: 'Geist Mono', monospace; font-weight: 600; font-size: 14px; }
-.scenario-wrap { margin: 36px 0; }
+.scenario-wrap { margin: 36px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; }
 .scenario-wrap h3 { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-60); margin: 0 0 14px; font-weight: 400; }
 
 

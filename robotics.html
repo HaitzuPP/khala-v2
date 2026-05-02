@@ -47,6 +47,7 @@ body {
   font-size: 20px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 body::after {
   content: '';
@@ -459,6 +460,9 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
 .sig-amber { background: rgba(160,120,8,.08); color: #a07808; border: 1px solid rgba(160,120,8,.20); }
 
 /* ─── RISK TABLE ─── */
+
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 28px 0 40px; }
+.table-scroll .risk-table { margin: 0; }
 .risk-table {
   width: 100%; border-collapse: collapse;
   font-family: 'Geist', sans-serif; font-size: 13px;
@@ -1313,7 +1317,7 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
 
     <p>The sector remains high variance. Risk is distributed across multiple protocol layers, but the macro assumptions carry meaningful execution risk on a 3–5 year horizon.</p>
 
-    <table class="risk-table">
+    <div class="table-scroll"><table class="risk-table">
       <thead>
         <tr>
           <th>Risk Type</th>
@@ -1354,7 +1358,7 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
           <td>DAO governance vote mechanics and TGE unlock schedule</td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
 
     <!-- INVESTMENT OUTLOOK -->
     <div class="section-anchor" id="outlook">
