@@ -793,10 +793,39 @@ html[data-theme="dark"] .subnet-header { border-color: var(--border); }
 html[data-theme="dark"] .coverage-box { background: var(--parch); border-color: var(--border); }
 html[data-theme="dark"] .verdict-label { color: var(--ink3); }
 
+
+/* ── Theme pill ──────────────────────────────────────────── */
+.theme-pill {
+  display: flex; align-items: center;
+  border: 1px solid var(--bmed);
+  border-radius: 2px; overflow: hidden;
+  margin-right: 10px;
+}
+.tp-opt {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: 6px 11px; background: none; border: none;
+  cursor: pointer; color: var(--ink3);
+  transition: background .15s, color .15s; line-height: 1;
+}
+.tp-opt.active { background: var(--ink); color: var(--cream); }
+.tp-opt:not(.active):hover { color: var(--ink); background: rgba(13,12,9,.05); }
+html[data-theme="dark"] .tp-opt:not(.active):hover { background: rgba(237,232,220,.07); }
+html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cream); }
+
+
+/* Reading progress */
+#reading-progress {
+  position: fixed; top: 0; left: 0; z-index: 999;
+  height: 2px; width: 0%; background: var(--orange);
+  transition: width .1s linear; pointer-events: none;
+}
+
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
 <body>
+<div id="reading-progress"></div>
 
 <div id="progress-bar"></div>
 <div id="progress-section-label"></div>
@@ -883,6 +912,25 @@ html[data-theme="dark"] .verdict-label { color: var(--ink3); }
 
   <!-- ARTICLE -->
   <article class="article-body">
+
+<div style="background:var(--parch);border:1px solid var(--border);padding:20px 28px;margin:24px 0 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-left:3px solid var(--orange);">
+  <div style="padding:0 20px 0 0;border-right:1px solid var(--border);">
+    <div style="font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-30);margin-bottom:6px;">Bear Case</div>
+    <div style="font-family:'Baskervville',serif;font-size:22px;color:var(--ink);line-height:1.1;">$31</div>
+    <div style="font-family:'Geist',sans-serif;font-size:12px;color:var(--ink-60);margin-top:4px;">Flat / 0–18 mo</div>
+  </div>
+  <div style="padding:0 20px;border-right:1px solid var(--border);">
+    <div style="font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px;">Base Case ↑</div>
+    <div style="font-family:'Baskervville',serif;font-size:22px;color:var(--ink);line-height:1.1;">$155–230</div>
+    <div style="font-family:'Geist',sans-serif;font-size:12px;color:var(--ink-60);margin-top:4px;">5–8× / 12–36 mo</div>
+  </div>
+  <div style="padding:0 0 0 20px;">
+    <div style="font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-30);margin-bottom:6px;">Bull Case</div>
+    <div style="font-family:'Baskervville',serif;font-size:22px;color:var(--ink);line-height:1.1;">$615–920</div>
+    <div style="font-family:'Geist',sans-serif;font-size:12px;color:var(--ink-60);margin-top:4px;">20–30× / 36–60 mo</div>
+  </div>
+</div>
+
 
     <div class="takeaways-box">
       <div class="takeaways-header">
@@ -1340,7 +1388,7 @@ html[data-theme="dark"] .verdict-label { color: var(--ink3); }
     <div class="subscribe-strip" id="subscribe">
       <div>
         <div class="sub-heading">Original research on the tokenised AI economy</div>
-        <div class="sub-body">Analysts operate inside the protocols they cover. Primary research, not secondhand synthesis.</div>
+        <div class="sub-body">Analysts operate inside the protocols they cover. Primary research, not secondhand synthesis. Direct enquiries: <a href="mailto:research@khala.xyz" style="color:rgba(237,232,220,.5);text-decoration:underline;">research@khala.xyz</a></div>
       </div>
       <form class="sub-form" onsubmit="return false;">
         <input class="sub-input" type="email" placeholder="your@email.com">
@@ -1626,26 +1674,49 @@ const sigIO = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 document.querySelectorAll('.signal-row').forEach(r => sigIO.observe(r));
 </script>
+
+// ── IO Fallback ────────────────────────────────────────────
+setTimeout(() => {
+  document.querySelectorAll('.reveal-on-scroll:not(.revealed)').forEach(el =>
+    el.classList.add('revealed'));
+}, 1200);
+
+
+// Reading progress bar
+(function(){
+  const bar = document.getElementById('reading-progress');
+  if(!bar) return;
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop;
+    const total = doc.scrollHeight - doc.clientHeight;
+    bar.style.width = (total > 0 ? (scrolled/total)*100 : 0) + '%';
+  }, { passive: true });
+})();
+
 </body>
 </html>
 <script>
-// ── Theme toggle ─────────────────────────────────────────
+
+// ── Theme pill ────────────────────────────────────────────
 (function(){
-  const tgl = document.getElementById('theme-toggle');
-  if(!tgl) return;
+  const pill = document.getElementById('theme-pill');
+  if(!pill) return;
+  const opts = pill.querySelectorAll('.tp-opt');
   const sync = () => {
     const d = document.documentElement.getAttribute('data-theme')==='dark';
-    tgl.innerHTML = d
-      ? '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M7.5 1.5C5.1 1.5 3.1 3.2 2.7 5.5c.5-.2 1-.3 1.6-.3C6.7 5.2 8.5 7 8.5 9.2c0 1.2-.5 2.3-1.3 3 .1 0 .2 0 .3 0 3.3 0 6-2.7 6-6 0-2.6-1.6-4.8-4-5.7z" fill="currentColor"/></svg>'  // moon
-      : '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="3" stroke="currentColor" stroke-width="1.4"/><line x1="7.5" y1="0" x2="7.5" y2="2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="7.5" y1="12.5" x2="7.5" y2="15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="0" y1="7.5" x2="2.5" y2="7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="12.5" y1="7.5" x2="15" y2="7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="2.2" y1="2.2" x2="4" y2="4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="11" y1="11" x2="12.8" y2="12.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="11" y1="4" x2="12.8" y2="2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="2.2" y1="12.8" x2="4" y2="11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
-    tgl.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode');
+    opts.forEach(o => o.classList.toggle('active', o.dataset.mode===(d?'dark':'light')));
   };
   sync();
-  tgl.addEventListener('click', () => {
-    const d = document.documentElement.getAttribute('data-theme')==='dark';
-    if(d){ document.documentElement.removeAttribute('data-theme'); localStorage.setItem('khala-theme','light'); }
-    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('khala-theme','dark'); }
+  opts.forEach(o => o.addEventListener('click', () => {
+    if(o.dataset.mode==='dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('khala-theme','dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('khala-theme','light');
+    }
     sync();
-  });
+  }));
 })();
 </script>
