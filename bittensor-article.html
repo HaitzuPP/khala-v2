@@ -727,7 +727,64 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 .scenario-wrap { margin: 36px 0; }
 .scenario-wrap h3 { font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-60); margin: 0 0 14px; font-weight: 400; }
 
+
+/* ══════════════════════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════════════════════ */
+html[data-theme="dark"] {
+  --cream:  #1A1713;
+  --parch:  #232018;
+  --ink:    #EDE8DC;
+  --ink-80: rgba(237,232,220,.80);
+  --ink-60: rgba(237,232,220,.60);
+  --ink-30: rgba(237,232,220,.30);
+  --ink-12: rgba(237,232,220,.12);
+  --ink-06: rgba(237,232,220,.06);
+  --border: rgba(237,232,220,.10);
+  --bmed:   rgba(237,232,220,.18);
+  --rule:   1px solid rgba(237,232,220,.10);
+  --rule-heavy: 1px solid rgba(237,232,220,.18);
+}
+html[data-theme="dark"] .topbar {
+  background: rgba(16,14,10,.92);
+  border-bottom-color: rgba(237,232,220,.08);
+}
+html[data-theme="dark"] .topbar-logo path,
+html[data-theme="dark"] .footer-left { color: rgba(237,232,220,.4); }
+/* Article hero bg */
+html[data-theme="dark"] .article-hero { background: var(--parch); }
+html[data-theme="dark"] .toc-wrap {
+  background: var(--parch);
+  border-color: var(--border);
+}
+/* Subscribe strip stays dark (ink bg) — just ensure --cream/--ink work */
+html[data-theme="dark"] .subscribe-strip { background: #0E0C09; }
+html[data-theme="dark"] .sub-input {
+  background: rgba(237,232,220,.07);
+  border-color: rgba(237,232,220,.15);
+  color: var(--ink);
+}
+/* Verdict boxes, signal tags, tables */
+html[data-theme="dark"] .verdict-box { border-color: var(--border); background: var(--parch); }
+html[data-theme="dark"] .subnet-section { border-color: var(--border); }
+html[data-theme="dark"] table thead tr { background: var(--parch); }
+html[data-theme="dark"] table tbody tr:nth-child(odd) { background: rgba(237,232,220,.03); }
+html[data-theme="dark"] .signal-tag { border-color: var(--border); }
+html[data-theme="dark"] .disclosure-section { border-color: var(--border); background: var(--parch); }
+html[data-theme="dark"] .vc-node { border-color: var(--border); background: var(--parch); }
+html[data-theme="dark"] .vc-connector { background: var(--border); }
+html[data-theme="dark"] blockquote { border-color: var(--orange); background: rgba(217,79,42,.06); }
+.theme-toggle {
+  background: none; border: none; cursor: pointer;
+  color: var(--ink3, rgba(13,12,9,.4)); padding: 5px 8px;
+  display: flex; align-items: center;
+  transition: color .15s; line-height: 1;
+  margin-right: 6px;
+}
+.theme-toggle:hover { color: var(--ink); }
+
 </style>
+<script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
 <body>
 
@@ -1561,3 +1618,24 @@ document.querySelectorAll('.signal-row').forEach(r => sigIO.observe(r));
 </script>
 </body>
 </html>
+<script>
+// ── Theme toggle ─────────────────────────────────────────
+(function(){
+  const tgl = document.getElementById('theme-toggle');
+  if(!tgl) return;
+  const sync = () => {
+    const d = document.documentElement.getAttribute('data-theme')==='dark';
+    tgl.innerHTML = d
+      ? '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6" stroke="currentColor" stroke-width="1.4"/><path d="M7.5 1.5C5.1 1.5 3.1 3.2 2.7 5.5c.5-.2 1-.3 1.6-.3C6.7 5.2 8.5 7 8.5 9.2c0 1.2-.5 2.3-1.3 3 .1 0 .2 0 .3 0 3.3 0 6-2.7 6-6 0-2.6-1.6-4.8-4-5.7z" fill="currentColor"/></svg>'  // moon
+      : '<svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="3" stroke="currentColor" stroke-width="1.4"/><line x1="7.5" y1="0" x2="7.5" y2="2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="7.5" y1="12.5" x2="7.5" y2="15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="0" y1="7.5" x2="2.5" y2="7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="12.5" y1="7.5" x2="15" y2="7.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="2.2" y1="2.2" x2="4" y2="4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="11" y1="11" x2="12.8" y2="12.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="11" y1="4" x2="12.8" y2="2.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><line x1="2.2" y1="12.8" x2="4" y2="11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>';
+    tgl.setAttribute('aria-label', d ? 'Switch to light mode' : 'Switch to dark mode');
+  };
+  sync();
+  tgl.addEventListener('click', () => {
+    const d = document.documentElement.getAttribute('data-theme')==='dark';
+    if(d){ document.documentElement.removeAttribute('data-theme'); localStorage.setItem('khala-theme','light'); }
+    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('khala-theme','dark'); }
+    sync();
+  });
+})();
+</script>
