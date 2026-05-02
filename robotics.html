@@ -384,8 +384,8 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
 .protocol-card-header {
   background: var(--ink); padding: 24px 28px;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px; align-items: start;
+  grid-template-columns: 56px 1fr;
+  gap: 20px; align-items: center;
 }
 .protocol-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
 .protocol-id {
@@ -658,6 +658,89 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
 @keyframes ros-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 .reveal-on-scroll { opacity: 0; }
 .reveal-on-scroll.visible { animation: ros-in .45s ease both; }
+
+/* ── PROTOCOL / SUBNET LOGOS ─────────────────────── */
+.proto-logo, .subnet-badge {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--av-bg, rgba(243,238,227,.12));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: .03em; color: rgba(255,255,255,.88);
+  flex-shrink: 0; border: 1px solid rgba(255,255,255,.10);
+  overflow: hidden; user-select: none;
+}
+.subnet-badge {
+  border-radius: 6px; flex-direction: column; gap: 1px;
+  font-size: 15px; font-family: 'Geist Mono', monospace;
+}
+.subnet-badge .sb-label {
+  font-size: 9px; letter-spacing: .1em; opacity: .55; margin-top: 1px;
+}
+
+/* ── AUTHOR BYLINE ────────────────────────────────── */
+.hero-byline { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.10); }
+.byline-meta {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Geist Mono', monospace; font-size: 10.5px;
+  letter-spacing: .09em; color: rgba(243,238,227,.30);
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.byline-meta-sep { opacity: .4; }
+.byline-read {
+  border: 1px solid rgba(255,255,255,.12); padding: 3px 9px;
+  color: rgba(243,238,227,.30);
+}
+.byline-authors { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+.byline-author { display: flex; gap: 10px; align-items: center; }
+.byline-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--av-bg, rgba(243,238,227,.12));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,.88); flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.byline-name {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500;
+  color: rgba(243,238,227,.75); line-height: 1.2;
+}
+.byline-role {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  letter-spacing: .07em; color: rgba(243,238,227,.32);
+  text-transform: uppercase; margin-top: 2px;
+}
+
+/* ── ANCHOR COPY LINKS ────────────────────────────── */
+.article-body h2 { position: relative; }
+.anchor-link {
+  opacity: 0; margin-left: 9px; color: var(--orange);
+  font-size: 13px; font-family: 'Geist Mono', monospace;
+  text-decoration: none; font-weight: 400;
+  vertical-align: middle; cursor: pointer;
+  transition: opacity .15s, color .15s;
+  display: inline-block;
+}
+.article-body h2:hover .anchor-link { opacity: .55; }
+.anchor-link:hover { opacity: 1 !important; }
+.anchor-link.anchor-copied { color: #5dbf7c; }
+.anchor-tip {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--cream); padding: 8px 18px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .08em;
+  pointer-events: none; opacity: 0; transition: opacity .2s;
+  z-index: 999; border: var(--rule);
+}
+.anchor-tip.show { opacity: 1; }
+
+
+@media (max-width: 390px) {
+  .proto-logo { width: 40px; height: 40px; font-size: 10px; }
+  .protocol-card-header { gap: 12px; padding: 18px 20px; }
+  .protocol-name { font-size: 22px; }
+  .hero-title { font-size: 26px; }
+  .byline-authors { gap: 14px; }
+}
+
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
@@ -696,12 +779,35 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
       <div class="hero-eyebrow">Ecosystem Report · Physical AI</div>
       <h1 class="hero-title">The Decentralized<br>Robotics <em>Landscape</em></h1>
       <p class="hero-sub">Nine protocols building the software, coordination, and capital layers for the coming age of embodied AI. The hardware is coming — the infrastructure race has already started.</p>
-      <div class="hero-meta">
-        <div class="hero-meta-item"><strong>Jan 7, 2026</strong></div>
-        <div class="hero-meta-item">by <strong>0xSammy</strong></div>
-        <div class="hero-meta-item">+ <strong>AlexKazoh</strong></div>
-        <div class="hero-meta-item">+ <strong>haitzu</strong></div>
-        <div class="hero-read-time">~18 MIN READ</div>
+      <div class="hero-byline">
+        <div class="byline-meta">
+          <span class="byline-date">Jan 7, 2026</span>
+          <span class="byline-meta-sep">·</span>
+          <span class="byline-read">18 MIN READ</span>
+        </div>
+        <div class="byline-authors">
+          <div class="byline-author">
+            <div class="byline-avatar" style="--av-bg:#D94F2A">0S</div>
+            <div>
+              <div class="byline-name">0xSammy</div>
+              <div class="byline-role">Research Lead</div>
+            </div>
+          </div>
+          <div class="byline-author">
+            <div class="byline-avatar" style="--av-bg:#2563EB">AK</div>
+            <div>
+              <div class="byline-name">AlexKazoh</div>
+              <div class="byline-role">Physical AI</div>
+            </div>
+          </div>
+          <div class="byline-author">
+            <div class="byline-avatar" style="--av-bg:#059669">H</div>
+            <div>
+              <div class="byline-name">haitzu</div>
+              <div class="byline-role">Editor</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero-right">
@@ -802,7 +908,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- PEAQ -->
     <div class="protocol-card reveal-on-scroll" id="peaq">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#E87C27">P</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$PEAQ · LAYER 1</span>
             <span class="protocol-status status-live">LIVE</span>
@@ -849,7 +956,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- GEODNET -->
     <div class="protocol-card reveal-on-scroll" id="geod">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#22C55E">GD</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$GEOD · DePIN</span>
             <span class="protocol-status status-live">LIVE</span>
@@ -895,7 +1003,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- BITROBOT -->
     <div class="protocol-card reveal-on-scroll" id="bitrobot">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#9945FF">BR</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">BITROBOT · SOLANA</span>
             <span class="protocol-status status-pre-tge">PRE-TGE</span>
@@ -941,7 +1050,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- CODEC -->
     <div class="protocol-card reveal-on-scroll" id="codec">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#0891B2">CF</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$CODEC · SOLANA</span>
             <span class="protocol-status status-live">LIVE</span>
@@ -987,7 +1097,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- AUKI -->
     <div class="protocol-card reveal-on-scroll" id="auki">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#7C3AED">A</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$AUKI · BASE</span>
             <span class="protocol-status status-live">LIVE</span>
@@ -1034,7 +1145,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- NRN -->
     <div class="protocol-card reveal-on-scroll" id="nrn">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#2563EB">N</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$NRN · NEURON</span>
             <span class="protocol-status status-live">LIVE</span>
@@ -1080,7 +1192,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- XMAQUINA/DEUS -->
     <div class="protocol-card reveal-on-scroll" id="deus">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#DC2626">XM</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$DEUS · BASE + PEAQ</span>
             <span class="protocol-status status-pre-tge">PRE-TGE</span>
@@ -1127,7 +1240,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- TAO SUBNETS -->
     <div class="protocol-card reveal-on-scroll" id="tao">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#D94F2A">TAO</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">$TAO · BITTENSOR</span>
             <span class="protocol-status status-live">LIVE</span>
@@ -1171,7 +1285,8 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
     <!-- OPENMIND -->
     <div class="protocol-card reveal-on-scroll" id="openmind">
       <div class="protocol-card-header">
-        <div>
+        <div class="proto-logo" style="--av-bg:#059669">OM</div>
+      <div>
           <div class="protocol-tag-row">
             <span class="protocol-id">OPENMIND · OM1</span>
             <span class="protocol-status status-pre-tge">PRE-TGE</span>
@@ -1417,6 +1532,34 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.obse
     sync();
   }));
 })();
+
+/* ── ANCHOR COPY LINKS JS ──────────────────────────── */
+(function(){
+  const tip = document.createElement('div');
+  tip.className = 'anchor-tip'; tip.textContent = 'LINK COPIED';
+  document.body.appendChild(tip);
+  let tipTimer;
+  document.querySelectorAll('.article-body h2[id]').forEach(h2 => {
+    const a = document.createElement('a');
+    a.className = 'anchor-link'; a.textContent = '#';
+    a.href = '#' + h2.id;
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const url = location.href.split('#')[0] + '#' + h2.id;
+      navigator.clipboard.writeText(url).catch(()=>{});
+      history.replaceState(null,'', '#' + h2.id);
+      a.classList.add('anchor-copied');
+      tip.classList.add('show');
+      clearTimeout(tipTimer);
+      tipTimer = setTimeout(() => {
+        a.classList.remove('anchor-copied');
+        tip.classList.remove('show');
+      }, 2000);
+    });
+    h2.appendChild(a);
+  });
+})();
+
 </script>
 </body>
 </html>

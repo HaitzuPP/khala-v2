@@ -369,8 +369,8 @@ h2[id], .subnet-card[id] { scroll-margin-top: 72px; }
 .subnet-card-header {
   background: var(--ink); padding: 24px 28px;
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px; align-items: start;
+  grid-template-columns: 56px 1fr;
+  gap: 20px; align-items: center;
 }
 .subnet-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .subnet-id {
@@ -828,6 +828,89 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 
 
 /* Reading progress */
+
+/* ── PROTOCOL / SUBNET LOGOS ─────────────────────── */
+.proto-logo, .subnet-badge {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--av-bg, rgba(243,238,227,.12));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: .03em; color: rgba(255,255,255,.88);
+  flex-shrink: 0; border: 1px solid rgba(255,255,255,.10);
+  overflow: hidden; user-select: none;
+}
+.subnet-badge {
+  border-radius: 6px; flex-direction: column; gap: 1px;
+  font-size: 15px; font-family: 'Geist Mono', monospace;
+}
+.subnet-badge .sb-label {
+  font-size: 9px; letter-spacing: .1em; opacity: .55; margin-top: 1px;
+}
+
+/* ── AUTHOR BYLINE ────────────────────────────────── */
+.hero-byline { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.10); }
+.byline-meta {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Geist Mono', monospace; font-size: 10.5px;
+  letter-spacing: .09em; color: rgba(243,238,227,.30);
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.byline-meta-sep { opacity: .4; }
+.byline-read {
+  border: 1px solid rgba(255,255,255,.12); padding: 3px 9px;
+  color: rgba(243,238,227,.30);
+}
+.byline-authors { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+.byline-author { display: flex; gap: 10px; align-items: center; }
+.byline-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--av-bg, rgba(243,238,227,.12));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Geist', sans-serif; font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,.88); flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.byline-name {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500;
+  color: rgba(243,238,227,.75); line-height: 1.2;
+}
+.byline-role {
+  font-family: 'Geist Mono', monospace; font-size: 10px;
+  letter-spacing: .07em; color: rgba(243,238,227,.32);
+  text-transform: uppercase; margin-top: 2px;
+}
+
+/* ── ANCHOR COPY LINKS ────────────────────────────── */
+.article-body h2 { position: relative; }
+.anchor-link {
+  opacity: 0; margin-left: 9px; color: var(--orange);
+  font-size: 13px; font-family: 'Geist Mono', monospace;
+  text-decoration: none; font-weight: 400;
+  vertical-align: middle; cursor: pointer;
+  transition: opacity .15s, color .15s;
+  display: inline-block;
+}
+.article-body h2:hover .anchor-link { opacity: .55; }
+.anchor-link:hover { opacity: 1 !important; }
+.anchor-link.anchor-copied { color: #5dbf7c; }
+.anchor-tip {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: var(--cream); padding: 8px 18px;
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: .08em;
+  pointer-events: none; opacity: 0; transition: opacity .2s;
+  z-index: 999; border: var(--rule);
+}
+.anchor-tip.show { opacity: 1; }
+
+
+@media (max-width: 390px) {
+  .subnet-badge { width: 40px; height: 40px; font-size: 13px; }
+  .subnet-card-header { gap: 12px; padding: 18px 20px; }
+  .subnet-name { font-size: 22px; }
+  .hero-title { font-size: 26px; }
+  .byline-authors { gap: 14px; }
+}
+
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
@@ -867,10 +950,28 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <div class="hero-eyebrow">Ecosystem Report · Coordination Networks</div>
       <h1 class="hero-title">Bittensor: The<br><em>Intelligence Olympics</em></h1>
       <p class="hero-sub">$5.5M ARR. Signed enterprise contracts. A NeurIPS paper. The largest permissionless pre-training run ever attempted. This report identifies which of the 128 active Bittensor subnets are generating real revenue, and which are burning emissions to simulate it.</p>
-      <div class="hero-meta">
-        <span class="hero-meta-item"><strong>Khala Research</strong></span>
-        <span class="hero-meta-item">· February 2026</span>
-        <span class="hero-read-time">~18 MIN READ</span>
+      <div class="hero-byline">
+        <div class="byline-meta">
+          <span class="byline-date">February 2026</span>
+          <span class="byline-meta-sep">·</span>
+          <span class="byline-read">18 MIN READ</span>
+        </div>
+        <div class="byline-authors">
+          <div class="byline-author">
+            <div class="byline-avatar" style="--av-bg:#D94F2A">JL</div>
+            <div>
+              <div class="byline-name">Jack Leung</div>
+              <div class="byline-role">Lead Analyst</div>
+            </div>
+          </div>
+          <div class="byline-author">
+            <div class="byline-avatar" style="--av-bg:#059669">H</div>
+            <div>
+              <div class="byline-name">haitzu</div>
+              <div class="byline-role">Research</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero-right">
@@ -1078,6 +1179,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <!-- SN44 SCORE -->
     <div class="subnet-card reveal-on-scroll" id="sn44">
       <div class="subnet-card-header">
+        <div class="subnet-badge" style="--av-bg:#E87C27">44<span class="sb-label">SN</span></div>
         <div>
           <div class="subnet-tag-row">
             <span class="subnet-id">SN44</span>
@@ -1124,6 +1226,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <!-- SN54 MIID -->
     <div class="subnet-card reveal-on-scroll" id="sn54">
       <div class="subnet-card-header">
+        <div class="subnet-badge" style="--av-bg:#7C3AED">54<span class="sb-label">SN</span></div>
         <div>
           <div class="subnet-tag-row">
             <span class="subnet-id">SN54</span>
@@ -1170,6 +1273,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <!-- SN68 NOVA -->
     <div class="subnet-card reveal-on-scroll" id="sn68">
       <div class="subnet-card-header">
+        <div class="subnet-badge" style="--av-bg:#2563EB">68<span class="sb-label">SN</span></div>
         <div>
           <div class="subnet-tag-row">
             <span class="subnet-id">SN68</span>
@@ -1216,6 +1320,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <!-- SN3 TEMPLAR -->
     <div class="subnet-card reveal-on-scroll" id="sn3">
       <div class="subnet-card-header">
+        <div class="subnet-badge" style="--av-bg:#059669">3<span class="sb-label">SN</span></div>
         <div>
           <div class="subnet-tag-row">
             <span class="subnet-id">SN3</span>
@@ -1262,6 +1367,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <!-- SN64 CHUTES -->
     <div class="subnet-card reveal-on-scroll" id="sn64">
       <div class="subnet-card-header">
+        <div class="subnet-badge" style="--av-bg:#DC2626">64<span class="sb-label">SN</span></div>
         <div>
           <div class="subnet-tag-row">
             <span class="subnet-id">SN64</span>
@@ -1734,6 +1840,34 @@ setTimeout(() => {
     btn.disabled = true;
   });
 })();
+
+/* ── ANCHOR COPY LINKS JS ──────────────────────────── */
+(function(){
+  const tip = document.createElement('div');
+  tip.className = 'anchor-tip'; tip.textContent = 'LINK COPIED';
+  document.body.appendChild(tip);
+  let tipTimer;
+  document.querySelectorAll('.article-body h2[id]').forEach(h2 => {
+    const a = document.createElement('a');
+    a.className = 'anchor-link'; a.textContent = '#';
+    a.href = '#' + h2.id;
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const url = location.href.split('#')[0] + '#' + h2.id;
+      navigator.clipboard.writeText(url).catch(()=>{});
+      history.replaceState(null,'', '#' + h2.id);
+      a.classList.add('anchor-copied');
+      tip.classList.add('show');
+      clearTimeout(tipTimer);
+      tipTimer = setTimeout(() => {
+        a.classList.remove('anchor-copied');
+        tip.classList.remove('show');
+      }, 2000);
+    });
+    h2.appendChild(a);
+  });
+})();
+
 </script>
 </body>
 
