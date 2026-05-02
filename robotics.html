@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Decentralized Robotics Landscape · Khala Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F3EEE3;
+  --parch: #EAE4D4;
+  --ink:   #0D0C09;
+  --ink-80: rgba(13,12,9,.80);
+  --ink-60: rgba(13,12,9,.60);
+  --ink-30: rgba(13,12,9,.30);
+  --ink-12: rgba(13,12,9,.12);
+  --ink-06: rgba(13,12,9,.06);
+  --orange: #D94F2A;
+  --cyan:   #0A9FB8;
+  --green:  #1a7a3a;
+  --red:    #c0392b;
+  --amber:  #a07808;
+  --rule:   1px solid var(--ink-12);
+  --mono:  'Geist Mono', monospace;
+  --geist: 'Geist', sans-serif;
+  --bmed:  rgba(13,12,9,.18);
+  --ink2: rgba(13,12,9,.65);
+  --ink3: rgba(13,12,9,.45);
+  --ink4:  rgba(13,12,9,.10);
+  --border: rgba(13,12,9,.12);
+  --dark:  #1C1914;
+  --rule-heavy: 1px solid var(--ink-30);
+  --col: 740px;
+  --toc: 220px;
+  --gap: 64px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; background: var(--cream); }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 20px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 10;
+  opacity: .6;
+}
+
+/* ─── PROGRESS BAR ─── */
+#progress-bar {
+  position: fixed; top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: var(--orange);
+  z-index: 100;
+  transition: width .08s linear;
+}
+#progress-section-label {
+  position: fixed; top: 6px; right: 16px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--orange); opacity: 0; transition: opacity .4s;
+  z-index: 101; pointer-events: none; white-space: nowrap;
+}
+#progress-section-label.visible { opacity: 1; }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(243,238,227,.92);
+  backdrop-filter: blur(16px);
+  border-bottom: var(--rule);
+  height: 56px;
+}
+.topbar-inner {
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; color: var(--ink); }
+.topbar-logo svg { height: 20px; width: auto; }
+.topbar-center {
+  display: flex; align-items: center; gap: 6px;
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400;
+  color: var(--ink-30); letter-spacing: .02em;
+}
+.topbar-center a { color: var(--ink-30); text-decoration: none; transition: color .15s; }
+.topbar-center a:hover { color: var(--ink); }
+.topbar-center .sep { color: var(--ink-12); }
+.topbar-center .current { color: var(--ink-60); }
+.topbar-right { display: flex; align-items: center; gap: 20px; }
+.topbar-right a {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500;
+  color: var(--ink-60); text-decoration: none; letter-spacing: .02em; transition: color .15s;
+}
+.topbar-right a:hover { color: var(--ink); }
+.topbar-cta {
+  color: var(--ink) !important;
+  border: 1px solid var(--ink-30);
+  padding: 6px 14px;
+  border-radius: 2px;
+  transition: background .15s, border-color .15s !important;
+}
+.topbar-cta:hover { background: var(--ink); color: var(--cream) !important; border-color: var(--ink) !important; }
+
+.topbar-metrics {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Geist Mono', monospace; font-size: 11.5px;
+  letter-spacing: .04em;
+}
+.tm-item { display: flex; gap: 5px; align-items: baseline; }
+.tm-val { color: var(--ink2); font-weight: 600; }
+.tm-lbl { opacity: .6; }
+.topbar-metrics-sep { opacity: .35; }
+@media (max-width: 900px) { .topbar-metrics { display: none; } }
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--ink);
+  padding: 72px 32px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '⬡';
+  position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+  font-size: clamp(120px, 18vw, 240px);
+  color: rgba(255,255,255,.025);
+  font-family: 'Geist Mono', monospace;
+  pointer-events: none; line-height: 1;
+}
+.hero-inner {
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: var(--toc) 1fr;
+  gap: 0 var(--gap);
+  align-items: end;
+  position: relative; z-index: 1;
+}
+.hero-left { padding-bottom: 4px; }
+.hero-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 12px;
+  font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--orange); }
+.hero-title {
+  font-family: 'Baskervville', serif;
+  font-size: clamp(38px, 5vw, 64px);
+  font-weight: 400; line-height: 1.06; letter-spacing: -.02em;
+  color: var(--cream); margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: rgba(243,238,227,.65); }
+.hero-sub {
+  font-family: 'Crimson Text', serif; font-size: 19px; font-style: italic;
+  color: rgba(243,238,227,.5); line-height: 1.55; max-width: 560px;
+  margin-bottom: 32px;
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.10); padding-top: 20px;
+}
+.hero-meta-item {
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  color: rgba(243,238,227,.50); letter-spacing: .04em;
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-meta-item strong { color: rgba(243,238,227,.70); font-weight: 500; }
+.hero-read-time {
+  font-family: 'Geist Mono', monospace; font-size: 12px; font-weight: 500;
+  letter-spacing: .1em; color: rgba(243,238,227,.35);
+  border: 1px solid rgba(255,255,255,.12); padding: 4px 10px;
+}
+.hero-right {
+  display: flex; flex-direction: column; gap: 0;
+  border-left: 1px solid rgba(255,255,255,.08);
+  padding-left: var(--gap);
+}
+.hero-stat {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.hero-stat-label {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(243,238,227,.25); margin-bottom: 6px;
+}
+.hero-stat-value {
+  font-family: 'Baskervville', serif; font-size: 26px; font-weight: 400;
+  color: var(--cream); line-height: 1.15;
+}
+.hero-stat-value.accent { color: var(--orange); }
+.hero-stat-note {
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  color: rgba(243,238,227,.45); margin-top: 3px;
+}
+
+/* ─── PAGE LAYOUT ─── */
+.page-wrap {
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto;
+  padding: 0 32px;
+  display: grid;
+  grid-template-columns: var(--toc) 1fr;
+  gap: 0 var(--gap);
+  align-items: start;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position: sticky; top: 72px;
+  padding: 48px 0;
+  grid-column: 1;
+}
+.toc-label {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--ink-30); margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.toc-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-12); }
+.toc-list { list-style: none; }
+.toc-list li { margin: 0; }
+.toc-list a {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 400;
+  color: var(--ink-30); text-decoration: none; line-height: 1.4;
+  display: block; padding: 5px 0 5px 12px;
+  border-left: 2px solid transparent;
+  transition: color .12s, border-color .12s;
+}
+.toc-list a:hover { color: var(--ink-80); }
+.toc-list a.active {
+  color: var(--ink); border-left-color: var(--orange);
+  font-weight: 500;
+}
+.toc-list .toc-sub a {
+  padding-left: 22px; font-size: 12.5px;
+  color: var(--ink-30);
+}
+.toc-list .toc-sub a:hover { color: var(--ink-60); }
+.toc-list .toc-sub a.active { color: var(--ink-60); border-left-color: rgba(217,79,42,.4); }
+.toc-list .toc-divider {
+  height: 1px; background: var(--ink-06);
+  margin: 8px 0 8px 12px;
+}
+
+/* ─── ARTICLE BODY ─── */
+.article-body {
+  grid-column: 2;
+  padding: 52px 0 96px;
+}
+
+/* ─── NOTE BOX ─── */
+.note-box {
+  background: var(--parch); border-left: 3px solid var(--orange);
+  padding: 14px 18px; margin-bottom: 36px;
+}
+.note-box p {
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  color: var(--ink-60); line-height: 1.6; margin: 0;
+}
+.note-box strong { color: var(--ink); font-weight: 600; }
+
+/* ─── KEY TAKEAWAYS ─── */
+.takeaways-box {
+  border: var(--rule); margin-bottom: 52px; overflow: hidden;
+}
+.takeaways-header {
+  background: var(--ink); padding: 12px 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.takeaways-header-label {
+  font-family: 'Geist Mono', monospace; font-size: 12px;
+  font-weight: 500; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(243,238,227,.45);
+}
+.takeaways-header-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--orange); flex-shrink: 0;
+}
+.takeaways-list { list-style: none; counter-reset: item; }
+.takeaways-list li {
+  font-family: 'Crimson Text', serif; font-size: 18px;
+  line-height: 1.6; color: var(--ink);
+  padding: 14px 24px 14px 44px;
+  border-bottom: var(--rule);
+  position: relative;
+}
+.takeaways-list li:last-child { border-bottom: none; }
+.takeaways-list li::before {
+  content: counter(item);
+  counter-increment: item;
+  position: absolute; left: 20px; top: 16px;
+  font-family: 'Geist Mono', monospace; font-size: 9.5px;
+  font-weight: 500; color: var(--orange); letter-spacing: .06em;
+}
+
+/* ─── SECTION HEADINGS ─── */
+.section-anchor { display: flex; align-items: baseline; gap: 14px; margin: 64px 0 22px; scroll-margin-top: 72px; }
+h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
+.section-num {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; color: var(--orange);
+  flex-shrink: 0; padding-top: 4px;
+}
+.article-body h2 {
+  font-family: 'Baskervville', serif; font-size: clamp(26px, 3.5vw, 34px);
+  font-weight: 400; line-height: 1.15; letter-spacing: -.015em; color: var(--ink);
+  margin: 0;
+}
+.section-anchor + * { margin-top: 0; }
+.article-body h2:not(.section-anchor h2) { margin: 64px 0 22px; }
+
+/* ─── PROSE ─── */
+.article-body p {
+  font-size: 20px; line-height: 1.72; color: var(--ink); margin-bottom: 24px;
+}
+.article-body p.lead {
+  font-size: 22px; font-style: italic; color: var(--ink-60);
+  line-height: 1.6; border-left: 3px solid var(--ink-12);
+  padding-left: 20px; margin-bottom: 28px;
+}
+
+/* ─── LISTS ─── */
+.article-body ul {
+  list-style: none; margin: 0 0 28px; padding: 0;
+  border: var(--rule);
+}
+.article-body ul li {
+  font-size: 19px; line-height: 1.65; color: var(--ink);
+  padding: 11px 18px 11px 40px; position: relative;
+  border-bottom: var(--rule);
+}
+.article-body ul li:last-child { border-bottom: none; }
+.article-body ul li::before {
+  content: '→'; position: absolute; left: 16px; top: 13px;
+  font-size: 12px; color: var(--orange);
+}
+.article-body ul li strong { font-weight: 600; }
+
+/* ─── CALLOUT ─── */
+.callout {
+  background: var(--ink); padding: 28px 32px;
+  margin: 40px 0; position: relative;
+}
+.callout::before {
+  content: '"';
+  position: absolute; top: -14px; left: 24px;
+  font-family: 'Baskervville', serif; font-size: 80px;
+  color: var(--orange); line-height: 1;
+}
+.callout p {
+  font-family: 'Baskervville', serif; font-size: 22px; font-style: italic;
+  line-height: 1.45; color: var(--cream); margin: 0; padding-top: 8px;
+}
+.callout-attr {
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  color: rgba(243,238,227,.40); margin-top: 14px; letter-spacing: .03em;
+}
+
+/* ─── PROTOCOL CARDS ─── */
+.protocol-card {
+  border: var(--rule); margin: 44px 0; overflow: hidden;
+  transition: border-color .2s;
+}
+.protocol-card:hover { border-color: var(--ink-30); }
+
+.protocol-card-header {
+  background: var(--ink); padding: 24px 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px; align-items: start;
+}
+.protocol-tag-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.protocol-id {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; color: var(--orange);
+}
+.protocol-status {
+  font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 500;
+  padding: 3px 9px; white-space: nowrap; letter-spacing: .06em;
+}
+.status-live { background: rgba(26,122,58,.2); color: #5dbf7c; border: 1px solid rgba(26,122,58,.3); }
+.status-pre-tge { background: rgba(160,120,8,.15); color: #e6b830; border: 1px solid rgba(212,160,23,.25); }
+.protocol-name {
+  font-family: 'Baskervville', serif; font-size: 26px; font-weight: 400;
+  color: var(--cream); line-height: 1.1; margin-bottom: 6px;
+}
+.protocol-tagline {
+  font-family: 'Crimson Text', serif; font-size: 15px; font-style: italic;
+  color: rgba(243,238,227,.4); line-height: 1.5;
+}
+
+.protocol-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-bottom: var(--rule);
+}
+.stat-cell {
+  padding: 16px 20px; border-right: var(--rule);
+}
+.stat-cell:last-child { border-right: none; }
+.stat-label {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-30); margin-bottom: 5px;
+}
+.stat-value {
+  font-family: 'Geist', sans-serif; font-size: 17px;
+  font-weight: 600; color: var(--ink); line-height: 1.2;
+}
+.stat-note {
+  font-family: 'Geist', sans-serif; font-size: 12px;
+  color: var(--ink-30); margin-top: 3px;
+}
+
+.protocol-body { padding: 24px 28px 28px; }
+.protocol-body p { font-size: 17.5px; line-height: 1.7; margin-bottom: 16px; }
+
+.verdict-row {
+  background: var(--parch); border-top: var(--rule);
+  padding: 14px 28px; display: flex; align-items: baseline; gap: 10px;
+}
+.verdict-label {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-30); flex-shrink: 0;
+}
+.verdict-text {
+  font-family: 'Crimson Text', serif; font-size: 16px;
+  color: var(--ink-60); line-height: 1.55;
+}
+
+/* ─── SIGNAL TAGS ─── */
+.signal-row {
+  display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 20px;
+}
+.signal-tag {
+  font-family: 'Geist Mono', monospace; font-size: 12px;
+  font-weight: 500; padding: 4px 10px; letter-spacing: .04em;
+}
+.sig-green { background: rgba(26,122,58,.08); color: #1a7a3a; border: 1px solid rgba(26,122,58,.2); }
+.sig-red   { background: rgba(192,57,43,.08); color: #c0392b; border: 1px solid rgba(192,57,43,.20); }
+.sig-amber { background: rgba(160,120,8,.08); color: #a07808; border: 1px solid rgba(160,120,8,.20); }
+
+/* ─── RISK TABLE ─── */
+.risk-table {
+  width: 100%; border-collapse: collapse;
+  font-family: 'Geist', sans-serif; font-size: 13px;
+  border: var(--rule); margin: 28px 0 40px;
+}
+.risk-table thead { background: var(--parch); }
+.risk-table th {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-30); padding: 10px 16px; text-align: left;
+  border-bottom: var(--rule-heavy);
+}
+.risk-table td {
+  padding: 11px 16px; border-bottom: var(--rule);
+  vertical-align: top; line-height: 1.5; color: var(--ink-80);
+}
+.risk-table tr:last-child td { border-bottom: none; }
+.risk-table tbody tr { transition: background .1s; }
+.risk-table tbody tr:hover { background: var(--parch); }
+.risk-hi   { color: var(--red)   !important; font-weight: 600; white-space: nowrap; }
+.risk-med  { color: var(--amber) !important; font-weight: 600; white-space: nowrap; }
+.risk-low  { color: var(--green) !important; font-weight: 600; white-space: nowrap; }
+
+/* ─── COMPOSABILITY BOX ─── */
+.compose-box {
+  background: var(--parch); border: var(--rule);
+  padding: 24px 28px; margin: 40px 0;
+}
+.compose-box-label {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 16px;
+}
+.compose-formula {
+  font-family: 'Geist', sans-serif; font-size: 15px;
+  color: var(--ink); line-height: 1.65;
+}
+.compose-formula strong { color: var(--orange); }
+.compose-formula span { color: var(--ink-30); }
+
+/* ─── SUBSCRIBE ─── */
+.subscribe-strip {
+  background: var(--ink); padding: 48px 40px; margin: 64px 0 0;
+  display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+}
+.sub-heading {
+  font-family: 'Baskervville', serif; font-size: 26px;
+  font-weight: 400; color: var(--cream); margin-bottom: 8px; line-height: 1.2;
+}
+.sub-body { font-family: 'Crimson Text', serif; font-size: 16px; color: rgba(243,238,227,.45); }
+.sub-form { display: flex; gap: 0; }
+.sub-input {
+  font-family: 'Geist', sans-serif; font-size: 14px;
+  padding: 11px 16px; background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.15); color: var(--cream);
+  outline: none; width: 220px; transition: border-color .15s;
+}
+.sub-input::placeholder { color: rgba(255,255,255,.25); }
+.sub-input:focus { border-color: rgba(255,255,255,.4); }
+.sub-btn {
+  font-family: 'Geist', sans-serif; font-size: 13px; font-weight: 500;
+  padding: 11px 20px; background: var(--orange); color: #fff;
+  border: 1px solid var(--orange); cursor: pointer; white-space: nowrap;
+  letter-spacing: .03em; transition: opacity .15s;
+}
+.sub-btn:hover { opacity: .85; }
+
+/* ─── FOOTER ─── */
+.footer {
+  border-top: var(--rule);
+  max-width: calc(var(--toc) + var(--col) + var(--gap) + 64px);
+  margin: 0 auto; padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-left { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--ink-30); }
+.footer-right { display: flex; gap: 20px; }
+.footer-right a { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--ink-30); text-decoration: none; transition: color .15s; }
+.footer-right a:hover { color: var(--ink); }
+
+/* ─── SCENARIO TABLE ─── */
+.scenario-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 0; border: var(--rule); margin: 28px 0 40px;
+}
+.scenario-col {
+  border-right: var(--rule); padding: 20px 22px;
+}
+.scenario-col:last-child { border-right: none; }
+.scenario-label {
+  font-family: 'Geist Mono', monospace; font-size: 11px;
+  font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.scenario-bull .scenario-label { color: var(--green); }
+.scenario-base .scenario-label { color: var(--amber); }
+.scenario-bear .scenario-label { color: var(--red); }
+.scenario-col p { font-size: 15px; line-height: 1.6; margin: 0; color: var(--ink-80); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1000px) {
+  :root { --toc: 180px; --gap: 48px; }
+}
+@media (max-width: 820px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-right { border-left: none; padding-left: 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 28px; display: grid; grid-template-columns: repeat(3,1fr); }
+  .hero-stat { border-bottom: none; border-right: 1px solid rgba(255,255,255,.06); padding: 16px 20px; }
+  .hero-stat:last-child { border-right: none; }
+  .page-wrap { grid-template-columns: 1fr; padding: 0 20px; }
+  .sidebar { display: none; }
+  .article-body { grid-column: 1; padding: 36px 0 72px; }
+  .subscribe-strip { grid-template-columns: 1fr; gap: 24px; padding: 36px 28px; }
+  .sub-form { flex-direction: column; gap: 10px; }
+  .sub-input { width: 100%; }
+  .sub-btn { width: 100%; text-align: center; }
+  .topbar-center { display: none; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .scenario-col { border-right: none; border-bottom: var(--rule); }
+  .scenario-col:last-child { border-bottom: none; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 44px; }
+  .hero-title { font-size: 34px; }
+  .hero-right { grid-template-columns: 1fr 1fr; }
+  .hero-stat:nth-child(3) { border-right: none; }
+  .topbar-inner { padding: 0 20px; }
+  .footer { padding: 20px; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .protocol-stats { grid-template-columns: 1fr 1fr; }
+  .protocol-stats .stat-cell:nth-child(2) { border-right: none; }
+  .protocol-stats .stat-cell:nth-child(3) { border-top: var(--rule); grid-column: 1/-1; }
+  .risk-table { font-size: 12px; }
+  .risk-table td, .risk-table th { padding: 9px 10px; }
+  .topbar-metrics { display: none !important; }
+}
+@media (max-width: 420px) {
+  .hero-title { font-size: 28px; }
+  .hero-right { grid-template-columns: 1fr; }
+  .hero-stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.06) !important; }
+  .hero-stat:last-child { border-bottom: none !important; }
+}
+
+/* ─── GRAIN OVERLAY ─── */
+.hero-grain-overlay {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── SCROLL REVEAL ─── */
+@keyframes ros-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.reveal-on-scroll { opacity: 0; }
+.reveal-on-scroll.visible { animation: ros-in .45s ease both; }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="progress-section-label"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="index.html" class="topbar-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135.999 36" style="height:22px;width:auto;display:block;fill:currentColor;" aria-label="Khala Research"><path d="M 7.276 36 L 0 36 L 0 28.724 L 7.276 28.724 Z M 71.096 20.416 C 71.888 20.416 72.603 20.511 73.241 20.698 C 73.879 20.873 74.384 21.068 74.754 21.28 L 74.143 22.858 C 73.728 22.614 73.283 22.425 72.82 22.296 C 72.279 22.139 71.717 22.063 71.154 22.069 C 70.364 22.069 69.738 22.214 69.278 22.502 C 68.832 22.777 68.608 23.235 68.608 23.873 C 68.608 24.299 68.722 24.65 68.951 24.926 C 69.194 25.201 69.521 25.439 69.929 25.64 C 70.396 25.847 70.869 26.041 71.346 26.222 C 72.136 26.522 72.826 26.836 73.414 27.162 C 74.001 27.474 74.461 27.876 74.793 28.364 C 75.125 28.853 75.291 29.51 75.291 30.337 C 75.291 31.125 75.101 31.796 74.718 32.347 C 74.335 32.885 73.778 33.299 73.05 33.587 C 72.322 33.862 71.441 34 70.407 34 C 69.322 34 68.429 33.887 67.727 33.662 C 67.037 33.424 66.552 33.224 66.27 33.062 L 66.863 31.464 C 67.17 31.639 67.618 31.827 68.205 32.027 C 68.805 32.227 69.539 32.328 70.407 32.328 C 71.364 32.328 72.074 32.165 72.533 31.84 C 73.005 31.514 73.241 31.025 73.241 30.374 C 73.241 29.874 73.107 29.471 72.839 29.171 C 72.584 28.871 72.227 28.615 71.768 28.402 C 71.308 28.189 70.771 27.969 70.158 27.743 C 69.531 27.515 68.924 27.238 68.34 26.916 C 67.833 26.642 67.394 26.257 67.056 25.79 C 66.75 25.327 66.596 24.73 66.596 24.005 C 66.596 23.241 66.774 22.595 67.132 22.069 C 67.502 21.531 68.027 21.124 68.703 20.849 C 69.38 20.561 70.178 20.416 71.097 20.416 Z M 119.604 20.416 C 120.305 20.416 120.919 20.473 121.442 20.586 C 121.966 20.699 122.394 20.83 122.726 20.981 C 123.07 21.118 123.319 21.237 123.473 21.337 L 122.879 22.934 C 122.459 22.707 122.016 22.525 121.558 22.389 C 121.047 22.226 120.44 22.145 119.738 22.145 C 118.832 22.145 118.04 22.346 117.363 22.747 C 116.7 23.135 116.182 23.705 115.812 24.457 C 115.454 25.207 115.275 26.122 115.275 27.198 C 115.275 28.2 115.435 29.084 115.754 29.848 C 116.064 30.572 116.576 31.192 117.229 31.633 C 117.881 32.058 118.691 32.273 119.661 32.273 C 120.516 32.273 121.22 32.19 121.769 32.027 C 122.317 31.865 122.751 31.702 123.07 31.539 L 123.607 33.136 C 123.327 33.311 122.827 33.498 122.112 33.698 C 121.41 33.898 120.536 34 119.489 34 C 118.238 34 117.14 33.737 116.195 33.21 C 115.25 32.685 114.516 31.914 113.992 30.9 C 113.469 29.885 113.207 28.65 113.207 27.198 C 113.207 26.109 113.374 25.145 113.706 24.306 C 114.051 23.454 114.516 22.74 115.104 22.164 C 115.681 21.594 116.373 21.152 117.133 20.867 C 117.922 20.565 118.759 20.412 119.604 20.416 Z M 47.562 20.567 C 49.438 20.567 50.868 20.912 51.852 21.601 C 52.835 22.289 53.326 23.324 53.326 24.701 C 53.326 25.641 53.084 26.398 52.599 26.974 C 52.126 27.55 51.469 27.976 50.626 28.252 C 50.856 28.54 51.124 28.891 51.431 29.304 C 51.737 29.717 52.049 30.174 52.368 30.674 C 52.7 31.164 53.02 31.671 53.326 32.197 C 53.632 32.723 53.901 33.23 54.131 33.719 L 51.947 33.719 C 51.605 33.076 51.235 32.449 50.836 31.839 C 50.461 31.231 50.065 30.636 49.649 30.055 C 49.32 29.563 48.968 29.087 48.596 28.627 C 48.468 28.627 48.34 28.634 48.213 28.647 C 48.092 28.66 47.971 28.666 47.849 28.665 L 45.972 28.665 L 45.972 33.719 L 43.999 33.719 L 43.999 20.924 C 44.535 20.799 45.129 20.711 45.779 20.661 C 46.371 20.601 46.966 20.57 47.561 20.567 Z M 64.409 22.352 L 58.185 22.352 L 58.185 26.091 L 63.72 26.091 L 63.72 27.706 L 58.185 27.706 L 58.185 32.066 L 64.87 32.066 L 64.87 33.719 L 56.212 33.719 L 56.212 20.699 L 64.409 20.699 Z M 85.844 22.352 L 79.619 22.352 L 79.619 26.091 L 85.155 26.091 L 85.155 27.706 L 79.62 27.706 L 79.62 32.066 L 86.306 32.066 L 86.306 33.719 L 77.646 33.719 L 77.646 20.699 L 85.845 20.699 L 85.845 22.352 Z M 94.576 20.699 C 95.036 21.639 95.476 22.591 95.898 23.556 C 96.318 24.52 96.74 25.521 97.161 26.561 C 97.582 27.6 98.018 28.709 98.465 29.886 C 98.925 31.063 99.408 32.341 99.919 33.719 L 97.774 33.719 C 97.586 33.164 97.388 32.613 97.181 32.065 C 96.982 31.529 96.79 30.99 96.606 30.449 L 90.65 30.449 C 90.459 30.975 90.26 31.515 90.057 32.065 C 89.853 32.604 89.653 33.155 89.462 33.719 L 87.414 33.719 C 88.031 32.05 88.656 30.384 89.291 28.721 C 89.841 27.311 90.409 25.908 90.995 24.513 C 91.549 23.227 92.137 21.955 92.757 20.699 L 94.577 20.699 Z M 105.317 20.567 C 107.194 20.567 108.624 20.912 109.607 21.601 C 110.591 22.289 111.082 23.324 111.082 24.701 C 111.082 25.641 110.839 26.398 110.354 26.974 C 109.882 27.55 109.224 27.976 108.382 28.252 C 108.612 28.54 108.88 28.891 109.187 29.304 C 109.493 29.717 109.805 30.174 110.124 30.674 C 110.456 31.164 110.776 31.671 111.082 32.197 C 111.388 32.723 111.657 33.23 111.887 33.719 L 109.704 33.719 C 109.362 33.076 108.991 32.449 108.592 31.839 C 108.217 31.231 107.821 30.636 107.405 30.055 C 107.075 29.564 106.724 29.087 106.352 28.627 C 106.224 28.627 106.096 28.634 105.969 28.647 C 105.848 28.66 105.727 28.666 105.605 28.665 L 103.728 28.665 L 103.728 33.719 L 101.755 33.719 L 101.755 20.924 C 102.291 20.799 102.885 20.711 103.535 20.661 C 104.127 20.601 104.722 20.57 105.317 20.567 Z M 127.688 26.091 L 134.027 26.091 L 134.027 20.699 L 135.999 20.699 L 135.999 33.719 L 134.027 33.719 L 134.027 27.744 L 127.688 27.744 L 127.688 33.719 L 125.714 33.719 L 125.714 20.699 L 127.688 20.699 Z M 93.064 24.061 C 92.872 24.512 92.673 24.995 92.469 25.509 C 92.265 26.009 92.054 26.542 91.837 27.105 C 91.62 27.669 91.396 28.259 91.166 28.872 L 96.07 28.872 C 95.84 28.259 95.616 27.669 95.4 27.105 C 95.195 26.571 94.984 26.039 94.768 25.509 C 94.575 25.022 94.37 24.539 94.154 24.061 C 93.975 23.627 93.791 23.196 93.6 22.767 Z M 47.714 22.239 C 47.344 22.239 47.012 22.251 46.719 22.276 C 46.425 22.301 46.176 22.328 45.972 22.352 L 45.972 27.087 L 47.39 27.087 C 48.18 27.087 48.864 27.03 49.438 26.917 C 50.025 26.792 50.478 26.555 50.798 26.205 C 51.117 25.855 51.276 25.346 51.276 24.683 C 51.276 24.043 51.117 23.548 50.798 23.197 C 50.492 22.847 50.064 22.603 49.516 22.465 C 48.928 22.308 48.322 22.232 47.714 22.239 Z M 105.471 22.239 C 105.101 22.239 104.769 22.251 104.476 22.276 C 104.226 22.297 103.977 22.323 103.728 22.352 L 103.728 27.087 L 105.146 27.087 C 105.937 27.087 106.621 27.03 107.195 26.917 C 107.782 26.792 108.237 26.556 108.556 26.205 C 108.875 25.855 109.032 25.346 109.032 24.683 C 109.032 24.044 108.875 23.548 108.556 23.197 C 108.249 22.847 107.82 22.603 107.271 22.465 C 106.684 22.308 106.078 22.232 105.471 22.239 Z M 7.276 19.15 L 17.524 19.15 L 24.801 26.427 L 8.9 26.427 L 0 17.524 L 0 0 L 7.276 0 Z M 45.972 9.6 C 46.419 9.186 46.897 8.728 47.408 8.228 L 48.94 6.726 C 49.451 6.212 49.93 5.723 50.377 5.26 C 50.823 4.784 51.212 4.364 51.544 4.001 L 53.9 4.001 C 53.492 4.439 53.038 4.921 52.54 5.446 C 51.512 6.529 50.458 7.588 49.38 8.622 C 48.883 9.111 48.379 9.594 47.868 10.069 C 48.417 10.445 48.991 10.902 49.591 11.441 C 50.219 11.994 50.813 12.583 51.372 13.206 C 51.95 13.82 52.493 14.466 52.999 15.141 C 53.497 15.791 53.925 16.42 54.282 17.021 L 51.984 17.021 C 51.607 16.43 51.191 15.864 50.74 15.328 C 50.262 14.747 49.757 14.19 49.226 13.658 C 48.709 13.124 48.166 12.616 47.599 12.135 C 47.088 11.699 46.543 11.303 45.971 10.951 L 45.971 17.021 L 43.998 17.021 L 43.998 4 L 45.971 4 L 45.971 9.599 Z M 58.092 9.393 L 64.432 9.393 L 64.432 4 L 66.404 4 L 66.404 17.02 L 64.432 17.02 L 64.432 11.045 L 58.092 11.045 L 58.092 17.02 L 56.12 17.02 L 56.12 4 L 58.094 4 L 58.094 9.392 Z M 75.406 4 C 75.866 4.939 76.306 5.891 76.728 6.855 C 77.148 7.82 77.57 8.822 77.991 9.861 C 78.413 10.901 78.847 12.009 79.294 13.186 C 79.754 14.364 80.237 15.642 80.748 17.02 L 78.604 17.02 C 78.416 16.465 78.219 15.913 78.012 15.365 C 77.808 14.815 77.615 14.275 77.437 13.749 L 71.478 13.749 C 71.288 14.275 71.09 14.814 70.886 15.365 C 70.678 15.913 70.479 16.465 70.291 17.02 L 68.242 17.02 C 68.859 15.35 69.485 13.683 70.12 12.02 C 70.67 10.61 71.238 9.208 71.825 7.813 C 72.379 6.527 72.966 5.256 73.585 4 L 75.405 4 Z M 84.559 15.347 L 90.668 15.347 L 90.668 17.02 L 82.585 17.02 L 82.585 4 L 84.559 4 Z M 98.952 4 C 99.412 4.94 99.853 5.891 100.274 6.855 C 100.696 7.82 101.117 8.822 101.538 9.861 C 101.959 10.901 102.394 12.009 102.841 13.186 C 103.3 14.364 103.785 15.642 104.296 17.02 L 102.151 17.02 C 101.963 16.465 101.765 15.913 101.558 15.365 C 101.353 14.815 101.162 14.275 100.983 13.749 L 95.026 13.749 C 94.835 14.275 94.636 14.815 94.433 15.365 C 94.225 15.913 94.027 16.465 93.839 17.02 L 91.789 17.02 C 92.406 15.35 93.032 13.683 93.667 12.02 C 94.217 10.61 94.785 9.208 95.371 7.813 C 95.926 6.527 96.513 5.256 97.134 4 Z M 36 7.95 L 27.099 16.85 L 19.149 16.85 L 19.149 8.902 L 28.051 0 L 36 0 Z M 73.893 7.361 C 73.701 7.812 73.503 8.296 73.298 8.81 C 73.094 9.31 72.883 9.842 72.666 10.405 C 72.449 10.969 72.226 11.558 71.996 12.172 L 76.898 12.172 C 76.668 11.558 76.445 10.969 76.228 10.405 C 76.023 9.871 75.812 9.34 75.596 8.81 C 75.403 8.322 75.199 7.839 74.983 7.361 C 74.804 6.927 74.619 6.495 74.428 6.066 Z M 97.439 7.361 C 97.248 7.812 97.05 8.296 96.846 8.81 C 96.629 9.339 96.418 9.871 96.213 10.405 C 95.996 10.969 95.773 11.558 95.543 12.172 L 100.446 12.172 C 100.217 11.558 99.992 10.969 99.776 10.405 C 99.571 9.871 99.36 9.34 99.144 8.81 C 98.951 8.322 98.746 7.839 98.53 7.361 C 98.351 6.927 98.167 6.495 97.976 6.066 Z" fill="#0D0C09"/></svg>
+    </a>
+    <div class="topbar-center">
+      <a href="research.html">Research</a>
+      <span class="sep">/</span>
+      <a href="research.html">Physical AI</a>
+      <span class="sep">/</span>
+      <span class="current">Decentralized Robotics Landscape</span>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-metrics">
+        <span class="tm-item"><span class="tm-val">$PEAQ</span><span class="tm-lbl">DePIN LAYER</span></span>
+        <span class="topbar-metrics-sep">·</span>
+        <span class="tm-item"><span class="tm-val">$GEOD</span><span class="tm-lbl">POSITIONING</span></span>
+        <span class="topbar-metrics-sep">·</span>
+        <span class="tm-item"><span class="tm-val" style="color:var(--ink3)">PHYSICAL AI</span><span class="tm-lbl">SECTOR 05</span></span>
+        <span class="topbar-metrics-sep">·</span>
+        <span class="tm-item"><span class="tm-val" style="color:var(--orange)">LIVE NOW</span></span>
+      </div>
+      <a href="research.html#subscribe" class="topbar-cta">Subscribe</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grain-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Ecosystem Report · Physical AI</div>
+      <h1 class="hero-title">The Decentralized<br>Robotics <em>Landscape</em></h1>
+      <p class="hero-sub">Nine protocols building the software, coordination, and capital layers for the coming age of embodied AI. The hardware is coming — the infrastructure race has already started.</p>
+      <div class="hero-meta">
+        <div class="hero-meta-item"><strong>Jan 7, 2026</strong></div>
+        <div class="hero-meta-item">by <strong>0xSammy</strong></div>
+        <div class="hero-meta-item">+ <strong>AlexKazoh</strong></div>
+        <div class="hero-meta-item">+ <strong>haitzu</strong></div>
+        <div class="hero-read-time">~18 MIN READ</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-label">Global Robotics Market</div>
+        <div class="hero-stat-value accent">$275B</div>
+        <div class="hero-stat-note">By 2030 from $128B today</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-label">Humanoid alone (GS)</div>
+        <div class="hero-stat-value">$38B</div>
+        <div class="hero-stat-note">10-year Goldman Sachs projection</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-label">DeRobotics coverage</div>
+        <div class="hero-stat-value accent">9</div>
+        <div class="hero-stat-note">Protocols profiled in this report</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN LAYOUT -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR TOC -->
+  <aside class="sidebar">
+    <p class="toc-label">Contents</p>
+    <ul class="toc-list">
+      <li><a href="#executive-summary">Executive Summary</a></li>
+      <li><a href="#market">Market Context</a></li>
+      <li class="toc-divider"></li>
+      <li><a href="#protocols">Protocol Profiles</a></li>
+      <li class="toc-sub">
+        <ul class="toc-list">
+          <li><a href="#peaq">PEAQ — DePIN Layer</a></li>
+          <li><a href="#geod">GEODNET — Positioning</a></li>
+          <li><a href="#bitrobot">BitRobot — Pre-TGE</a></li>
+          <li><a href="#codec">CodecFLOW — Inference</a></li>
+          <li><a href="#auki">Auki — Spatial</a></li>
+          <li><a href="#nrn">NRN — Evaluation</a></li>
+          <li><a href="#deus">XMAQUINA — DAO</a></li>
+          <li><a href="#tao">TAO Subnets</a></li>
+          <li><a href="#openmind">OpenMind — Pre-TGE</a></li>
+        </ul>
+      </li>
+      <li class="toc-divider"></li>
+      <li><a href="#composability">Composability</a></li>
+      <li><a href="#risks">Risks</a></li>
+      <li><a href="#outlook">Investment Outlook</a></li>
+    </ul>
+  </aside>
+
+  <!-- ARTICLE BODY -->
+  <main class="article-body">
+
+    <div class="note-box">
+      <p><strong>Disclosure:</strong> This report reflects Khala Research's independent analysis. Positions held in covered assets are disclosed where applicable. Nothing herein constitutes financial advice.</p>
+    </div>
+
+    <!-- KEY TAKEAWAYS -->
+    <div class="takeaways-box" id="executive-summary">
+      <div class="takeaways-header">
+        <div class="takeaways-header-dot"></div>
+        <span class="takeaways-header-label">Key Takeaways</span>
+      </div>
+      <ul class="takeaways-list">
+        <li>The global robotics market is on a 16% CAGR trajectory to $275B by 2030 — but the <strong>software and coordination layers enabling autonomous robotic fleets</strong> remain largely uncaptured by public markets.</li>
+        <li><strong>GEODNET ($GEOD)</strong> is one of the few proven revenue-generating DePIN projects: $7M ARR with compounding quarterly growth, $8M Multicoin investment, and a 20,000+ station global network. Valuation still sub-$1B despite material enterprise traction.</li>
+        <li><strong>PEAQ</strong> has deployed the first commercially active robo-farm in Hong Kong — $150k TVL, 18% annualised yield — demonstrating real machine-economy primitives above testnet.</li>
+        <li><strong>Auki ($AUKI)</strong> generates $2M ARR from enterprise spatial trials with Toyota and COOP, and is the only protocol with a demonstrable moat in decentralised shared spatial compute.</li>
+        <li><strong>XMAQUINA ($DEUS)</strong> offers ~$36M NAV of private exposure to Figure, 1X, Agility, NEURA, and Apptronik — categories unavailable to retail at any other price point.</li>
+        <li>The composability between layers (PEAQ payments + GEODNET positioning + Auki spatial mapping) creates network effects that pure software plays cannot replicate.</li>
+        <li>DeRobotics tokens trade at <strong>sub-$1B valuations</strong> against traditional robotics equities in the tens of billions — with similar market exposure and compressing hardware cost curves acting as the catalyst.</li>
+      </ul>
+    </div>
+
+    <!-- MARKET CONTEXT -->
+    <div class="section-anchor" id="market">
+      <span class="section-num">01</span>
+      <h2>Market Context</h2>
+    </div>
+
+    <p class="lead">Robotics is at the same inflection point that cloud computing was in 2010 — the hardware commoditisation curve has started, the software race has begun, and most of the infrastructure value hasn't been built yet.</p>
+
+    <p>The global robotics market stands at approximately $128B today and is forecast to reach $275B by 2030, driven by falling actuator costs, maturing vision-language-action (VLA) models, and national industrial policy tailwinds in the US, China, EU, and South Korea. Goldman Sachs independently projects the humanoid segment alone reaches $38B within a decade — comparable to the entire current EV battery supply chain.</p>
+
+    <p>What's different about this cycle is the convergence of four previously separate technology curves: <strong>AI inference becoming cheap enough to run on-device</strong>, <strong>robotic hardware cost per degree-of-freedom falling 20–30% annually</strong> (consistent with EV motor and actuator deflation), <strong>micropayment infrastructure</strong> (x402, USDC settlements) making machine-to-machine transactions viable, and <strong>decentralised physical infrastructure</strong> providing the coordination layer that no single hardware vendor will build.</p>
+
+    <p>The traditional robotics incumbents — Boston Dynamics, ABB, FANUC, Teradyne — are hardware companies. Their moats are in mechanics, manufacturing, and service contracts. The software, positioning, spatial context, and economic coordination layers are wide open. That's the opportunity mapped in this report.</p>
+
+    <!-- PROTOCOLS -->
+    <div class="section-anchor" id="protocols">
+      <span class="section-num">02</span>
+      <h2>Protocol Profiles</h2>
+    </div>
+
+    <!-- PEAQ -->
+    <div class="protocol-card reveal-on-scroll" id="peaq">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$PEAQ · LAYER 1</span>
+            <span class="protocol-status status-live">LIVE</span>
+          </div>
+          <div class="protocol-name">PEAQ</div>
+          <div class="protocol-tagline">The Layer 1 for the Machine Economy — identity, payments, and data access for physical devices</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Network Users</div>
+          <div class="stat-value">6M+</div>
+          <div class="stat-note">Connected devices</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Transactions</div>
+          <div class="stat-value">180M+</div>
+          <div class="stat-note">On-chain txns</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Robo-Farm TVL</div>
+          <div class="stat-value">$150K</div>
+          <div class="stat-note">18% annualised yield</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>PEAQ is the foundational Layer 1 designed for the machine economy — providing <strong>decentralised identity (DID), access control, micropayments, and data monetisation</strong> for physical devices. It runs a Substrate-based EVM-compatible chain with a ROS2 SDK enabling any robotics developer to plug directly into the protocol primitives.</p>
+        <p>The live Hong Kong robo-farm is the signal that moves PEAQ from theoretical to operational. Robotic strawberry harvesters are operating on PEAQ's MachineDEX — depositing yield, issuing tokens, and settling payments autonomously. $150K TVL at 18% annualised yield is small in absolute terms, but it is the <strong>first commercially active machine economy primitive</strong> above testnet. The blueprint for replication is already there.</p>
+        <p>DEUS ($XMAQUINA) is cross-chain deployed on PEAQ via LayerZero, and CodecFLOW is live on MachineDEX — validating the ecosystem flywheel PEAQ is building around physical AI applications.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">Live revenue primitives</span>
+          <span class="signal-tag sig-green">ROS2 SDK deployed</span>
+          <span class="signal-tag sig-green">MachineDEX active</span>
+          <span class="signal-tag sig-amber">Token inflation: 3.5%/year</span>
+          <span class="signal-tag sig-amber">Hardware partnerships pending scale</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">The coordination substrate every other protocol in this report eventually needs. Robo-farm traction is early but directionally correct — watch MachineDEX TVL growth as the leading signal.</span>
+      </div>
+    </div>
+
+    <!-- GEODNET -->
+    <div class="protocol-card reveal-on-scroll" id="geod">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$GEOD · DePIN</span>
+            <span class="protocol-status status-live">LIVE</span>
+          </div>
+          <div class="protocol-name">GEODNET</div>
+          <div class="protocol-tagline">Centimetre-level RTK satellite positioning for autonomous vehicles, drones, and agricultural robotics</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">ARR</div>
+          <div class="stat-value">$7M</div>
+          <div class="stat-note">Compounding quarterly</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Network Stations</div>
+          <div class="stat-value">20,000+</div>
+          <div class="stat-note">150+ countries</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Strategic Investment</div>
+          <div class="stat-value">$8M</div>
+          <div class="stat-note">Multicoin Capital, Feb 2025</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>GEODNET solves a fundamental constraint for autonomous robots: centimetre-level positioning. Traditional GPS has 3–5m accuracy; autonomous systems need sub-10cm. GEODNET's network of 20,000+ satellite receiver stations provides RTK (Real-Time Kinematic) corrections across 150+ countries, enabling the precision required for drone delivery, autonomous agricultural machinery, and mobile robotics in complex environments.</p>
+        <p>What separates GEODNET from every other DePIN project is that it already has a working revenue model. $7M ARR with compounding quarterly growth, an <strong>80% token buyback</strong> mechanism tied directly to fee revenue, and an A16z DePIN report ranking it second behind Helium for category size. Multicoin General Partner Shayon Sengupta's $8M purchase in February 2025 was the institutional validation signal — Multicoin doesn't deploy into projects without serious diligence.</p>
+        <p>The A16z/World Economic Forum projection of DePIN reaching $3.5T by 2028 has GEODNET as a named beneficiary. The correlation between valuation and revenue has temporarily inverted due to macro crypto liquidation events — the thesis is that this re-rates as robotics enters mass production.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">$7M ARR, 80% buyback model</span>
+          <span class="signal-tag sig-green">Multicoin $8M strategic buy</span>
+          <span class="signal-tag sig-green">A16z DePIN report top-2</span>
+          <span class="signal-tag sig-amber">Valuation/revenue correlation inverted short-term</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">The most de-risked play in this report. Real revenue, real buybacks, institutional backing, and a clear use-case flywheel. Watch quarterly ARR growth rate as the primary metric.</span>
+      </div>
+    </div>
+
+    <!-- BITROBOT -->
+    <div class="protocol-card reveal-on-scroll" id="bitrobot">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">BITROBOT · SOLANA</span>
+            <span class="protocol-status status-pre-tge">PRE-TGE</span>
+          </div>
+          <div class="protocol-name">BitRobot</div>
+          <div class="protocol-tagline">The world's open robotics lab — modular subnets for data collection, model training, and embodied AI research</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Grand Challenges Fund</div>
+          <div class="stat-value">$5M</div>
+          <div class="stat-note">Active subnets: 14</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Pipeline Subnets</div>
+          <div class="stat-value">25+</div>
+          <div class="stat-note">In development</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Founding Team</div>
+          <div class="stat-value">Juan Benet</div>
+          <div class="stat-note">Creator, Filecoin + IPFS</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>BitRobot's premise: the reason robotics AI lags language AI by years is that training data doesn't exist at scale, and what does exist is trapped inside closed labs. BitRobot builds a Solana-native protocol that incentivises global contributors to collect teleoperation data, video, and simulation runs — forming the dataset foundation for general-purpose physical AI.</p>
+        <p>The founding pedigree is exceptional. Co-developed by <strong>Michael Cho</strong> (FrodoBots Lab cofounder), <strong>Jonathan Victor</strong> (former Filecoin Ecosystem Lead), and <strong>Juan Benet</strong> — the creator of Filecoin and IPFS. This isn't a team learning on the job. The $5M Grand Challenges Fund is already live, supporting Earth Rovers, Robotic Origami, and IKEA Assembly subnets.</p>
+        <p>Virtual Protocol's SeeSaw subnet (subnet 5) has been quietly integrated into BitRobot's Agent Commerce Protocol, and has surpassed 500K recorded tasks — signalling organic traction before the token even launches.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">World-class founding team</span>
+          <span class="signal-tag sig-green">$5M Grand Challenges Fund active</span>
+          <span class="signal-tag sig-amber">Pre-TGE — token structure TBD</span>
+          <span class="signal-tag sig-amber">Revenue model unproven</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">High conviction on team, early on traction. Monitor TGE mechanics carefully — token distribution and vesting will determine whether this re-rates post-launch or dumps on emissions.</span>
+      </div>
+    </div>
+
+    <!-- CODEC -->
+    <div class="protocol-card reveal-on-scroll" id="codec">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$CODEC · SOLANA</span>
+            <span class="protocol-status status-live">LIVE</span>
+          </div>
+          <div class="protocol-name">CodecFLOW</div>
+          <div class="protocol-tagline">AI execution and inference marketplace — the operational layer connecting robots to vision-language-action models</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Inference Calls Served</div>
+          <div class="stat-value">2.8M+</div>
+          <div class="stat-note">Across 450+ models</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Compute Suppliers</div>
+          <div class="stat-value">1,200+</div>
+          <div class="stat-note">Decentralised nodes</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Launch</div>
+          <div class="stat-value">Fair Launch</div>
+          <div class="stat-note">Via Pump.fun, Solana</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>CodecFLOW is the operational layer for embodied AI — bridging robots to VLA models via a decentralised compute marketplace. The CODEC SDK gives robots access to vision-language-action models through 1,200+ node operators, eliminating the lock-in of sourcing inference from a single cloud provider. The fair launch via Pump.fun keeps the token distribution clean.</p>
+        <p>Integrations are moving fast. CodecFLOW has wired in <strong>Chainlink Runtime Environment (CRE)</strong> to build an autonomous delivery agent (MechaShip) with dynamic quotes, supports <strong>x402 micropayments</strong> for agent access, and is live on PEAQ's MachineDEX — connecting the inference marketplace directly to the machine economy. The September 2025 VLA model coverage spike confirms there's a community paying attention.</p>
+        <p>The comparable here is <strong>Hugging Face</strong> — but decentralised, with economic alignment between compute providers and token holders, and purpose-built for physical AI rather than NLP.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">2.8M+ inferences served</span>
+          <span class="signal-tag sig-green">x402 + CRE integrations live</span>
+          <span class="signal-tag sig-green">PEAQ MachineDEX deployed</span>
+          <span class="signal-tag sig-amber">Monetisation model early-stage</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Right infrastructure at the right time. The auction model between traditional robotics employers and task execution is the sleeper revenue thesis — watch for named enterprise partnerships as the rerating catalyst.</span>
+      </div>
+    </div>
+
+    <!-- AUKI -->
+    <div class="protocol-card reveal-on-scroll" id="auki">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$AUKI · BASE</span>
+            <span class="protocol-status status-live">LIVE</span>
+          </div>
+          <div class="protocol-name">Auki</div>
+          <div class="protocol-tagline">Decentralised shared spatial computing — the "Real World Web" for robots and AR devices</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">ARR</div>
+          <div class="stat-value">$2M+</div>
+          <div class="stat-note">From enterprise spatial trials</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Active Nodes</div>
+          <div class="stat-value">2,300+</div>
+          <div class="stat-note">In active deployment</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Pilot Partners</div>
+          <div class="stat-value">Toyota · COOP</div>
+          <div class="stat-note">+ Unitree, EngineAI</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>Auki's 'Posemesh' technology builds a shared, persistent 3D map of the world that multiple robots and AR devices can reference simultaneously. This "Real World Web" eliminates the need for each robot to maintain its own spatial model — enabling multi-robot collaboration, object permanence, and navigation without centralised data servers. The privacy architecture is edge-first: encrypted clusters with local computation, no global data sharing.</p>
+        <p>The enterprise traction is the differentiator. $2M+ ARR from Swedish supermarket COOP trials, active pilots with Toyota Material Handling, Unitree, Padbot, Slamtec, and EngineAI. The results speak: <strong>30% reduction in walking distance for staff</strong>, 15 min/day handover time savings, and 4,000m² store mapping completed in 4 hours versus days previously. These are real operational metrics from paying enterprise customers — not user count vanity metrics.</p>
+        <p>Auki took a DEX-first approach to build community before a CEX listing, which is planned for 2026. The token burn mechanism (credits purchased by burning $AUKI) creates direct demand tied to network usage.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">$2M ARR from enterprise pilots</span>
+          <span class="signal-tag sig-green">Measurable productivity outcomes</span>
+          <span class="signal-tag sig-green">Proprietary Posemesh moat</span>
+          <span class="signal-tag sig-amber">CEX listing pending (2026)</span>
+          <span class="signal-tag sig-amber">Scale dependency on hardware proliferation</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">The most defensible moat in decentralised robotics — shared spatial context is a winner-take-most market. Enterprise traction is real. CEX listing will be the next liquidity catalyst.</span>
+      </div>
+    </div>
+
+    <!-- NRN -->
+    <div class="protocol-card reveal-on-scroll" id="nrn">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$NRN · NEURON</span>
+            <span class="protocol-status status-live">LIVE</span>
+          </div>
+          <div class="protocol-name">Neuron (NRN)</div>
+          <div class="protocol-tagline">The global evaluation and reproducibility standard for embodied AI — the LMArena for robots</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">SAI Platform</div>
+          <div class="stat-value">Live</div>
+          <div class="stat-note">VLA benchmarking</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Strategic Advisor</div>
+          <div class="stat-value">Dr. Nicholas Nadeau</div>
+          <div class="stat-note">Former CTO, 1X Technologies</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Comp: LMArena</div>
+          <div class="stat-value">$600M</div>
+          <div class="stat-note">Valuation on $100M seed</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>Robotics is stuck in "demo-ware." There is no independent standard for evaluating whether a robotic policy actually works across diverse environments, hardware configurations, and task types. NRN is building that standard — the SAI platform (named from the Chinese word for competition) provides multi-dimensional benchmarking across Competency, Robustness, and Generalization, plus human-preference scoring to validate policies in real-world conditions.</p>
+        <p>The financial thesis is clear: <strong>LMArena raised $100M at a $600M valuation</strong> purely by monetising trust and enterprise analytics for LLMs. Robotics eval is the same category, earlier in the adoption curve, with harder technical problems. The addition of Dr. Nicholas Nadeau — former CTO of 1X Technologies with production-grade robotics experience — validates the team's ability to build credible evaluation infrastructure.</p>
+        <p>Rumoured integrations with NVIDIA Isaac Sim and Google's MuJoCo — the two dominant robotics simulation ecosystems — would make SAI the default eval standard before any competitor has traction.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">LMArena validates financial model</span>
+          <span class="signal-tag sig-green">Former 1X CTO as advisor</span>
+          <span class="signal-tag sig-amber">Isaac Sim / MuJoCo integrations rumoured, unconfirmed</span>
+          <span class="signal-tag sig-amber">Category-creation risk</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Highest optionality play in this report. Eval infrastructure is a winner-take-most category once a standard is established. Simon-and-Garfunkel logic — if this becomes the default, it's worth multiples of today's price.</span>
+      </div>
+    </div>
+
+    <!-- XMAQUINA/DEUS -->
+    <div class="protocol-card reveal-on-scroll" id="deus">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$DEUS · BASE + PEAQ</span>
+            <span class="protocol-status status-pre-tge">PRE-TGE</span>
+          </div>
+          <div class="protocol-name">XMAQUINA</div>
+          <div class="protocol-tagline">The humanoid robotics investment DAO — private equity access to Figure, 1X, Agility, NEURA, and Apptronik</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Treasury NAV</div>
+          <div class="stat-value">~$36M</div>
+          <div class="stat-note">Private equity positions</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Capital Raised</div>
+          <div class="stat-value">$10M+</div>
+          <div class="stat-note">Incl. $3.25M Virtuals auction</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Portfolio Companies</div>
+          <div class="stat-value">5</div>
+          <div class="stat-note">Figure, 1X, Agility, NEURA, Apptronik</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>XMAQUINA solves a structural market access problem: the best humanoid robotics companies — Figure, 1X Technologies, Agility Robotics, NEURA Robotics, Apptronik — have raised at valuations available only to institutions with $250K+ minimums and accredited status. XMAQUINA puts ~$36M of that private equity exposure into a DAO structure that any $DEUS holder can access.</p>
+        <p>The comparator is <strong>gaming DAOs in 2021</strong> — YGG and BEAM offered index exposure to web3 gaming; XMAQUINA offers the same mechanic to embodied AI. The governance model is cleaner: zero management fees (team compensated in vested tokens), all profits flow to treasury for buybacks or dividends, and revenue-sharing from underlying portfolio companies replaces traditional VC distributions.</p>
+        <p>Deployed cross-chain on Base and PEAQ via LayerZero with veDEUS governance. TGE requires a DAO vote (not an automatic timeline), with 33% unlocking at TGE and 67% vesting linearly over 12 months. The January 2025 $3.25M Virtuals Protocol auction raised total capital to $10M+.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">$36M NAV in top humanoid names</span>
+          <span class="signal-tag sig-green">Zero management fees</span>
+          <span class="signal-tag sig-amber">Pre-TGE — governance vote required</span>
+          <span class="signal-tag sig-amber">NAV-to-market premium risk post-TGE</span>
+          <span class="signal-tag sig-red">Regulatory clarity on ownership rights pending</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Unique instrument with no liquid equivalent. NAV discount or premium will depend entirely on TGE mechanics and market conditions. Monitor DAO governance vote timing as the trigger.</span>
+      </div>
+    </div>
+
+    <!-- TAO SUBNETS -->
+    <div class="protocol-card reveal-on-scroll" id="tao">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">$TAO · BITTENSOR</span>
+            <span class="protocol-status status-live">LIVE</span>
+          </div>
+          <div class="protocol-name">TAO Subnets</div>
+          <div class="protocol-tagline">Bittensor's ecosystem of specialised AI subnets — several directly relevant to the robotics intelligence stack</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Active Subnets</div>
+          <div class="stat-value">128</div>
+          <div class="stat-note">+ dTAO per-subnet tokens</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Emission Rate</div>
+          <div class="stat-value">3,600</div>
+          <div class="stat-note">TAO/day (post-halving)</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Peak Subnet ARR</div>
+          <div class="stat-value">$5.5M</div>
+          <div class="stat-note">SN-64 Chutes</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>Bittensor's relevance to robotics comes from its subnet architecture: a market for AI intelligence where specialised models compete for emission rewards based on real performance. Several subnets are directly relevant to the robotics stack — covering multimodal perception, motion planning, and embodied navigation.</p>
+        <p>Robotics requires massive multi-modal training data and continuous fine-tuning across variations in hardware, environment, and policy. Centralised AI struggles to scale across this diversity. Bittensor provides a market for intelligence — letting robots pay for the specific skills they need, including edge cases, using x402 micropayments for machine-to-machine settlement. As humanoid production scales and dataset requirements multiply, the TAO marketplace for specialised robotic intelligence becomes the clearinghouse for physical AI capabilities.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">dTAO per-subnet tokens live</span>
+          <span class="signal-tag sig-green">x402 micropayment integration path</span>
+          <span class="signal-tag sig-amber">Robotics-specific subnets early-stage</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Bittensor's long-term robotics role is as the intelligence marketplace — not the execution layer. TAO's value accrual will come from robots paying for model access, not from owning the hardware stack.</span>
+      </div>
+    </div>
+
+    <!-- OPENMIND -->
+    <div class="protocol-card reveal-on-scroll" id="openmind">
+      <div class="protocol-card-header">
+        <div>
+          <div class="protocol-tag-row">
+            <span class="protocol-id">OPENMIND · OM1</span>
+            <span class="protocol-status status-pre-tge">PRE-TGE</span>
+          </div>
+          <div class="protocol-name">OpenMind</div>
+          <div class="protocol-tagline">The "Android for robots" — OM1 open-source OS + FABRIC decentralised coordination network</div>
+        </div>
+      </div>
+      <div class="protocol-stats">
+        <div class="stat-cell">
+          <div class="stat-label">Funding</div>
+          <div class="stat-value">$20M</div>
+          <div class="stat-note">Led by Pantera Capital, Aug 2025</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Developer Program</div>
+          <div class="stat-value">10,000+</div>
+          <div class="stat-note">Users on platform</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-label">Circle Partnership</div>
+          <div class="stat-value">x402 USDC</div>
+          <div class="stat-note">Autonomous M2M payments</div>
+        </div>
+      </div>
+      <div class="protocol-body">
+        <p>OpenMind's OM1 is an open-source, AI-native operating system for robots — handling perception, memory, planning, and action. The Android analogy is apt: just as Android unified the fragmented mobile device market, OM1 aims to become the default software layer across diverse robotic hardware platforms. The FABRIC coordination network adds decentralised identity verification, proof-of-location, task coordination, and autonomous stablecoin settlements.</p>
+        <p>The December 2025 <strong>Circle partnership</strong> wires x402 micropayments via USDC directly into the OS — making autonomous machine-to-machine transactions native to OM1. The concurrent <strong>NEAR Protocol integration</strong> adds hardware-backed privacy AI through Trusted Execution Environments (TEEs). Both partnerships came within 48 hours of each other, suggesting a coordinated go-to-market push ahead of TGE.</p>
+        <p>Pantera, Coinbase Ventures, DCG, and Ribbit Capital participated in the $20M round — a credentialed cap table that signals serious institutional conviction ahead of a token launch.</p>
+        <div class="signal-row">
+          <span class="signal-tag sig-green">$20M Pantera-led round</span>
+          <span class="signal-tag sig-green">x402 + NEAR integrations simultaneous</span>
+          <span class="signal-tag sig-green">100+ contributors on Developer League</span>
+          <span class="signal-tag sig-amber">Pre-TGE, no token mechanics disclosed</span>
+        </div>
+      </div>
+      <div class="verdict-row">
+        <span class="verdict-label">Verdict</span>
+        <span class="verdict-text">Highest-risk, highest-upside pre-TGE play in this report. Android-for-robots is a $100B+ category if OM1 captures even 5% of hardware shipments. Watch the TGE for allocation mechanics.</span>
+      </div>
+    </div>
+
+    <!-- COMPOSABILITY -->
+    <div class="section-anchor" id="composability">
+      <span class="section-num">03</span>
+      <h2>The Composability Advantage</h2>
+    </div>
+
+    <p>The strategic edge of decentralised robotics infrastructure is not individual protocol performance — it's the composability between layers that creates network effects no single company can replicate.</p>
+
+    <div class="compose-box">
+      <div class="compose-box-label">Protocol Stack Example</div>
+      <div class="compose-formula">
+        <strong>PEAQ</strong> <span>(identity + payments)</span>
+        <strong> + GEODNET</strong> <span>(centimetre positioning)</span>
+        <strong> + Auki</strong> <span>(shared spatial map)</span>
+        <strong> = </strong> autonomous, location-aware robotic fleets that settle in real-time without centralised infrastructure
+      </div>
+    </div>
+
+    <p>CodecFLOW and OpenMind are prime examples of hardware-agnostic SDKs that any robotics operator can plug into — eliminating the lock-in of proprietary APIs (the "Apptronik SDK" or "Figure SDK"). Once a robot is running OM1 and plugged into CodecFLOW, it gains access to 450+ VLA models through 1,200+ compute nodes, GEODNET positioning, and Auki spatial context — all settled via PEAQ or x402 micropayments.</p>
+
+    <p>This is the flywheel that traditional robotics companies cannot build: <strong>open, composable infrastructure where each protocol benefits from the others scaling</strong>. Boston Dynamics, ABB, and FANUC are optimised for their own hardware ecosystems. The decentralised layer wins by being hardware-neutral.</p>
+
+    <!-- RISKS -->
+    <div class="section-anchor" id="risks">
+      <span class="section-num">04</span>
+      <h2>Risks &amp; Constraints</h2>
+    </div>
+
+    <p>The sector remains high variance. Risk is distributed across multiple protocol layers, but the macro assumptions carry meaningful execution risk on a 3–5 year horizon.</p>
+
+    <table class="risk-table">
+      <thead>
+        <tr>
+          <th>Risk Type</th>
+          <th>Severity</th>
+          <th>Impact</th>
+          <th>Mitigation Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hardware lag</strong></td>
+          <td class="risk-hi">HIGH</td>
+          <td>Robotics hardware progress may lag AI capability. Software layers become stranded without robot proliferation.</td>
+          <td>Monitor humanoid manufacturing cost curves (Figure, 1X production timelines)</td>
+        </tr>
+        <tr>
+          <td><strong>AI performance</strong></td>
+          <td class="risk-med">MEDIUM</td>
+          <td>Embodied intelligence may require datasets larger than currently projected before generalising to real environments.</td>
+          <td>Track Bittensor robotic subnet scaling and BitRobot dataset growth rates</td>
+        </tr>
+        <tr>
+          <td><strong>Regulatory</strong></td>
+          <td class="risk-med">MEDIUM</td>
+          <td>Autonomous systems face jurisdictional restrictions in healthcare, public spaces, and transport.</td>
+          <td>PEAQ's Dubai VARA MoU and similar regulatory partnerships as leading indicators</td>
+        </tr>
+        <tr>
+          <td><strong>Token design</strong></td>
+          <td class="risk-med">MEDIUM</td>
+          <td>Contribution incentives weaken if emission-to-revenue ratios invert. Economic leakage destroys flywheels.</td>
+          <td>Sustained burn rates, fee revenue share mechanisms per protocol</td>
+        </tr>
+        <tr>
+          <td><strong>Market access</strong></td>
+          <td class="risk-low">LOW</td>
+          <td>XMAQUINA NAV-to-market premium risk. Private equity positions may not unlock at expected terms.</td>
+          <td>DAO governance vote mechanics and TGE unlock schedule</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- INVESTMENT OUTLOOK -->
+    <div class="section-anchor" id="outlook">
+      <span class="section-num">05</span>
+      <h2>Investment Outlook</h2>
+    </div>
+
+    <p class="lead">DeRobotics tokens trade at sub-$1B valuations against traditional robotics equities in the tens of billions — same market exposure, fraction of the price, with compressing hardware cost curves acting as the re-rating catalyst.</p>
+
+    <p>The projects covered in this report constitute approximately $200M (27%) of the total DeRobotics segment market cap. The gap versus traditional robotics equities is driven by hardware: companies like ABB, FANUC, and Boston Dynamics have tangible capital tied up in manufacturing, supply chains, and service contracts. The software and coordination layers have structurally lower capital requirements and higher gross margins — but markets haven't priced that asymmetry yet.</p>
+
+    <div class="scenario-grid">
+      <div class="scenario-col scenario-bull">
+        <div class="scenario-label">BULL — 3 Years</div>
+        <p>Humanoid cost-per-unit falls below $20K. Enterprise adoption follows consumer EV adoption curve. GEODNET and Auki become default infrastructure for robotic fleets. XMAQUINA portfolio IPOs. TAO robotic subnets reach $50M+ combined ARR.</p>
+      </div>
+      <div class="scenario-col scenario-base">
+        <div class="scenario-label">BASE — 3 Years</div>
+        <p>Industrial robotics leads (warehousing, agriculture). GEODNET ARR doubles to $14M. Auki CEX listing triggers re-rating. BitRobot and OpenMind TGE in 2026. XMAQUINA delivers first portfolio distribution event.</p>
+      </div>
+      <div class="scenario-col scenario-bear">
+        <div class="scenario-label">BEAR — 3 Years</div>
+        <p>Hardware production delays. AI embodiment problem harder than projected. Regulatory friction in key markets. Pre-TGE projects (BitRobot, OpenMind, XMAQUINA) face difficult launch environments. Only GEODNET and Auki retain value via revenue.</p>
+      </div>
+    </div>
+
+    <p>Across all three scenarios, <strong>GEODNET and Auki are the most defensible positions</strong> — both have real revenue, real customers, and network effects that compound with hardware proliferation regardless of crypto market conditions. XMAQUINA offers a structurally differentiated instrument with no liquid equivalent. The pre-TGE plays (BitRobot, OpenMind) carry higher variance but match the profile of early-stage venture bets with asymmetric upside.</p>
+
+    <div class="callout">
+      <p>Software ate the digital world. Embodied AI is about to eat the physical one. The infrastructure for that transition — positioning, spatial context, coordination, evaluation, capital access — is being built in public markets right now, at valuations that assume the hardware never comes.</p>
+      <div class="callout-attr">— Khala Research, Physical AI Sector</div>
+    </div>
+
+    <!-- SUBSCRIBE -->
+    <div class="subscribe-strip">
+      <div>
+        <div class="sub-heading">Stay ahead of physical AI.</div>
+        <div class="sub-body">Coordination networks. Compute markets. Embodied AI infrastructure. Named positions, primary research.</div>
+      </div>
+      <div>
+        <form class="sub-form" onsubmit="return false;">
+          <input type="email" class="sub-input" placeholder="your@email.com">
+          <button class="sub-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-left">© 2026 Khala Research. All rights reserved.</div>
+  <div class="footer-right">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="https://x.com/KhalaResearch" target="_blank">X / Twitter</a>
+  </div>
+</footer>
+
+<script>
+// Progress bar
+const bar = document.getElementById('progress-bar');
+const label = document.getElementById('progress-section-label');
+const sections = document.querySelectorAll('[id]');
+
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  bar.style.width = Math.min(scrolled, 100) + '%';
+
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.id;
+  });
+  if (current && current !== 'top') {
+    label.textContent = current.replace(/-/g, ' ').toUpperCase();
+    label.classList.add('visible');
+  } else {
+    label.classList.remove('visible');
+  }
+});
+
+// TOC active state
+const tocLinks = document.querySelectorAll('.toc-list a');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      tocLinks.forEach(l => l.classList.remove('active'));
+      const id = e.target.getAttribute('id') || e.target.closest('[id]')?.id;
+      if (id) {
+        const active = document.querySelector(`.toc-list a[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    }
+  });
+}, { rootMargin: '-20% 0px -75% 0px' });
+
+document.querySelectorAll('.section-anchor, .protocol-card').forEach(s => observer.observe(s));
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>
