@@ -375,7 +375,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink3); border: 1px solid var(--border); padding: 2px 7px; }
 
 /* ANALYSTS */
-.analysts { padding: 96px 56px; border-bottom: 1px solid var(--border); max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
+.analysts { padding: 96px 56px; border-bottom: 1px solid var(--border); max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; isolation: isolate; }
 .an-row {
   padding: 18px 0; border-bottom: 1px solid var(--border);
   display: grid; grid-template-columns: 42px 1fr auto;
@@ -567,7 +567,7 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   /* Analysts / Team */
   .analysts { grid-template-columns: 1fr; gap: 32px; padding: 56px 20px; }
   .team-cards { gap: 14px; }
-  .team-card { padding: 20px; }
+  .team-card { padding: 20px; min-height: 380px; }
   .team-card-header { gap: 12px; }
   .team-photo { width: 48px; height: 48px; }
   .an-avatar { width: 42px !important; height: 42px !important; }
@@ -1365,10 +1365,10 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 .team-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .team-card {
   perspective: 900px;
-  min-height: 280px;
+  min-height: 460px;
 }
 .team-card-inner {
-  position: relative; width: 100%; height: 100%; min-height: 280px;
+  position: relative; width: 100%; height: 100%; min-height: 460px;
   transform-style: preserve-3d;
   transition: transform .55s cubic-bezier(.4,0,.2,1);
   cursor: pointer;
@@ -1380,10 +1380,12 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
   padding: 28px; border: 1px solid var(--border);
   border-radius: 2px; background: var(--cream);
+  overflow: hidden;
 }
 .tc-back {
   transform: rotateY(180deg);
   background: var(--ink); border-color: rgba(255,255,255,.06);
+  overflow-y: auto;
 }
 .tc-front-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .tc-name { font-family: var(--bask); font-size: 20px; color: var(--ink); }
@@ -2364,7 +2366,7 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
             <div class="tc-creds">
               <div class="tc-cred"><span class="tc-cred-icon">⬡</span><span class="tc-cred-text"><strong>Investment banking background</strong>, institutional capital deployment in digital assets</span></div>
               <div class="tc-cred"><span class="tc-cred-icon">◈</span><span class="tc-cred-text"><strong>Subnet Risk Index</strong>, engineered the scoring model tracking 128 subnets</span></div>
-              <div class="tc-cred"><span class="tc-cred-icon">◎</span><span class="tc-cred-text"><strong>Data infrastructure</strong>, built the pipeline from on-chain metrics to investment signal</span></div>
+              <div class="tc-cred"><span class="tc-cred-icon">◎</span><span class="tc-cred-text"><strong>Data infrastructure</strong>, built the on-chain metrics pipeline behind the Subnet Risk Index</span></div>
             </div>
             <div class="tc-tags"><span class="tc-tag">EV/ARR</span><span class="tc-tag">SRI Scoring</span><span class="tc-tag">On-chain Analytics</span><span class="tc-tag">FDV Modelling</span></div>
             <a href="https://www.linkedin.com/in/jackpylon/" target="_blank" class="tc-link">Connect on LinkedIn →</a>
