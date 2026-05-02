@@ -934,10 +934,10 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <nav class="topbar-right">
       <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
       <a href="#subscribe" class="topbar-cta">Subscribe →</a>
-      <div class="theme-pill" id="theme-pill">
-        <button class="tp-opt" data-mode="light">Light</button>
-        <button class="tp-opt" data-mode="dark">Dark</button>
-      </div>
+      <button class="theme-toggle" id="theme-pill" aria-label="Toggle dark mode">
+        <svg class="ti-light" viewBox="0 0 16 16" fill="none" width="14" height="14"><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.3"/><line x1="8" y1="1" x2="8" y2="2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="13.2" x2="8" y2="15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="1" y1="8" x2="2.8" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="13.2" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="3.2" y1="3.2" x2="4.4" y2="4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="11.6" y1="11.6" x2="12.8" y2="12.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="12.8" y1="3.2" x2="11.6" y2="4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="4.4" y1="11.6" x2="3.2" y2="12.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <svg class="ti-dark" viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </nav>
   </div>
 </header>
@@ -1072,7 +1072,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <li><strong>Academic validation:</strong> Templar's SparseLoCo accepted at <a href="https://neurips.cc" target="_blank">NeurIPS OPT2025</a>, the first Bittensor-originating research at a major ML conference.</li>
       <li><strong>Technical milestones:</strong> Largest permissionless pre-training run ever conducted (Covenant 72B).</li>
     </ul>
-<div class="section-anchor"><span class="section-num">01</span><h2 id="concentration-problem">The Concentration Problem and Crypto's Solution</h2></div>
+<div class="section-anchor"><h2 id="concentration-problem">The Concentration Problem and Crypto's Solution</h2></div>
 
     <p>Each generation of large language models has cost more to train. In 2020, OpenAI trained GPT-3 for roughly $5M, the best language model in the world. Today, frontier models range from $500M to over $1B. The barrier to competitive AI compounds every year, in favor of incumbents.</p>
 
@@ -1096,7 +1096,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 
     <p>Over the past year, the network matured. Dynamic TAO made subnets directly investable. The first halving tightened supply. Multiple subnets crossed from pilots to contracts. Institutional capital followed: Grayscale's ETF filing, Deutsche Digital Assets' ETP, DCG-backed Yuma launching a subnet fund.</p>
 
-    <div class="section-anchor"><span class="section-num">02</span><h2 id="subnet-economy">Understanding the Subnet Economy</h2></div>
+    <div class="section-anchor"><h2 id="subnet-economy">Understanding the Subnet Economy</h2></div>
     <!-- VALUE CHAIN DIAGRAM -->
     <div class="value-chain-wrap reveal-on-scroll" id="value-chain">
       <h3>AI Value Chain: Where Subnets Sit</h3>
@@ -1129,7 +1129,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 
     <p>Five subnets across all three layers. Selected for technical edge, traction, and market size.</p>
 
-    <div class="section-anchor"><span class="section-num">03</span><h2 id="landscape">The Current Bittensor Landscape</h2></div>
+    <div class="section-anchor"><h2 id="landscape">The Current Bittensor Landscape</h2></div>
     <!-- SUBNET NETWORK GRAPH -->
     <div class="subnet-network-wrap reveal-on-scroll" id="sn-network">
       <h3>Live Subnet Ecosystem: 5 Active Networks</h3>
@@ -1174,7 +1174,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <div style="font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">Coverage Selection: Why These Five</div>
       <p style="font-size:14px;line-height:1.7;color:var(--ink2);margin:0;">From 128 active subnets, coverage was filtered to networks meeting at least two of: (1) verified enterprise contract or named paying customer, (2) auditable on-chain revenue or ARR disclosure, (3) peer-reviewed academic output, (4) minimum 6 months in production. Excluded subnets, including SN19 Nineteen AI and SN9 dMind, did not meet the revenue or customer verifiability threshold at time of writing.</p>
     </div>
-    <div class="section-anchor"><span class="section-num">04</span><h2 id="coverage">Subnet Coverage</h2></div>
+    <div class="section-anchor"><h2 id="coverage">Subnet Coverage</h2></div>
 
     <!-- SN44 SCORE -->
     <div class="subnet-card reveal-on-scroll" id="sn44">
@@ -1209,17 +1209,12 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <div class="subnet-body">
         <p>Computer vision is one of the largest addressable markets in AI. Billions of cameras generate footage every day, but extracting intelligence from video still demands proprietary hardware or expensive cloud compute from Google, Nvidia, and AWS. A single football match still costs hundreds of dollars to annotate.</p>
         <p>SCORE's Manako AI converts live video into structured, queryable datasets, comparable to Google's AutoML or Nvidia's Cosmos VLM, but with a key structural difference: edge cases route to SN44's decentralized miner network, where miners compete to expand model capabilities and earn TAO. Each new customer deployment surfaces new edge cases. Each edge case sharpens the miner network. Quality compounds with usage, not headcount.</p>
-        <div class="signal-row">
+                                                          <div class="signal-row">
           <span class="signal-tag sig-green">100% trial conversion (self-reported)</span>
           <span class="signal-tag sig-green">Multi-vertical traction</span>
-          <span class="signal-tag sig-amber">ARR not disclosed</span>
           <span class="signal-tag sig-red">Cost claims self-reported, unaudited</span>
         </div>
         <p>No competitor currently offers a decentralized, incentive-driven vision platform spanning multiple verticals at SCORE's claimed price point. Google AutoML and Amazon Rekognition are image-first and scale costs linearly per call. Nvidia Cosmos operates at a different stack layer entirely.</p>
-      </div>
-      <div class="verdict-row">
-        <span class="verdict-label">Verdict</span>
-        <span class="verdict-text">Real product, real customers, active miner network. The flywheel is turning. Vision AI is early and fragmented, no dominant platform has emerged for turning the world's camera infrastructure into intelligent data streams.</span>
       </div>
     </div>
 
@@ -1258,15 +1253,10 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
         <p>Incubated by Yuma, backed by a $900K seed with Deep Ventures, MIID generates synthetic identities and adversarial scenarios to stress-test KYC, AML, and digital identity defenses. Miners produce ID variations (name transliterations, deepfake biometrics); validators reward miners based on bypass success, detection latency, and adversarial realism. The output is sold to financial institutions to harden their defenses.</p>
         <div class="signal-row">
           <span class="signal-tag sig-green">Regulatory spend, sticky in downturns</span>
-          <span class="signal-tag sig-green">Unique adversarial positioning</span>
           <span class="signal-tag sig-amber">Pipeline clients un-named</span>
           <span class="signal-tag sig-red">Revenue reinvestment not published</span>
         </div>
         <p>The compliance data market is dominated by slow, centralized vendors. LSEG/Refinitiv World-Check and LexisNexis update periodically, meaning there's always a gap between a new sanctions evasion technique and the response. MIID attacks the systems rather than running detection. That distinction matters.</p>
-      </div>
-      <div class="verdict-row">
-        <span class="verdict-label">Verdict</span>
-        <span class="verdict-text">Real enterprise traction in a lucrative, sticky market. The challenge: converting the pipeline and scaling relationships. $900K is thin for enterprise sales into regulated finance. Watch for the next fundraise.</span>
       </div>
     </div>
 
@@ -1305,15 +1295,10 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
         <p>Two competition formats: Compound challenges (miners submit candidate molecules for defined protein targets) and Blueprint challenges (miners submit search algorithms exploring chemical space more efficiently). Both create a feedback loop, better algorithms improve the molecule discovery engine over time. Near-zero marginal screening cost vs. centralized R&D burning millions.</p>
         <div class="signal-row">
           <span class="signal-tag sig-green">MOU with Yalotein Bio (Yale PhD-led)</span>
-          <span class="signal-tag sig-green">Near-zero marginal screening cost</span>
           <span class="signal-tag sig-amber">Wet-lab validation Q1–Q2 2026</span>
           <span class="signal-tag sig-red">No revenue; licensing path unclear</span>
         </div>
         <p>Centralized competition is well-funded: Recursion ($2.1B market cap), Insilico ($500M+ raised), Isomorphic Labs (DeepMind, $3B in pharma partnerships). NOVA's structural advantage is cost and throughput, if wet-lab validation lands.</p>
-      </div>
-      <div class="verdict-row">
-        <span class="verdict-label">Verdict</span>
-        <span class="verdict-text">A $1.5T+ industry with a structurally broken pipeline. The risk is real, wet-lab validation is expensive, and the path from virtual screening to therapeutic candidate is long. The upside is asymmetric. Highest variance bet of the five.</span>
       </div>
     </div>
 
@@ -1351,16 +1336,11 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
         <p>Frontier model pre-training is increasingly concentrated. The compute required doubles every 6–10 months, pricing out anyone but the major labs. Templar is emerging as the most credible decentralized pre-training platform, and uniquely, it's permissionless. Prime Intellect, Nous, and Pluralis all curate or gate participants. Templar doesn't.</p>
         <p>SparseLoCo compresses gradients by ~97% while outperforming uncompressed baselines, enabling 72B parameter training over the public internet with just 6% communication overhead. The Templar-1B run (20,000+ cycles, ~200 GPUs) matches centralized baselines across HellaSwag, PIQA, and ARC-E. At first checkpoint, Covenant 72B outperforms all completed decentralized pre-training runs on measured benchmarks.</p>
         <div class="signal-row">
-          <span class="signal-tag sig-green">Only permissionless training in production</span>
           <span class="signal-tag sig-green">NeurIPS acceptance, first Bittensor ecosystem paper</span>
           <span class="signal-tag sig-amber">72B final benchmarks pending</span>
           <span class="signal-tag sig-red">~300× smaller than frontier datacenters</span>
         </div>
         <p>The revenue flywheel: 100% of training-as-a-service fees fund Covenant token buybacks, linking commercial demand directly to miner incentives. Full-stack coverage across three subnets (pre-training, compute, post-training/RL) gives Templar vertical integration competitors lack. Epoch AI data: decentralized training compute grows 4× faster than centralized infrastructure.</p>
-      </div>
-      <div class="verdict-row">
-        <span class="verdict-label">Verdict</span>
-        <span class="verdict-text">The thesis hinges on Covenant 72B final benchmarks. If the model matches or exceeds centralized baselines at equivalent scale, decentralized pre-training is validated. The macro tailwind is clear, the gap narrows significantly within 2–3 years at current growth rates.</span>
       </div>
     </div>
 
@@ -1404,19 +1384,14 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
         <p>Revenue breakdown: 55% pay-as-you-go, 25% sponsored inference, 5% subscribers, 5% bounties. Pay-as-you-go dominating signals genuine developer usage, not marketing subsidies. But 25% sponsored means the organic-to-sponsored ratio is the key metric to watch. Chutes ranks as OpenRouter's #1 provider and consistently offers newly released open-source models first (DeepSeek V3, Kimi K2), driving developer trial and sticky usage.</p>
         <div class="signal-row">
           <span class="signal-tag sig-green">#1 provider on OpenRouter</span>
-          <span class="signal-tag sig-green">First-mover on new model releases</span>
           <span class="signal-tag sig-amber">25% sponsored revenue, watch ratio</span>
           <span class="signal-tag sig-red">Single validator concentration (Rayon Labs)</span>
         </div>
         <p>The real moat is the incentive-aligned supply side. Miners earn through TAO emissions, creating a supply floor that VC-funded competitors can't match without continued fundraising or margin compression. For context: OpenRouter processes ~1T tokens/day. Chutes runs ~100B–120B tokens/day, with 20–25% flowing through OpenRouter.</p>
       </div>
-      <div class="verdict-row">
-        <span class="verdict-label">Verdict</span>
-        <span class="verdict-text">$5.5M annualized is modest against centralized providers, but it's the strongest revenue signal in Bittensor. The central question: does the incentive-aligned supply side translate into a durable moat, or get overwhelmed by VC-backed competitors racing to the price floor?</span>
-      </div>
     </div>
 
-    <div class="section-anchor"><span class="section-num">05</span><h2 id="catalysts">Catalysts and Risk Factors</h2></div>
+    <div class="section-anchor"><h2 id="catalysts">Catalysts and Risk Factors</h2></div>
 
     <p>The investment case for TAO and its subnet ecosystem hinges on a series of near-term catalysts and identifiable risks. The disconnect between commercial traction and market valuation creates potential asymmetry for investors who believe decentralized approaches can capture meaningful share of the AI infrastructure market.</p>
 
@@ -1444,7 +1419,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       </table>
     </div>
 
-    <div class="section-anchor"><span class="section-num">06</span><h2 id="closing">Closing Thesis</h2></div>
+    <div class="section-anchor"><h2 id="closing">Closing Thesis</h2></div>
 
     <p>The five subnets in this report span inference compute, computer vision, regulatory compliance, drug discovery, and model pre-training. What they share is a structural advantage that centralized competitors cannot replicate: token-incentivized competition that compounds output quality with usage, not headcount.</p>
 

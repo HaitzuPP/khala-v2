@@ -130,18 +130,29 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 
 /* TOKEN NETWORK VIZ */
 .hero-right {
-  position: relative;
-  overflow: hidden;
-  min-height: 540px;
+  display: flex; flex-direction: column;
+  border-left: 1px solid rgba(13,12,9,.09);
+  padding-left: 52px;
+  justify-content: center; gap: 0;
 }
-.hero-right::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 80px;
-  background: linear-gradient(90deg, var(--cream), transparent);
-  z-index: 10;
-  pointer-events: none;
+.hero-stat {
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(13,12,9,.07);
+}
+.hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+.hero-stat-label {
+  font-family: var(--mono); font-size: 9.5px;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink3); margin-bottom: 6px;
+}
+.hero-stat-value {
+  font-family: var(--bask); font-size: 28px; font-weight: 400;
+  color: var(--ink); line-height: 1.15;
+}
+.hero-stat-value.accent { color: var(--orange); }
+.hero-stat-note {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--ink3); letter-spacing: .06em; margin-top: 4px;
 }
 .token-viz {
   position: absolute;
@@ -1850,46 +1861,15 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
       <span class="tm-item"><span class="tm-val" style="color:var(--orange)">$NRN</span><span class="tm-lbl">EVAL</span></span>
     </div>
     <a href="research.html" class="topbar-cta">View Research →</a>
-    <div class="theme-pill" id="theme-pill">
-      <button class="tp-opt" data-mode="light">Light</button>
-      <button class="tp-opt" data-mode="dark">Dark</button>
-    </div>
+    <button class="theme-toggle" id="theme-pill" aria-label="Toggle dark mode">
+      <svg class="ti-light" viewBox="0 0 16 16" fill="none" width="14" height="14"><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.3"/><line x1="8" y1="1" x2="8" y2="2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="13.2" x2="8" y2="15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="1" y1="8" x2="2.8" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="13.2" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="3.2" y1="3.2" x2="4.4" y2="4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="11.6" y1="11.6" x2="12.8" y2="12.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="12.8" y1="3.2" x2="11.6" y2="4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="4.4" y1="11.6" x2="3.2" y2="12.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <svg class="ti-dark" viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M13.5 9.5A5.5 5.5 0 0 1 6.5 2.5a5.5 5.5 0 1 0 7 7z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
   </nav>
 </div>
 
 
-<!-- MARKET TICKER -->
-<div class="mkt-ticker" aria-label="Market data">
-  <div class="mkt-ticker-track" id="mkt-track">
-    <span class="mkt-chip" style="opacity:.5;border-right-color:rgba(255,255,255,.15)"><span class="mkt-chip-sym" style="color:rgba(255,255,255,.3)">DATA</span><span class="mkt-chip-stat" style="color:rgba(255,255,255,.3)">as of Feb 2026</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">TAO</span><span class="mkt-chip-val">$31.40</span><span class="mkt-chip-chg pos" id="tao-chg">+4.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">128 subnets</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">PEAK ARR</span><span class="mkt-chip-val">$5.5M</span><span class="mkt-chip-chg pos">+311% YoY</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">SN-64 Chutes</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">BTC</span><span class="mkt-chip-val">$104,200</span><span class="mkt-chip-chg pos">+1.8%</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">ETH</span><span class="mkt-chip-val">$3,820</span><span class="mkt-chip-chg neg">−0.4%</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">TAO FDV</span><span class="mkt-chip-val">~$4.0B</span><span class="mkt-chip-chg pos">+22% 30d</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">~130M circulating</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">RNDR</span><span class="mkt-chip-val">$8.14</span><span class="mkt-chip-chg pos">+2.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Decentralised Compute</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">AKT</span><span class="mkt-chip-val">$4.72</span><span class="mkt-chip-chg neg">−1.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Compute Marketplace</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">SUI</span><span class="mkt-chip-val">$2.90</span><span class="mkt-chip-chg pos">+3.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Move VM · Parallel Execution</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">PEAQ</span><span class="mkt-chip-val">$0.12</span><span class="mkt-chip-chg pos">+5.4%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">EoT Layer · DePIN Infrastructure</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">3,600 TAO/day</span><span class="mkt-chip-chg">halved Jan 2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">NETWORKS</span><span class="mkt-chip-val">128 + growing</span><span class="mkt-chip-chg">5 profiled in depth</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Coord · Compute · Data</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 20–40× AI SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
-    <span class="mkt-chip"><span class="mkt-chip-sym">AI ECONOMY</span><span class="mkt-chip-val">5 sectors</span><span class="mkt-chip-chg">Coord · Compute · Finance</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Tokenised Intelligence</span></span>
-    <!-- duplicate for seamless loop -->
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">TAO</span><span class="mkt-chip-val">$31.40</span><span class="mkt-chip-chg pos">+4.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">128 subnets</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">PEAK ARR</span><span class="mkt-chip-val">$5.5M</span><span class="mkt-chip-chg pos">+311% YoY</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">SN-64 Chutes</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">BTC</span><span class="mkt-chip-val">$104,200</span><span class="mkt-chip-chg pos">+1.8%</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">ETH</span><span class="mkt-chip-val">$3,820</span><span class="mkt-chip-chg neg">−0.4%</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">TAO FDV</span><span class="mkt-chip-val">~$4.0B</span><span class="mkt-chip-chg pos">+22% 30d</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">~130M circulating</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">RNDR</span><span class="mkt-chip-val">$8.14</span><span class="mkt-chip-chg pos">+2.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Decentralised Compute</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">AKT</span><span class="mkt-chip-val">$4.72</span><span class="mkt-chip-chg neg">−1.2%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Compute Marketplace</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">SUI</span><span class="mkt-chip-val">$2.90</span><span class="mkt-chip-chg pos">+3.1%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Move VM · Parallel Execution</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">PEAQ</span><span class="mkt-chip-val">$0.12</span><span class="mkt-chip-chg pos">+5.4%</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">EoT Layer · DePIN Infrastructure</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">EMISSION</span><span class="mkt-chip-val">3,600 TAO/day</span><span class="mkt-chip-chg">halved Jan 2025</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Subnet Reward</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">NETWORKS</span><span class="mkt-chip-val">128 + growing</span><span class="mkt-chip-chg">5 profiled in depth</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Coord · Compute · Data</span></span>
-    <span class="mkt-chip" aria-hidden="true"><span class="mkt-chip-sym">SN64 EV/ARR</span><span class="mkt-chip-val">~58×</span><span class="mkt-chip-chg pos">vs. 20–40× AI SaaS</span><span class="mkt-chip-sep"></span><span class="mkt-chip-stat">Implied at $320M</span></span>
-  </div>
-</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
@@ -1911,17 +1891,27 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
     </div>
   </div>
   <div class="hero-right">
-    <div class="token-viz" id="tokenViz">
-      <!-- SVG lines drawn by JS -->
-      <svg id="vizSvg"></svg>
-
-      <!-- CRYPTO TOKENS -->
-      <div class="tn" data-id="btc"  style="left:10%;top:14%;--dur:5.2s;--delay:0s">
-        <div class="tn-chip">
-          <span class="tn-sym" style="color:#F7931A">₿</span>
-          <span class="tn-lbl">Bitcoin</span>
-        </div>
-      </div>
+    <div class="hero-stat">
+      <div class="hero-stat-label">Peak Subnet ARR</div>
+      <div class="hero-stat-value accent">$5.5M</div>
+      <div class="hero-stat-note">SN-64 Chutes · annualized</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-label">Active Subnets</div>
+      <div class="hero-stat-value">128</div>
+      <div class="hero-stat-note">Expanding to 256 in 2026</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-label">Protocols Profiled</div>
+      <div class="hero-stat-value">14</div>
+      <div class="hero-stat-note">Across 5 sectors · named positions</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-label">TAO vs OpenAI FDV</div>
+      <div class="hero-stat-value">1 / 125</div>
+      <div class="hero-stat-note">$4B vs $500B+ · same intelligence race</div>
+    </div>
+  </div>
       <div class="tn" data-id="eth"  style="left:10%;top:44%;--dur:4.8s;--delay:-1.2s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#627EEA">Ξ</span>
@@ -2002,18 +1992,10 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
   </div>
 </section>
 
-<!-- SOCIAL PROOF STRIP -->
-<div class="proof-strip">
-  <div class="marquee-track">
-    <div class="marquee-inner"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="L1 coordination networks · TAO holders">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Protocol infrastructure · early Bittensor">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="DeFi + AI infrastructure research">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="AI × crypto thesis active since 2023">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Digital assets + AI compute markets">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Deep crypto research · on-chain analytics">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Web3 gaming + AI agent applications">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Institutional liquidity · market making">Cumberland</span></div>
     <div class="marquee-inner" aria-hidden="true"><span class="proof-label" style="flex-shrink:0;padding:0 24px 0 40px">Followed by teams at</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="L1 coordination networks · TAO holders">Multicoin Capital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Protocol infrastructure · early Bittensor">Polychain</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="DeFi + AI infrastructure research">Paradigm</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="AI × crypto thesis active since 2023">a16z crypto</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Digital assets + AI compute markets">Galaxy Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Deep crypto research · on-chain analytics">Delphi Digital</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Web3 gaming + AI agent applications">Animoca Brands</span><span class="proof-dot" style="margin:0 10px;color:var(--ink3)">·</span><span class="proof-item" data-focus="Institutional liquidity · market making">Cumberland</span></div>
   </div>
 </div>
 
-<!-- TIMELINE -->
-<div class="vtl-section">
-  <div class="vtl-wrap">
-    <div class="vtl-spine"></div>
     <div class="vtl-head">
       <div class="vtl-eyebrow">Historical context</div>
       <h2 class="vtl-heading">Every coordination breakthrough<br>created a <em>new asset class.</em></h2>
@@ -2064,12 +2046,6 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
   </div>
 </div>
 
-<!-- METHODOLOGY STRIP -->
-<div class="pipeline-section">
-  <div class="pipeline-wrap">
-    <div class="pipeline-head">
-      <div>
-        <div class="section-label" style="margin-bottom:12px">How We Work</div>
         <div class="pipeline-title">Three stages.<br><em>One standard.</em></div>
       </div>
       <div class="pipeline-note"></div>
@@ -2148,28 +2124,6 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
 </div>
 
 
-  <!-- FEATURED REPORT BAND -->
-  <section class="featured-band">
-    <div class="featured-inner">
-      <div class="featured-eyebrow">
-        <span class="featured-dot"></span>
-        <span class="featured-label">Latest Report</span>
-      </div>
-      <a href="bittensor-article.html" class="featured-link">
-        <div class="featured-sector">Coordination Networks</div>
-        <h2 class="featured-title">Bittensor: The Intelligence Olympics</h2>
-        <p class="featured-desc">Inference. Computer vision. Compliance. Drug discovery. Pre-training. $5.5M ARR, enterprise contracts, NeurIPS.</p>
-        <span class="featured-read">Read the report →</span>
-      </a>
-      <div class="featured-stats">
-        <div class="fs-item"><span class="fs-val"><span class="fs-pulse"></span>$5.5M ARR</span>Peak Subnet Revenue</div>
-        <div class="fs-item"><span class="fs-val">5 subnets</span>Profiled in Depth</div>
-        <div class="fs-item"><span class="fs-val">128 active</span>Total Subnets Tracked</div>
-        <div class="fs-item"><span class="fs-val">~58×</span>EV/ARR, Top Subnet</div>
-        <div class="fs-item"><span class="fs-val">NeurIPS 2024</span>Research Acceptance</div>
-      </div>
-    </div>
-  </section>
 <!-- THESIS -->
 <section id="thesis">
   <div class="thesis">
@@ -2287,12 +2241,6 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
   </div>
 </section>
 
-<!-- AI STACK -->
-<div class="ai-stack-section">
-  <div class="ai-stack-wrap">
-    <div class="ai-stack-head">
-      <div>
-        <div class="vtl-eyebrow" style="margin-bottom:14px">Infrastructure Map</div>
         <h2 class="ai-stack-title">The tokenised AI<br>stack, <em>layer by layer.</em></h2>
       </div>
       <p class="ai-stack-desc"></p>
@@ -2412,9 +2360,6 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
   </div>
 </section>
 
-<!-- LIVE TICKER -->
-<div class="live-ticker">
-  <div class="ticker-badge">LIVE</div>
   <div class="ticker-track">
     <div class="ticker-inner">
       <span>SURF &nbsp;·&nbsp; Data Infrastructure &nbsp;·&nbsp; Apr 29</span><span style="color:rgba(243,238,227,.2);padding:0 16px;">◆</span>
@@ -2597,11 +2542,6 @@ const revealObs = new IntersectionObserver((entries) => {
 revealEls.forEach(el => revealObs.observe(el));
 </script>
 
-<!-- MOBILE STICKY CTA -->
-<div class="mobile-cta-bar">
-  <span class="mobile-cta-text">Original crypto × AI research.</span>
-  <a href="#subscribe" class="mobile-cta-btn">Subscribe →</a>
-</div>
 
 
 <script>
