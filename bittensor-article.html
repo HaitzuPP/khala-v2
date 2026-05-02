@@ -746,14 +746,15 @@ html[data-theme="dark"] {
   --rule-heavy: 1px solid rgba(237,232,220,.18);
 }
 html[data-theme="dark"] .topbar {
-  background: rgba(16,14,10,.92);
+  background: rgba(16,14,10,.92) !important;
   border-bottom-color: rgba(237,232,220,.08);
 }
 html[data-theme="dark"] .topbar-logo path,
 html[data-theme="dark"] .footer-left { color: rgba(237,232,220,.4); }
 /* Article hero bg */
-html[data-theme="dark"] .article-hero { background: var(--parch); }
+html[data-theme="dark"] .hero { background: var(--dark) !important; }
 html[data-theme="dark"] .toc-wrap {
+  background: var(--parch) !important;
   background: var(--parch);
   border-color: var(--border);
 }
@@ -770,7 +771,7 @@ html[data-theme="dark"] .subnet-section { border-color: var(--border); }
 html[data-theme="dark"] table thead tr { background: var(--parch); }
 html[data-theme="dark"] table tbody tr:nth-child(odd) { background: rgba(237,232,220,.03); }
 html[data-theme="dark"] .signal-tag { border-color: var(--border); }
-html[data-theme="dark"] .disclosure-section { border-color: var(--border); background: var(--parch); }
+html[data-theme="dark"] .disclosure-section { border-color: var(--border) !important; background: var(--parch) !important; }
 html[data-theme="dark"] .vc-node { border-color: var(--border); background: var(--parch); }
 html[data-theme="dark"] .vc-connector { background: var(--border); }
 html[data-theme="dark"] blockquote { border-color: var(--orange); background: rgba(217,79,42,.06); }
@@ -782,6 +783,15 @@ html[data-theme="dark"] blockquote { border-color: var(--orange); background: rg
   margin-right: 6px;
 }
 .theme-toggle:hover { color: var(--ink); }
+
+
+/* ── Article dark mode pass 3 ────────────────────────────── */
+html, html * { transition: background-color .22s ease, border-color .22s ease, color .18s ease; }
+html[data-theme="dark"] .hero::before { opacity: .04; }
+html[data-theme="dark"] .scenario-table { border-color: var(--border); }
+html[data-theme="dark"] .subnet-header { border-color: var(--border); }
+html[data-theme="dark"] .coverage-box { background: var(--parch); border-color: var(--border); }
+html[data-theme="dark"] .verdict-label { color: var(--ink3); }
 
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>

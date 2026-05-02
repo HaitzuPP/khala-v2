@@ -1668,6 +1668,7 @@ html[data-theme="dark"] .featured-band { background: #0E0C09; }
 html[data-theme="dark"] .vtl-section { background: #0E0C09; }
 html[data-theme="dark"] .ai-stack-section { background: #0E0C09; }
 /* Team card back */
+html[data-theme="dark"] .team-card { background: var(--parch); }
 html[data-theme="dark"] .tc-back {
   background: #0E0C09;
   border-color: rgba(237,232,220,.08);
@@ -1715,6 +1716,32 @@ html[data-theme="dark"] .thesis-named {
 .theme-toggle:hover { color: var(--ink); }
 html[data-theme="dark"] .theme-toggle { color: rgba(237,232,220,.4); }
 html[data-theme="dark"] .theme-toggle:hover { color: var(--ink); }
+
+
+/* ── Dark mode pass 3: transitions + polish ─────────────── */
+html, html * { transition: background-color .22s ease, border-color .22s ease, color .18s ease; }
+html[data-theme="dark"] .sc-depth-fill { background: var(--orange); }
+html[data-theme="dark"] .section-label {
+  color: var(--ink3);
+  border-color: var(--border);
+}
+html[data-theme="dark"] .proof-marquee { border-color: var(--border); }
+html[data-theme="dark"] .rr { border-color: var(--border) !important; }
+html[data-theme="dark"] .rr:hover { background: rgba(237,232,220,.03); opacity: 1; }
+html[data-theme="dark"] .rr-preview { background: var(--parch); }
+html[data-theme="dark"] .pipe-arrow { color: var(--ink3); }
+html[data-theme="dark"] .stack-layer { border-color: rgba(237,232,220,.08); }
+html[data-theme="dark"] .stack-layer:hover { border-color: rgba(237,232,220,.18); }
+html[data-theme="dark"] .tls-item { border-color: var(--border); }
+html[data-theme="dark"] .tls-item.active { background: rgba(237,232,220,.04); }
+html[data-theme="dark"] .sub-freq-bar { background: rgba(237,232,220,.08); }
+html[data-theme="dark"] .sub-freq-bar.has-report { background: var(--orange); }
+html[data-theme="dark"] .sub-success { background: rgba(237,232,220,.05); }
+html[data-theme="dark"] .hsm-bar { background: rgba(237,232,220,.08); }
+html[data-theme="dark"] .hsm-fill { background: var(--cyan); }
+html[data-theme="dark"] .vtl-dot { background: var(--dark); border-color: rgba(237,232,220,.25); }
+html[data-theme="dark"] .vtl-line { background: rgba(237,232,220,.12); }
+html[data-theme="dark"] .vtl-item.vtl-active .vtl-dot { background: var(--orange); border-color: var(--orange); }
 
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>

@@ -427,6 +427,7 @@ html[data-theme="dark"] {
   --bmed:   rgba(237,232,220,.18);
 }
 html[data-theme="dark"] .topbar {
+  background: rgba(16,14,10,.92) !important;
   background: rgba(16,14,10,.92);
   border-bottom-color: rgba(237,232,220,.08);
 }
@@ -437,7 +438,9 @@ html[data-theme="dark"] .sub-input {
   border-color: var(--border);
 }
 html[data-theme="dark"] .sub-input::placeholder { color: var(--ink3); }
+html[data-theme="dark"] .team-card { background: var(--parch); }
 html[data-theme="dark"] .report-card { border-color: var(--border); }
+html[data-theme="dark"] .team-card { background: var(--parch); }
 html[data-theme="dark"] .report-card:hover { border-color: var(--bmed); }
 html[data-theme="dark"] .filter-btn { border-color: var(--border); color: var(--ink3); }
 html[data-theme="dark"] .filter-btn:hover { color: var(--ink); border-color: var(--bmed); }
@@ -452,6 +455,16 @@ html[data-theme="dark"] .filter-btn.active {
   margin-right: 6px;
 }
 .theme-toggle:hover { color: var(--ink); }
+
+
+/* ── Research dark mode pass 3 ──────────────────────────── */
+html, html * { transition: background-color .22s ease, border-color .22s ease, color .18s ease; }
+html[data-theme="dark"] .page-aside { border-color: var(--border); }
+html[data-theme="dark"] .featured-card { border-color: var(--border); background: var(--parch); }
+html[data-theme="dark"] .featured-card:hover { border-color: var(--bmed); }
+html[data-theme="dark"] .report-row { border-color: var(--border); }
+html[data-theme="dark"] .report-row:hover { background: rgba(237,232,220,.03); }
+html[data-theme="dark"] .tag { border-color: var(--border); color: var(--ink3); }
 
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
