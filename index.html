@@ -477,8 +477,9 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* SCROLL REVEAL */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+@keyframes reveal-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.reveal { animation: reveal-in .55s ease both; }
+.reveal.visible { opacity: 1; transform: none; } /* compat */
 
 /* GRAIN TEXTURE */
 body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 180px; }
@@ -831,8 +832,9 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 }
 
 /* Feature 5: Methodology strip sequence */
-.method-item { opacity: 0; transform: translateY(16px); transition: opacity .45s ease-out, transform .45s ease-out; }
-.method-item.method-visible { opacity: 1; transform: translateY(0); }
+@keyframes method-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.method-item { animation: method-in .45s ease both; }
+.method-item.method-visible { opacity: 1; transform: none; } /* compat */
 .method-n {
   display: inline-block;
   transition: color .3s;
@@ -1001,8 +1003,9 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 .vtl-item:hover .vtl-toggle { color: var(--cyan); }
 .vtl-item.open .vtl-toggle { color: var(--cyan); }
 /* reveal */
-.vtl-item { opacity: 0; transform: translateX(-12px); transition: opacity .5s, transform .5s; }
-.vtl-item.vtl-visible { opacity: 1; transform: none; }
+@keyframes vtl-in { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
+.vtl-item { animation: vtl-in .5s ease both; }
+.vtl-item.vtl-visible { opacity: 1; transform: none; } /* compat */
 
 
 /* PIPELINE METHODOLOGY */
@@ -1104,8 +1107,12 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   color: var(--ink3); text-transform: uppercase; margin-top: 6px; display: block;
 }
 /* reveal */
-.pipe-step { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .5s, border-color .25s, box-shadow .25s; }
-.pipe-step.pipe-visible { opacity: 1; transform: translateY(0); }
+@keyframes pipe-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.pipe-step { animation: pipe-in .5s ease both; transition: border-color .25s, box-shadow .25s; }
+.pipe-step[data-pipe-i="0"] { animation-delay: .05s; }
+.pipe-step[data-pipe-i="1"] { animation-delay: .15s; }
+.pipe-step[data-pipe-i="2"] { animation-delay: .25s; }
+.pipe-step.pipe-visible { opacity: 1; transform: none; } /* compat */
 
 
 /* THESIS SECTION UPGRADE */
@@ -1232,8 +1239,15 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 }
 .sl-tag.covered { border-color: var(--layer-color, var(--cyan)); color: var(--layer-color, var(--cyan)); }
 /* stagger reveal */
-.stack-layer { opacity: 0; transform: translateX(-10px); transition: opacity .5s, transform .5s, background .2s, border-color .2s; }
-.stack-layer.sl-visible { opacity: 1; transform: none; }
+@keyframes sl-in { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
+.stack-layer { animation: sl-in .5s ease both; transition: background .2s, border-color .2s; }
+.stack-layer[data-sl-i="0"] { animation-delay: .05s; }
+.stack-layer[data-sl-i="1"] { animation-delay: .12s; }
+.stack-layer[data-sl-i="2"] { animation-delay: .19s; }
+.stack-layer[data-sl-i="3"] { animation-delay: .26s; }
+.stack-layer[data-sl-i="4"] { animation-delay: .33s; }
+.stack-layer[data-sl-i="5"] { animation-delay: .40s; }
+.stack-layer.sl-visible { opacity: 1; transform: none; } /* compat */
 
 
 /* SUBSCRIBE UPGRADE */
@@ -2864,6 +2878,33 @@ document.querySelectorAll('[data-tls-count]').forEach(el => tlsIO.observe(el));
     });
   }, 1200);
 })();
+
+
+<script>
+// ── Theme pill ────────────────────────────────────────────
+(function(){
+  var pill = document.getElementById('theme-pill');
+  if(!pill) return;
+  var opts = pill.querySelectorAll('.tp-opt');
+  function sync(){
+    var d = document.documentElement.getAttribute('data-theme')==='dark';
+    opts.forEach(function(o){ o.classList.toggle('active', o.dataset.mode===(d?'dark':'light')); });
+  }
+  sync();
+  opts.forEach(function(o){
+    o.addEventListener('click', function(){
+      if(o.dataset.mode==='dark'){
+        document.documentElement.setAttribute('data-theme','dark');
+        localStorage.setItem('khala-theme','dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('khala-theme','light');
+      }
+      sync();
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

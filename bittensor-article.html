@@ -759,6 +759,16 @@ html[data-theme="dark"] .toc-wrap {
   border-color: var(--border);
 }
 /* Subscribe strip stays dark (ink bg) — just ensure --cream/--ink work */
+
+/* Hero text stays light in dark mode — hero bg is always dark */
+html[data-theme="dark"] .hero-title { color: #EDE8DC !important; }
+html[data-theme="dark"] .hero-title em { color: rgba(237,232,220,.60) !important; }
+html[data-theme="dark"] .hero-sub { color: rgba(237,232,220,.50) !important; }
+html[data-theme="dark"] .hero-meta-item { color: rgba(237,232,220,.35) !important; }
+html[data-theme="dark"] .hero-meta-item strong { color: rgba(237,232,220,.70) !important; }
+html[data-theme="dark"] .hero-read-time { color: rgba(237,232,220,.35) !important; border-color: rgba(237,232,220,.12) !important; }
+html[data-theme="dark"] .hero-eyebrow { color: rgba(237,232,220,.45) !important; }
+
 html[data-theme="dark"] .subscribe-strip { background: #0E0C09; }
 html[data-theme="dark"] .sub-input {
   background: rgba(237,232,220,.07);
@@ -840,6 +850,10 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <span class="current">Bittensor: The Intelligence Olympics</span>
     </div>
     <nav class="topbar-right">
+      <div class="theme-pill" id="theme-pill">
+      <button class="tp-opt" data-mode="light">Light</button>
+      <button class="tp-opt" data-mode="dark">Dark</button>
+    </div>
       <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
       <a href="#subscribe" class="topbar-cta">Subscribe →</a>
     </nav>
