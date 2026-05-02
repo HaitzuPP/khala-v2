@@ -564,14 +564,9 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 .hero-inner { position: relative; z-index: 1; }
 
 /* Feature 3: Scroll reveals */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .45s ease-out, transform .45s ease-out;
-}
-.reveal-on-scroll.revealed {
-  opacity: 1; transform: translateY(0);
-}
+@keyframes ros-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.reveal-on-scroll { animation: ros-in .45s ease both; }
+.reveal-on-scroll.revealed { opacity: 1; transform: none; } /* compat */
 
 /* Feature 2: Subnet network graph */
 .subnet-network-wrap {
@@ -835,6 +830,10 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
 <body>
+<noscript><style>
+.reveal,.reveal-on-scroll,.reveal-on-scroll.revealed{opacity:1!important;transform:none!important;animation:none!important;}
+</style></noscript>
+
 <div id="reading-progress"></div>
 
 <div id="progress-bar"></div>
@@ -850,12 +849,12 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <span class="current">Bittensor: The Intelligence Olympics</span>
     </div>
     <nav class="topbar-right">
-      <div class="theme-pill" id="theme-pill">
-      <button class="tp-opt" data-mode="light">Light</button>
-      <button class="tp-opt" data-mode="dark">Dark</button>
-    </div>
       <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
       <a href="#subscribe" class="topbar-cta">Subscribe →</a>
+      <div class="theme-pill" id="theme-pill">
+        <button class="tp-opt" data-mode="light">Light</button>
+        <button class="tp-opt" data-mode="dark">Dark</button>
+      </div>
     </nav>
   </div>
 </header>
@@ -949,14 +948,12 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <div class="takeaways-box">
       <div class="takeaways-header">
         <div class="takeaways-header-dot"></div>
-        <div class="takeaways-header-label">Key Takeaways</div>
+        <div class="takeaways-header-label">Bottom Line</div>
       </div>
       <ul class="takeaways-list">
-        <li>Commercial traction: enterprise contracts, institutional capital, first halving tightening supply.</li>
-        <li>Five subnets: inference (Chutes, $5.5M ARR), computer vision (SCORE), compliance (MIID), drug discovery (NOVA), frontier pre-training (Templar).</li>
-        <li>Decentralised training compute: ~20×/year vs. 5× centralised. Gap narrows within 2–3 years.</li>
-        <li>TAO FDV: ~$4B, 1/125th of OpenAI. The question has shifted from whether to how large.</li>
-        <li>Token-incentivised supply compounds with usage, not headcount or VC spend.</li>
+        <li>Five subnets with live revenue. One at $5.5M ARR with enterprise contracts. One accepted at NeurIPS.</li>
+        <li>TAO FDV: ~$4B. 1/125th of OpenAI. The gap is the thesis.</li>
+        <li>This report holds named positions, disclosed entry prices. Written by the people holding the assets.</li>
       </ul>
     </div>
 
@@ -978,7 +975,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
     <p>Real customers. Real money. Asymmetric upside.</p>
 
     <div class="note-box" style="margin-bottom: 48px;">
-      <p><strong>Methodology note:</strong> Khala Research is developing a systematic subnet risk scoring framework to help allocators evaluate investment quality at scale. Revenue figures and performance claims cited in this report are sourced from public subnet dashboards and company disclosures. For early access to the scoring framework, contact the Khala Research team.</p>
+  
     </div>
 
     <div class="section-anchor"><span class="section-num">01</span><h2 id="concentration-problem">The Concentration Problem and Crypto's Solution</h2></div>
@@ -1352,10 +1349,10 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 
     <p>The five subnets in this report span inference compute, computer vision, regulatory compliance, drug discovery, and model pre-training. What they share is a structural advantage that centralized competitors cannot replicate: token-incentivized competition that compounds output quality with usage, not headcount.</p>
 
-    <p>We're not naive about the gap between early traction and sustainable commercial scale. This report profiles 5 out of 128 subnets. Not all will succeed. But the ones generating revenue, signing enterprise contracts, and passing academic peer review are no longer experiments, these are early-stage AI companies with an unusual cost structure and a novel go-to-market.</p>
+    <p>This report profiles 5 of 128 subnets. Not all will succeed. The ones generating revenue, signing enterprise contracts, and passing peer review are early-stage AI companies with an unusual cost structure and a novel go-to-market. Revenue figures are sourced from public dashboards and have not been independently audited.</p>
 
     <div class="callout reveal-on-scroll">
-      <p>Today, centralized AI labs collectively command valuations above $1 trillion. TAO's fully diluted valuation sits at approximately $4 billion, 1/125th of OpenAI alone. The question has shifted. It's no longer whether decentralized AI can work. These subnets are showing it can.</p>
+      <p>TAO FDV: ~$4B. Centralized AI: >$1T. Five subnets have enterprise contracts, peer-reviewed research, and live revenue dashboards. The entry window is the gap between those two numbers.</p>
     </div>
 
 
