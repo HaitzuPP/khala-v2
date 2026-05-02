@@ -156,6 +156,7 @@ body::after {
   font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
   color: var(--orange); margin-bottom: 20px;
   display: flex; align-items: center; gap: 10px;
+  white-space: nowrap;
 }
 .hero-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--orange); }
 .hero-title {
@@ -598,6 +599,54 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
   .hero-stat:last-child { border-bottom: none !important; }
 }
 
+/* ── Theme pill ── */
+.theme-pill {
+  display: flex; align-items: center;
+  border: 1px solid var(--bmed);
+  border-radius: 2px; overflow: hidden;
+  margin-right: 10px;
+}
+.tp-opt {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: .07em; text-transform: uppercase;
+  padding: 6px 11px; background: none; border: none;
+  cursor: pointer; color: var(--ink3);
+  transition: background .15s, color .15s; line-height: 1;
+}
+.tp-opt.active { background: var(--ink); color: var(--cream); }
+.tp-opt:not(.active):hover { color: var(--ink); background: rgba(13,12,9,.05); }
+html[data-theme="dark"] .tp-opt:not(.active):hover { background: rgba(237,232,220,.07); }
+html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cream); }
+
+/* ── Dark mode overrides ── */
+html[data-theme="dark"] {
+  --cream: #1C1914;
+  --parch: #252119;
+  --ink:   #EDE8DC;
+  --ink-80: rgba(237,232,220,.80);
+  --ink-60: rgba(237,232,220,.60);
+  --ink-30: rgba(237,232,220,.30);
+  --ink-12: rgba(237,232,220,.12);
+  --ink-06: rgba(237,232,220,.06);
+  --border: rgba(237,232,220,.12);
+  --bmed: rgba(237,232,220,.18);
+}
+html[data-theme="dark"] .topbar {
+  background: rgba(28,25,20,.92);
+}
+html[data-theme="dark"] .topbar-logo path { fill: #EDE8DC; }
+html[data-theme="dark"] .hero { background: #0D0C09 !important; }
+html[data-theme="dark"] .hero-eyebrow { color: rgba(237,232,220,.45) !important; }
+html[data-theme="dark"] .tm-val { color: rgba(237,232,220,.72); }
+html[data-theme="dark"] .subscribe-strip { background: #0F0D0A; }
+html[data-theme="dark"] .sub-heading { color: #EDE8DC; }
+html[data-theme="dark"] .sub-body { color: rgba(237,232,220,.55); }
+html[data-theme="dark"] .protocol-card-header { background: #0D0C09; }
+html[data-theme="dark"] .callout { background: #0D0C09; }
+html[data-theme="dark"] .risk-table thead { background: var(--parch); }
+html[data-theme="dark"] .risk-table tbody tr:hover { background: rgba(237,232,220,.03); }
+html[data-theme="dark"] .signal-tag { border-color: var(--border); }
+
 /* ─── GRAIN OVERLAY ─── */
 .hero-grain-overlay {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -610,6 +659,7 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
 .reveal-on-scroll { opacity: 0; }
 .reveal-on-scroll.visible { animation: ros-in .45s ease both; }
 </style>
+<script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
 <body>
 
@@ -625,13 +675,12 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
     <div class="topbar-center">
       <a href="research.html">Research</a>
       <span class="sep">/</span>
-      <a href="research.html">Physical AI</a>
-      <span class="sep">/</span>
       <span class="current">Decentralized Robotics Landscape</span>
     </div>
-    <div class="topbar-right">
+    <nav class="topbar-right">
+      <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
       <div class="topbar-metrics">
-        <span class="tm-item"><span class="tm-val">$PEAQ</span><span class="tm-lbl">DePIN LAYER</span></span>
+        <span class="tm-item"><span class="tm-val">$PEAQ</span><span class="tm-lbl">DePIN</span></span>
         <span class="topbar-metrics-sep">·</span>
         <span class="tm-item"><span class="tm-val">$GEOD</span><span class="tm-lbl">POSITIONING</span></span>
         <span class="topbar-metrics-sep">·</span>
@@ -639,8 +688,12 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
         <span class="topbar-metrics-sep">·</span>
         <span class="tm-item"><span class="tm-val" style="color:var(--orange)">LIVE NOW</span></span>
       </div>
-      <a href="research.html#subscribe" class="topbar-cta">Subscribe</a>
-    </div>
+      <a href="#top" class="topbar-cta">Subscribe →</a>
+      <div class="theme-pill" id="theme-pill">
+        <button class="tp-opt" data-mode="light">Light</button>
+        <button class="tp-opt" data-mode="dark">Dark</button>
+      </div>
+    </nav>
   </div>
 </header>
 
@@ -1351,6 +1404,28 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+// ── Theme pill ──
+(function(){
+  const pill = document.getElementById('theme-pill');
+  if(!pill) return;
+  const opts = pill.querySelectorAll('.tp-opt');
+  const sync = () => {
+    const d = document.documentElement.getAttribute('data-theme')==='dark';
+    opts.forEach(o => o.classList.toggle('active', o.dataset.mode===(d?'dark':'light')));
+  };
+  sync();
+  opts.forEach(o => o.addEventListener('click', () => {
+    if(o.dataset.mode==='dark'){
+      document.documentElement.setAttribute('data-theme','dark');
+      localStorage.setItem('khala-theme','dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('khala-theme','light');
+    }
+    sync();
+  }));
+})();
 </script>
 </body>
 </html>
