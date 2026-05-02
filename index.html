@@ -1769,12 +1769,21 @@ html[data-theme="dark"] .thesis-named {
 .theme-toggle {
   display: flex; align-items: center; justify-content: center;
   width: 32px; height: 32px; border-radius: 50%;
-  border: 1px solid var(--border); background: transparent;
-  color: var(--ink2); cursor: pointer; flex-shrink: 0;
-  transition: color .2s, border-color .2s, background .2s;
+  border: 1px solid var(--ink); background: transparent;
+  color: var(--ink); cursor: pointer; flex-shrink: 0;
+  opacity: 0.45;
+  transition: color .2s, border-color .2s, background .2s, opacity .2s;
 }
-.theme-toggle:hover { color: var(--ink); border-color: var(--bmed); background: rgba(13,12,9,.05); }
-html[data-theme="dark"] .theme-toggle:hover { background: rgba(237,232,220,.08); }
+.theme-toggle:hover { opacity: 1; background: rgba(13,12,9,.05); }
+html[data-theme="dark"] .theme-toggle {
+  color: rgba(237,232,220,.75);
+  border-color: rgba(237,232,220,.18);
+}
+html[data-theme="dark"] .theme-toggle:hover {
+  color: rgba(237,232,220,1);
+  border-color: rgba(237,232,220,.4);
+  background: rgba(237,232,220,.08);
+}
 /* Show sun in light mode, moon in dark mode */
 .ti-dark { display: none; }
 html[data-theme="dark"] .ti-dark { display: block; }
