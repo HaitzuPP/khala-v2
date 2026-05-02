@@ -1685,9 +1685,8 @@ setTimeout(() => {
     el.classList.add('revealed'));
 }, 1200);
 </script>
-</body>
-</html>
 <script>
+
 
 // ── Theme pill ────────────────────────────────────────────
 (function(){
@@ -1710,4 +1709,32 @@ setTimeout(() => {
     sync();
   }));
 })();
+
+// ── Article subscribe mailto fallback ────────────────────
+(function(){
+  var btn = document.querySelector('#subscribe .sub-btn');
+  var inp = document.querySelector('#subscribe .sub-input, #subscribe input[type="email"]');
+  if(!btn || !inp) {
+    // fallback: find any sub-btn on page
+    btn = document.querySelector('.sub-btn');
+    inp = document.querySelector('.sub-input');
+  }
+  if(!btn || !inp) return;
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    var val = inp.value.trim();
+    if(!val || !val.includes('@')){
+      inp.style.borderColor = 'var(--orange)';
+      setTimeout(function(){ inp.style.borderColor = ''; }, 500);
+      inp.focus(); return;
+    }
+    window.location.href = 'mailto:research@khala.xyz?subject=Subscribe&body=Please%20add%20me%20to%20the%20Khala%20Research%20list%3A%20' + encodeURIComponent(val);
+    btn.textContent = '✓ Subscribed';
+    btn.style.background = '#1a7a3a'; btn.style.borderColor = '#1a7a3a';
+    btn.disabled = true;
+  });
+})();
 </script>
+</body>
+
+</html>
