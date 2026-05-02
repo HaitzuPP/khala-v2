@@ -763,8 +763,8 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      countUp(el1, 5, 800);
-      countUp(el2, 5, 1100);
+      countUp(el1, 2, 800);
+      countUp(el2, 3, 1100);
       io.disconnect();
     });
   }, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" });

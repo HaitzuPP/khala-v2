@@ -23,6 +23,14 @@
   --red:    #c0392b;
   --amber:  #a07808;
   --rule:   1px solid var(--ink-12);
+  --mono:  'Geist Mono', monospace;
+  --geist: 'Geist', sans-serif;
+  --bmed:  rgba(13,12,9,.18);
+  --ink2:  rgba(13,12,9,.52);
+  --ink3:  rgba(13,12,9,.28);
+  --ink4:  rgba(13,12,9,.10);
+  --border: rgba(13,12,9,.12);
+  --dark:  #1C1914;
   --rule-heavy: 1px solid var(--ink-30);
   --col: 740px;
   --toc: 220px;
@@ -820,12 +828,6 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 
 
 /* Reading progress */
-#reading-progress {
-  position: fixed; top: 0; left: 0; z-index: 999;
-  height: 2px; width: 0%; background: var(--orange);
-  transition: width .1s linear; pointer-events: none;
-}
-
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
@@ -833,8 +835,6 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
 <noscript><style>
 .reveal,.reveal-on-scroll,.reveal-on-scroll.revealed{opacity:1!important;transform:none!important;animation:none!important;}
 </style></noscript>
-
-<div id="reading-progress"></div>
 
 <div id="progress-bar"></div>
 <div id="progress-section-label"></div>
@@ -972,7 +972,6 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       <li><strong>Technical milestones:</strong> Largest permissionless pre-training run ever conducted (Covenant 72B).</li>
     </ul>
 
-    <p>Real customers. Real money. Asymmetric upside.</p>
 
     <div class="note-box" style="margin-bottom: 48px;">
   
@@ -1394,7 +1393,7 @@ html[data-theme="dark"] .tp-opt.active { background: var(--ink); color: var(--cr
       </table>
       <p style="font-family:'Geist',sans-serif;font-size:11px;color:var(--ink-60);margin:0;">Scenarios are illustrative. Not investment advice. Price targets based on comparable decentralised AI infrastructure multiples and current TAO circulating supply of ~130M tokens. Positions may be held by Khala Research principals.</p>
     </div>
-    <p>For long-horizon allocators, the asymmetry is clear. <em>Khala Research principals hold TAO, initiated at ~$28–$34. This report was not written to support or exit that position.</em> Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
+    <p>For long-horizon allocators, the asymmetry is clear. Centralized infrastructure has a 30-year head start and trillion-dollar market caps. Decentralized AI infrastructure has enterprise contracts, academic validation, live revenue dashboards, and a TAO FDV of $4B. If the gap between those two numbers closes even partially, the return profile is significant.</p>
 
     <div class="subscribe-strip" id="subscribe">
       <div>
@@ -1694,17 +1693,6 @@ setTimeout(() => {
 
 
 // Reading progress bar
-(function(){
-  const bar = document.getElementById('reading-progress');
-  if(!bar) return;
-  window.addEventListener('scroll', () => {
-    const doc = document.documentElement;
-    const scrolled = doc.scrollTop;
-    const total = doc.scrollHeight - doc.clientHeight;
-    bar.style.width = (total > 0 ? (scrolled/total)*100 : 0) + '%';
-  }, { passive: true });
-})();
-
 </body>
 </html>
 <script>
