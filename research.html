@@ -115,8 +115,9 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 .filter-coming {
   font-family: var(--mono); font-size: 11px; letter-spacing: .05em;
   color: var(--ink3); display: flex; align-items: center; padding: 0 6px;
-  white-space: nowrap;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 340px;
 }
+@media (max-width: 600px) { .filter-coming { display: none; } }
 .filter-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
 .filter-count { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--ink3); margin-left: 4px; }
 
@@ -125,6 +126,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   max-width: 1240px; margin: 0 auto;
   padding: 56px 56px;
   border-bottom: 1px solid var(--border);
+  position: relative;
 }
 .featured-inner {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -137,6 +139,9 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase;
   background: var(--cream); color: var(--orange);
   padding: 0 10px; border: 1px solid rgba(217,79,42,.25);
+}
+@media (max-width: 767px) {
+  .featured-badge { position: static; display: inline-block; margin-bottom: 12px; top: auto; left: auto; }
 }
 .featured-body { padding: 44px 40px; border-right: 1px solid var(--border); }
 .featured-tag {
@@ -279,6 +284,8 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   .page-header { padding: 48px 20px 36px; gap: 28px; }
   .page-title { font-size: 32px; }
   .filter-strip { padding: 0 20px; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; scrollbar-width: none; }
+  .topbar-nav-link:not(:first-child) { display: none; }
+  .topbar { overflow: hidden; }
   .filter-strip::-webkit-scrollbar { display: none; }
   .filter-btn { white-space: nowrap; flex-shrink: 0; padding: 7px 14px; font-size: 12px; }
   .featured { padding: 0 20px 36px; }

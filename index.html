@@ -524,6 +524,9 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .btn-hero-primary { width: 100%; text-align: center; justify-content: center; padding: 14px 20px; }
   .hero-right { display: none; }
   .hero-right::after { display: none; }
+  .hero-signal-meter { display: none; }
+  .hero-scroll-cue { display: none; }
+  .hero-click-hint { display: none; }
   /* Scale down token nodes on mobile */
   .tn-chip { width: 48px; height: 48px; }
   .tn.hub .tn-chip { width: 62px; height: 62px; }
@@ -1112,6 +1115,20 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 .pipe-step[data-pipe-i="2"] { animation-delay: .25s; }
 .pipe-step.pipe-visible { opacity: 1; transform: none; } /* compat */
 
+/* Pipeline responsive */
+@media (max-width: 767px) {
+  .pipeline-wrap { padding: 0 20px; }
+  .pipeline-flow { grid-template-columns: 1fr; gap: 12px; }
+  .pipe-arrow { display: none; }
+  .pipe-step { padding: 22px 18px; }
+  .pipe-label { font-size: 20px; }
+  .pipe-metrics { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 399px) {
+  .pipeline-wrap { padding: 0 16px; }
+  .pipe-metrics { grid-template-columns: 1fr 1fr; }
+}
+
 
 /* THESIS SECTION UPGRADE */
 .thesis-stat-bar {
@@ -1395,6 +1412,13 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 .tc-link:hover { text-decoration: underline; }
 
 html[data-theme="dark"] .tc-avatar-placeholder { background: rgba(237,232,220,.15); color: var(--cream); }
+
+/* Team cards responsive */
+@media (max-width: 767px) {
+  .team-cards { grid-template-columns: 1fr; }
+  .tc-name { font-size: 18px; }
+  .tc-bio { font-size: 14px; }
+}
 html[data-theme="dark"] .tc-tag { border-color: var(--border); }
 
 
@@ -2381,13 +2405,12 @@ html[data-theme="dark"] .dg-dot.proj { border-color: rgba(237,232,220,.3); }
   <h2 class="sub-title">Read by Multicoin, Paradigm,<br><em>a16z, Galaxy, Delphi.</em></h2>
   <p class="sub-body">Bittensor. Compute. Agentic finance. AI data. The tokenised AI economy, mapped in depth.</p>
 
-  <div style="margin-bottom:20px;"></div>
-      <div class="sub-freq-bar" style="width:14px" title="Q3 2025"><div class="sub-freq-tooltip">Q3 2025: quiet</div></div>
-      <div class="sub-freq-bar has-report" style="width:14px" title="Q4 2025"><div class="sub-freq-tooltip">Q4 2025: SURF report</div></div>
-      <div class="sub-freq-bar has-report" style="width:14px" title="Q1 2026"><div class="sub-freq-tooltip">Q1 2026: Bittensor report</div></div>
-      <div class="sub-freq-bar" style="width:14px" title="Q2 2026"><div class="sub-freq-tooltip">Q2 2026: 3 forthcoming</div></div>
-      <span style="font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-left:6px">2 live · 3 forthcoming</span>
-    </div>
+  <div class="sub-freq-strip" style="justify-content:center;margin:0 auto 20px;">
+    <div class="sub-freq-bar" style="width:14px" title="Q3 2025"><div class="sub-freq-tooltip">Q3 2025: quiet</div></div>
+    <div class="sub-freq-bar has-report" style="width:14px" title="Q4 2025"><div class="sub-freq-tooltip">Q4 2025: SURF report</div></div>
+    <div class="sub-freq-bar has-report" style="width:14px" title="Q1 2026"><div class="sub-freq-tooltip">Q1 2026: Bittensor report</div></div>
+    <div class="sub-freq-bar" style="width:14px" title="Q2 2026"><div class="sub-freq-tooltip">Q2 2026: 3 forthcoming</div></div>
+    <span style="font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-left:6px">2 live · 3 forthcoming</span>
   </div>
 
   <div class="sub-form" id="sub-form-wrap">

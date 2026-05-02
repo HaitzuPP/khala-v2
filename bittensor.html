@@ -926,6 +926,41 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
 <body>
 <noscript><style>
 .reveal,.reveal-on-scroll,.reveal-on-scroll.revealed{opacity:1!important;transform:none!important;animation:none!important;}
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 767px) {
+  /* Topbar: hide metrics strip and X link, keep subscribe + theme pill */
+  .topbar-metrics { display: none !important; }
+  .topbar-right a[href*="x.com"] { display: none; }
+  .topbar-right { gap: 8px; }
+  .topbar-cta { padding: 6px 12px; font-size: 12px; }
+  /* Breadcrumb: hide long path */
+  .breadcrumb .sep, .breadcrumb .current { display: none; }
+  /* Hero */
+  .hero { padding: 80px 20px 60px; }
+  .hero-title { font-size: clamp(28px, 8vw, 42px); }
+  .hero-deck { font-size: 16px; }
+  .hero-meta { flex-direction: column; gap: 8px; }
+  /* Article body */
+  .article-body { padding: 0 20px; }
+  .article-body h2 { font-size: 26px; }
+  .article-body h3 { font-size: 20px; }
+  .article-body p { font-size: 17px; line-height: 1.75; }
+  /* Terminal block */
+  .terminal-block { margin: 28px 0; font-size: 12px; }
+  /* Leaderboard */
+  .ldb-table { font-size: 12px; }
+  .ldb-table th, .ldb-table td { padding: 8px 10px; }
+  /* Subscribe strip */
+  .sub-title { font-size: 28px; }
+  .sub-form { flex-direction: column; gap: 8px; }
+  .sub-input { width: 100%; }
+  .sub-btn { width: 100%; padding: 14px 20px; }
+}
+@media (max-width: 399px) {
+  .topbar-cta { display: none; }
+  .hero-title { font-size: 26px; }
+}
 </style></noscript>
 
 <div id="progress-bar"></div>
