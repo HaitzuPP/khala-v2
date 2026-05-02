@@ -325,6 +325,14 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   .sector-grid { grid-template-columns: 1fr; }
   .report-row::after { display: none; }
   .row-meta { gap: 8px; }
+  /* Row expand panel tighten */
+  .row-panel-inner { gap: 10px; }
+  .rp-stat { padding: 10px 12px; }
+  .rp-stat-v { font-size: 18px; }
+  /* Featured badge: ensure it doesn't exceed container */
+  .featured-badge { font-size: 8.5px; padding: 0 8px; }
+  /* Topbar: hide Subscribe CTA at very narrow */
+  .topbar-cta { display: none; }
 }
 
 .report-row[data-hidden="true"] { display: none; }

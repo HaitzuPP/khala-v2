@@ -942,20 +942,24 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
   .hero-deck { font-size: 16px; }
   .hero-meta { flex-direction: column; gap: 8px; }
   /* Article body */
-  .article-body { padding: 0 20px; }
+  .article-body { padding: 0 20px; max-width: 100%; overflow-x: hidden; }
   .article-body h2 { font-size: 26px; }
   .article-body h3 { font-size: 20px; }
   .article-body p { font-size: 17px; line-height: 1.75; }
   /* Terminal block */
-  .terminal-block { margin: 28px 0; font-size: 12px; }
-  /* Leaderboard */
-  .ldb-table { font-size: 12px; }
-  .ldb-table th, .ldb-table td { padding: 8px 10px; }
+  .terminal-block { margin: 28px 0; font-size: 12px; overflow-x: auto; }
+  /* Leaderboard — scrollable wrapper */
+  .lb-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .lb-table { font-size: 11px; min-width: 480px; }
+  .lb-table thead th, .lb-table td { padding: 8px 8px 8px 0; }
+  .leaderboard-section { margin: 32px -20px; padding: 0 20px; overflow-x: hidden; }
   /* Subscribe strip */
   .sub-title { font-size: 28px; }
   .sub-form { flex-direction: column; gap: 8px; }
   .sub-input { width: 100%; }
   .sub-btn { width: 100%; padding: 14px 20px; }
+  /* Catalyst table */
+  .catalyst-table-wrap, .catalyst-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
 @media (max-width: 399px) {
   .topbar-cta { display: none; }
