@@ -537,9 +537,9 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
   margin: 0 auto; padding: 28px 32px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.footer-left { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--ink-30); }
+.footer-left { font-family: 'Geist', sans-serif; font-size: 12px; color: var(--ink-30); }
 .footer-right { display: flex; gap: 20px; }
-.footer-right a { font-family: 'Geist', sans-serif; font-size: 13px; color: var(--ink-30); text-decoration: none; transition: color .15s; }
+.footer-right a { font-family: 'Geist', sans-serif; font-size: 12px; color: var(--ink-30); text-decoration: none; transition: color .15s; }
 .footer-right a:hover { color: var(--ink); }
 
 /* ─── SCENARIO TABLE ─── */
@@ -661,6 +661,29 @@ html[data-theme="dark"] .risk-table thead { background: var(--parch); }
 html[data-theme="dark"] .risk-table tbody tr:hover { background: rgba(237,232,220,.03); }
 html[data-theme="dark"] .signal-tag { border-color: var(--border); }
 
+/* ── Dark mode: hero text (hero always dark bg, needs light text locks) ── */
+html[data-theme="dark"] .hero-title { color: #EDE8DC !important; }
+html[data-theme="dark"] .hero-title em { color: rgba(237,232,220,.60) !important; }
+html[data-theme="dark"] .hero-sub { color: rgba(237,232,220,.50) !important; }
+html[data-theme="dark"] .hero-meta-item { color: rgba(237,232,220,.35) !important; }
+html[data-theme="dark"] .hero-meta-item strong { color: rgba(237,232,220,.70) !important; }
+html[data-theme="dark"] .hero-read-time { color: rgba(237,232,220,.35) !important; border-color: rgba(237,232,220,.12) !important; }
+html[data-theme="dark"] .hero-stat-label { color: rgba(237,232,220,.25) !important; }
+html[data-theme="dark"] .hero-stat-value { color: var(--cream) !important; }
+html[data-theme="dark"] .hero-stat-note { color: rgba(237,232,220,.30) !important; }
+
+/* ── Dark mode: TOC sidebar ── */
+html[data-theme="dark"] .sidebar {
+  background: transparent;
+}
+html[data-theme="dark"] .toc-list .toc-sub a { color: rgba(237,232,220,.35); }
+html[data-theme="dark"] .toc-list .toc-sub a:hover { color: rgba(237,232,220,.7); }
+html[data-theme="dark"] .toc-list .toc-sub a.active { color: rgba(237,232,220,.7); }
+
+/* ── Dark mode: note-box, footer ── */
+html[data-theme="dark"] .note-box { background: var(--parch); border-left-color: var(--orange); }
+html[data-theme="dark"] .footer-left { color: rgba(237,232,220,.4); }
+
 /* ─── GRAIN OVERLAY ─── */
 .hero-grain-overlay {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -775,7 +798,7 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
       <span class="current">Decentralized Robotics Landscape</span>
     </div>
     <nav class="topbar-right">
-      <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+      <a href="https://x.com/khalaresearch" target="_blank" rel="noopener noreferrer">X / Twitter</a>
       <a href="#subscribe" class="topbar-cta">Subscribe →</a>
       <button class="theme-toggle" id="theme-pill" aria-label="Toggle dark mode">
         <svg class="ti-light" viewBox="0 0 16 16" fill="none" width="14" height="14"><circle cx="8" cy="8" r="3.2" stroke="currentColor" stroke-width="1.3"/><line x1="8" y1="1" x2="8" y2="2.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="13.2" x2="8" y2="15" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="1" y1="8" x2="2.8" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="13.2" y1="8" x2="15" y2="8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="3.2" y1="3.2" x2="4.4" y2="4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="11.6" y1="11.6" x2="12.8" y2="12.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="12.8" y1="3.2" x2="11.6" y2="4.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><line x1="4.4" y1="11.6" x2="3.2" y2="12.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
@@ -1419,7 +1442,7 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
   <div class="footer-right">
     <a href="index.html">Home</a>
     <a href="research.html">Research</a>
-    <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+    <a href="https://x.com/khalaresearch" target="_blank" rel="noopener noreferrer">X / Twitter</a>
   </div>
 </footer>
 
