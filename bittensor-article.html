@@ -44,7 +44,7 @@ body {
   background: var(--cream);
   color: var(--ink);
   font-family: 'Crimson Text', Georgia, serif;
-  font-size: 20px;
+  font-size: 21px;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -228,7 +228,7 @@ body::after {
 .toc-list li { margin: 0; }
 .toc-list a {
   font-family: 'Geist', sans-serif; font-size: 12px; font-weight: 400;
-  color: var(--ink-30); text-decoration: none; line-height: 1.4;
+  color: var(--ink-60, rgba(13,12,9,.60)); text-decoration: none; line-height: 1.4;
   display: block; padding: 5px 0 5px 12px;
   border-left: 2px solid transparent;
   transition: color .12s, border-color .12s;
@@ -385,7 +385,7 @@ h2[id], .subnet-card[id] { scroll-margin-top: 72px; }
 .status-live { background: rgba(26,122,58,.2); color: #5dbf7c; border: 1px solid rgba(26,122,58,.3); }
 .status-building { background: rgba(212,160,23,.15); color: #e6b830; border: 1px solid rgba(212,160,23,.25); }
 .subnet-name {
-  font-family: 'Baskervville', serif; font-size: 26px; font-weight: 400;
+  font-family: 'Baskervville', serif; font-size: 30px; font-weight: 400;
   color: var(--cream); line-height: 1.1; margin-bottom: 6px;
 }
 .subnet-desc {
@@ -742,14 +742,14 @@ a[href="#"] { color: var(--ink-30) !important; pointer-events: none; cursor: def
 html[data-theme="dark"] {
   --cream:  #1A1713;
   --parch:  #232018;
-  --ink:    #EDE8DC;
+  --ink:    #F2EDE3;
   --ink-80: rgba(237,232,220,.80);
   --ink-60: rgba(237,232,220,.60);
   --ink-30: rgba(237,232,220,.30);
   --ink-12: rgba(237,232,220,.12);
   --ink-06: rgba(237,232,220,.06);
-  --border: rgba(237,232,220,.10);
-  --bmed:   rgba(237,232,220,.18);
+  --border: rgba(237,232,220,.18);
+  --bmed:   rgba(237,232,220,.26);
   --rule:   1px solid rgba(237,232,220,.10);
   --rule-heavy: 1px solid rgba(237,232,220,.18);
 }

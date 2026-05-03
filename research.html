@@ -26,7 +26,7 @@
   --mono:   'Geist Mono',monospace;
 }
 html { background: var(--cream); }
-body { background: var(--cream); color: var(--ink); font-family: var(--crim); font-size: 18px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+body { background: var(--cream); color: var(--ink); font-family: var(--crim); font-size: 21px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
 /* TOP BAR */
 .topbar {
@@ -283,7 +283,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   .topbar { padding: 0 20px; height: 48px; }
   .topbar-back { font-size: 12px; padding: 6px 12px; }
   .page-header { padding: 48px 20px 36px; gap: 28px; }
-  .page-title { font-size: 32px; }
+  .page-title { font-size: 38px; }
   .filter-strip { padding: 0 20px; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; scrollbar-width: none; }
   .topbar-nav-link:not(:first-child) { display: none; }
   .topbar { overflow: hidden; }
@@ -440,12 +440,12 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 html[data-theme="dark"] {
   --cream:  #1A1713;
   --parch:  #232018;
-  --ink:    #EDE8DC;
-  --ink2:   rgba(237,232,220,.72);
-  --ink3:   rgba(237,232,220,.50);
+  --ink:    #F2EDE3;
+  --ink2:   rgba(242,238,228,.90);
+  --ink3:   rgba(237,232,220,.68);
   --ink4:   rgba(237,232,220,.10);
-  --border: rgba(237,232,220,.10);
-  --bmed:   rgba(237,232,220,.18);
+  --border: rgba(237,232,220,.18);
+  --bmed:   rgba(237,232,220,.26);
 }
 html[data-theme="dark"] .topbar {
   background: rgba(16,14,10,.92) !important;
@@ -545,6 +545,13 @@ html[data-theme="dark"] .tm-val { color: rgba(237,232,220,.72); }
 /* ── Loss-curve sparkline ── */
 .fstat-spark { margin-top: 4px; }
 .fstat-spark svg { display: block; overflow: visible; }
+
+/* Contrast depth on research page */
+.page-header { border-bottom: 2px solid var(--border); }
+.featured-section { background: var(--parch); }
+html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); }
+.report-list-section { background: var(--cream); }
+
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
