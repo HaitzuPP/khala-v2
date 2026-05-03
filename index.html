@@ -313,54 +313,95 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 .td-b { font-family: var(--crim); font-size: 17px; line-height: 1.72; color: var(--ink); padding-top: 10px; }
 
 /* RESEARCH PREVIEW */
+/* ── RESEARCH PREVIEW (rebuilt) ── */
 .research-preview {
   border-bottom: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-.rp-left {
   padding: 72px 56px;
-  border-right: 1px solid var(--border);
+  max-width: 100%;
 }
-.rp-tag {
-  display: inline-block;
-  font-family: var(--mono); font-size: 11px; letter-spacing: .10em; text-transform: uppercase;
-  color: var(--cyan); border: 1px solid rgba(10,159,184,.3);
-  padding: 3px 9px; margin-bottom: 20px;
+.rp-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 40px; margin-bottom: 40px;
 }
+.rp-header-left { max-width: 560px; }
 .rp-headline {
-  font-family: var(--bask); font-size: 38px; font-weight: 400;
+  font-family: var(--bask); font-size: 36px; font-weight: 400;
   line-height: 1.1; letter-spacing: -.015em;
-  color: var(--ink); margin-bottom: 20px;
+  color: var(--ink); margin-bottom: 12px;
 }
 .rp-headline em { font-style: italic; }
-.rp-excerpt { font-family: var(--crim); font-size: 17px; line-height: 1.72; color: var(--ink2); margin-bottom: 28px; }
-.rp-meta {
-  display: flex; align-items: center; gap: 12px;
-  padding-top: 20px; border-top: 1px solid var(--border);
-  font-family: var(--geist); font-size: 13px;
-}
-.rp-author { font-weight: 500; color: var(--ink); }
-.rp-detail { font-family: var(--mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink3); }
-.rp-sep { color: var(--ink3); }
+.rp-excerpt { font-family: var(--crim); font-size: 17px; line-height: 1.55; color: var(--ink2); margin: 0; }
+.rp-header-cta { flex-shrink: 0; }
 
-.rp-right { padding: 72px 48px; display: flex; flex-direction: column; }
-.rp-right .section-label { margin-bottom: 20px; }
-.rr {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--border);
-  display: grid; grid-template-columns: 26px 1fr auto;
-  gap: 14px; align-items: start;
+/* Featured live report */
+.rp-featured {
+  background: #0D0C09; border-radius: 2px;
+  padding: 36px 40px; margin-bottom: 24px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 32px; align-items: center;
   text-decoration: none; color: inherit;
-  transition: opacity .15s;
+  transition: opacity .18s;
 }
-.rr:first-child { border-top: 1px solid var(--border); }
-.rr:hover { opacity: .65; }
-.rr-n { font-family: var(--mono); font-size: 11px; color: var(--ink3); padding-top: 2px; }
-.rr-cat { font-family: var(--mono); font-size: 11px; letter-spacing: .09em; text-transform: uppercase; color: var(--ink3); margin-bottom: 5px; }
-.rr-t { font-family: var(--crim); font-size: 16.5px; font-weight: 600; color: var(--ink); line-height: 1.35; }
-.rr-d { font-family: var(--mono); font-size: 11px; color: var(--ink3); white-space: nowrap; padding-top: 3px; letter-spacing: .04em; }
-.rp-cta { margin-top: 24px; }
+.rp-featured:hover { opacity: .88; }
+.rp-live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 10px;
+}
+.rp-live-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--orange);
+  animation: intel-pulse 1.8s ease-in-out infinite;
+}
+.rp-feat-cat {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(242,238,228,.4); margin-bottom: 8px;
+}
+.rp-feat-title {
+  font-family: var(--bask); font-size: 26px; font-weight: 400; line-height: 1.2;
+  color: rgba(242,238,228,.95); margin-bottom: 10px;
+}
+.rp-feat-hook {
+  font-family: var(--crim); font-size: 15px; line-height: 1.5;
+  color: rgba(242,238,228,.5);
+}
+.rp-feat-cta {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--orange); white-space: nowrap; display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Forthcoming grid */
+.rp-queue {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  border: 1px solid var(--border); background: var(--border);
+  margin-bottom: 28px;
+}
+.rq-card {
+  background: var(--cream); padding: 24px 28px;
+  text-decoration: none; color: inherit;
+  transition: background .15s;
+  display: flex; flex-direction: column; gap: 6px;
+}
+html[data-theme="dark"] .rq-card { background: var(--dark); }
+.rq-card:hover { background: var(--parch); }
+html[data-theme="dark"] .rq-card:hover { background: rgba(242,238,228,.04); }
+.rq-cat {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink3);
+}
+.rq-title {
+  font-family: var(--crim); font-size: 16px; font-weight: 600;
+  color: var(--ink); line-height: 1.3;
+}
+.rq-hook {
+  font-family: var(--crim); font-size: 13.5px; line-height: 1.45;
+  color: var(--ink3);
+}
+.rq-status {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink3); margin-top: 4px;
+}
+.rp-cta { margin-top: 0; }
 .btn-outline {
   font-family: var(--geist); font-size: 13px; font-weight: 400;
   color: var(--ink2); text-decoration: none;
@@ -526,8 +567,10 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .hero-left { padding: 72px 40px 48px; }
   .hero-right { min-height: 380px; }
   .thesis { grid-template-columns: 1fr; gap: 40px; padding: 72px 40px; }
-  .research-preview { grid-template-columns: 1fr; }
-  .rp-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .research-preview { padding: 48px 20px; }
+  .rp-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .rp-queue { grid-template-columns: 1fr; }
+  .rp-featured { grid-template-columns: 1fr; gap: 20px; }
   .sectors { padding: 72px 40px; }
   .sectors-hdr { grid-template-columns: 1fr; gap: 20px; }
   .sectors-grid { grid-template-columns: repeat(2,1fr); }
@@ -585,10 +628,9 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .td-h { font-size: 18px; }
 
   /* Research preview */
-  .research-preview { grid-template-columns: 1fr; }
-  .rp-left { padding: 48px 20px; border-right: none; border-bottom: 1px solid var(--border); }
-  .rp-headline { font-size: 28px; }
-  .rp-right { padding: 36px 20px; }
+  .research-preview { padding: 40px 16px; }
+  .rp-headline { font-size: 26px; }
+  .rp-queue { grid-template-columns: 1fr; }
 
   /* Sectors */
   .sectors { padding: 56px 20px; }
@@ -2085,55 +2127,58 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
 
 <!-- RESEARCH PREVIEW -->
 <section class="research-preview">
-  <div class="rp-left">
-    <div class="section-label" style="margin-bottom:20px;">Live Research Reports</div>
-    <h2 class="rp-headline">Research on the most important<br><em>crypto AI Protocols</em></h2>
-    <p class="rp-excerpt">Every report takes a side. Falsifiable thesis. Named position. The research the labs don't want written.</p>
-    <div class="rp-meta" style="margin-top:auto;">
-      <span class="rp-author">Khala Research</span>
-      <span class="rp-sep">·</span>
-      <span class="rp-detail">Published when the analysis is complete · Open public access</span>
+
+  <!-- Header row -->
+  <div class="rp-header">
+    <div class="rp-header-left">
+      <div class="section-label" style="margin-bottom:14px;">Live Research Reports</div>
+      <h2 class="rp-headline">The research OpenAI, Google, and Anthropic<br><em>have no incentive to publish.</em></h2>
+      <p class="rp-excerpt">Every report names the incumbent it threatens. Falsifiable thesis. Named position.</p>
+    </div>
+    <div class="rp-header-cta">
+      <a href="research.html" class="btn-outline">View all research →</a>
     </div>
   </div>
-  <div class="rp-right">
-    <div class="section-label">All Reports</div>
-    <a href="research.html" class="rr reveal">
-      <div class="rr-n">01</div>
-      <div><div class="rr-cat">Data Infrastructure</div><div class="rr-t">SURF: A Data Platform for Crypto Intelligence</div>
-      <div class="rr-preview"><div class="rr-preview-text">Institutional on-chain data. Enterprise API clients in production.</div></div></div>
-      <div class="rr-d" >Forthcoming</div>
-      <span class="rr-arrow">→</span>
+
+  <!-- Featured: Bittensor (live) -->
+  <a href="bittensor-article.html" class="rp-featured reveal">
+    <div>
+      <div class="rp-live-badge"><span class="rp-live-dot"></span>Live Now</div>
+      <div class="rp-feat-cat">Coordination Networks</div>
+      <div class="rp-feat-title">Bittensor: The Intelligence Olympics</div>
+      <div class="rp-feat-hook">$5.5M ARR. 128 subnets. NeurIPS-published research. The open coordination layer OpenAI cannot replicate without destroying its own business model.</div>
+    </div>
+    <div class="rp-feat-cta">Read the report →</div>
+  </a>
+
+  <!-- Forthcoming queue -->
+  <div class="rp-queue">
+    <a href="research.html" class="rq-card reveal">
+      <div class="rq-cat">Data Infrastructure</div>
+      <div class="rq-title">SURF: A Data Platform for Crypto Intelligence</div>
+      <div class="rq-hook">Threatens Google's data monopoly on AI training infrastructure.</div>
+      <div class="rq-status">Building</div>
     </a>
-    <a href="research.html" class="rr reveal">
-      <div class="rr-n">02</div>
-      <div><div class="rr-cat">Agentic Finance</div><div class="rr-t">x402: Unlocking the Internet's Missing Payment Layer</div>
-      <div class="rr-preview"><div class="rr-preview-text">HTTP payment header for AI agents. Real-time machine settlement. Named position forthcoming.</div></div></div>
-      <div class="rr-d">Forthcoming</div>
-      <span class="rr-arrow">→</span>
+    <a href="research.html" class="rq-card reveal">
+      <div class="rq-cat">Agentic Finance</div>
+      <div class="rq-title">x402: Unlocking the Internet's Missing Payment Layer</div>
+      <div class="rq-hook">Bypasses every payment gatekeeper that can de-platform an AI agent.</div>
+      <div class="rq-status">Building</div>
     </a>
-    <a href="research.html" class="rr reveal">
-      <div class="rr-n">03</div>
-      <div><div class="rr-cat">AI Infrastructure</div><div class="rr-t">The Dawn of the Autonomous Software Factory</div>
-      <div class="rr-preview"><div class="rr-preview-text">Tokenised software development networks. Agentic code generation at scale.</div></div></div>
-      <div class="rr-d">Forthcoming</div>
-      <span class="rr-arrow">→</span>
+    <a href="research.html" class="rq-card reveal">
+      <div class="rq-cat">AI Infrastructure</div>
+      <div class="rq-title">The Dawn of the Autonomous Software Factory</div>
+      <div class="rq-hook">Contests the layer where OpenAI is building its developer monopoly.</div>
+      <div class="rq-status">Building</div>
     </a>
-    <a href="bittensor-article.html" class="rr reveal">
-      <div class="rr-n">04</div>
-      <div><div class="rr-cat">Coordination Networks</div><div class="rr-t">Bittensor: The Intelligence Olympics</div>
-      <div class="rr-preview"><div class="rr-preview-text">$5.5M ARR. NeurIPS. Enterprise contracts. 128 subnets compete via Yuma Consensus.</div></div></div>
-      <div class="rr-d" style="color:var(--orange)">Live Now</div>
-      <span class="rr-arrow">→</span>
+    <a href="robotics.html" class="rq-card reveal">
+      <div class="rq-cat">Physical AI</div>
+      <div class="rq-title">Decentralized Robotics: Landscape and Outlook</div>
+      <div class="rq-hook">The physical AI advantage Google and Boston Dynamics assumed was unchallenged.</div>
+      <div class="rq-status">Building</div>
     </a>
-    <a href="research.html" class="rr reveal">
-      <div class="rr-n">05</div>
-      <div><div class="rr-cat">Physical AI</div><div class="rr-t">Decentralized Robotics: Landscape and Outlook</div>
-      <div class="rr-preview"><div class="rr-preview-text">Permissionless robotics. Token-incentivised sensor data.</div></div></div>
-      <div class="rr-d">Forthcoming</div>
-      <span class="rr-arrow">→</span>
-    </a>
-    <div class="rp-cta"><a href="research.html" class="btn-outline">View all research →</a></div>
   </div>
+
 </section>
 <!-- ANALYSTS -->
 <section>
