@@ -445,6 +445,44 @@ html[data-theme="dark"] .rq-card:hover { background: rgba(242,238,228,.04); }
 .tags { display: flex; flex-wrap: wrap; gap: 5px; }
 .tag { font-family: var(--mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink3); border: 1px solid var(--border); padding: 2px 7px; }
 
+/* PODCAST STRIP */
+.podcast-strip {
+  border-bottom: 1px solid var(--border);
+  padding: 64px 56px;
+}
+.podcast-strip .section-label { margin-bottom: 14px; }
+.podcast-strip-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 32px; gap: 24px;
+}
+.podcast-strip-title {
+  font-family: var(--bask); font-size: 28px; font-weight: 400;
+  line-height: 1.15; letter-spacing: -.01em; color: var(--ink);
+}
+.podcast-strip-title em { font-style: italic; }
+.podcast-yt-link {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--orange); text-decoration: none;
+  white-space: nowrap; flex-shrink: 0;
+}
+.podcast-yt-link:hover { opacity: .7; }
+.podcast-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+}
+.podcast-card {
+  text-decoration: none; color: inherit; display: flex; flex-direction: column;
+  border: 1px solid var(--border); overflow: hidden; transition: border-color .2s;
+}
+.podcast-card:hover { border-color: var(--orange); }
+.podcast-thumb {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
+  background: #0D0C09;
+}
+.podcast-card-body { padding: 16px 18px 18px; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.podcast-card-date { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
+.podcast-card-title { font-family: var(--crim); font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ink); flex: 1; }
+.podcast-card-watch { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--orange); margin-top: 8px; }
+
 /* ANALYSTS */
 .analysts { padding: 96px 56px; border-bottom: 1px solid var(--border); max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; isolation: isolate; }
 .an-row {
@@ -575,6 +613,9 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .sectors-hdr { grid-template-columns: 1fr; gap: 20px; }
   .sectors-grid { grid-template-columns: repeat(2,1fr); }
   .analysts { grid-template-columns: 1fr; gap: 40px; }
+  .podcast-strip { padding: 48px 20px; }
+  .podcast-cards { grid-template-columns: 1fr; gap: 16px; }
+  .podcast-strip-header { flex-direction: column; align-items: flex-start; gap: 12px; }
   .subscribe { padding: 72px 40px; }
   .timeline { grid-template-columns: repeat(3,1fr); }
 }
@@ -2180,6 +2221,41 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
   </div>
 
 </section>
+<!-- PODCAST -->
+<section class="podcast-strip">
+  <div class="section-label">From the Podcast</div>
+  <div class="podcast-strip-header">
+    <h2 class="podcast-strip-title">The Supercycle Podcast.<br><em>On-chain. No filter.</em></h2>
+    <a href="https://www.youtube.com/@supercyclepod" target="_blank" class="podcast-yt-link">All episodes on YouTube →</a>
+  </div>
+  <div class="podcast-cards">
+    <a href="https://www.youtube.com/watch?v=D7G4vospKGA" target="_blank" class="podcast-card reveal">
+      <img class="podcast-thumb" src="https://i.ytimg.com/vi/D7G4vospKGA/mqdefault.jpg" alt="What Needs To Happen with Bittensor In Order To Fail?" loading="lazy">
+      <div class="podcast-card-body">
+        <div class="podcast-card-date">Apr 18 · 2026</div>
+        <div class="podcast-card-title">What Needs To Happen with Bittensor In Order To Fail?</div>
+        <div class="podcast-card-watch">Watch →</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=AR5h0hmYM64" target="_blank" class="podcast-card reveal">
+      <img class="podcast-thumb" src="https://i.ytimg.com/vi/AR5h0hmYM64/mqdefault.jpg" alt="Subnet 8: Vanta And The $20 Billion Prop Trading Disruption" loading="lazy">
+      <div class="podcast-card-body">
+        <div class="podcast-card-date">Apr 30 · 2026</div>
+        <div class="podcast-card-title">Subnet 8: Vanta And The $20 Billion Prop Trading Disruption</div>
+        <div class="podcast-card-watch">Watch →</div>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=4AVzA3HSfF0" target="_blank" class="podcast-card reveal">
+      <img class="podcast-thumb" src="https://i.ytimg.com/vi/4AVzA3HSfF0/mqdefault.jpg" alt="Bittensor's Wild Ride — Templar's Exit & Market Shocks" loading="lazy">
+      <div class="podcast-card-body">
+        <div class="podcast-card-date">Apr 18 · 2026</div>
+        <div class="podcast-card-title">Bittensor&rsquo;s Wild Ride &mdash; Templar&rsquo;s Exit &amp; Market Shocks</div>
+        <div class="podcast-card-watch">Watch →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
 <!-- ANALYSTS -->
 <section>
   <div class="analysts" id="team">
