@@ -482,6 +482,28 @@ html[data-theme="dark"] .rq-card:hover { background: rgba(242,238,228,.04); }
 .podcast-card-date { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink3); }
 .podcast-card-title { font-family: var(--crim); font-size: 15px; font-weight: 600; line-height: 1.35; color: var(--ink); flex: 1; }
 .podcast-card-watch { font-family: var(--mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--orange); margin-top: 8px; }
+.podcast-thumb-wrap { position: relative; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #0D0C09; }
+.podcast-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
+.podcast-card:hover .podcast-thumb-wrap img { transform: scale(1.03); }
+.podcast-play-btn {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.18); transition: background .2s;
+}
+.podcast-card:hover .podcast-play-btn { background: rgba(0,0,0,.32); }
+.podcast-play-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,.28); transition: transform .2s, background .2s;
+}
+.podcast-card:hover .podcast-play-icon { transform: scale(1.08); background: #fff; }
+.podcast-play-triangle {
+  width: 0; height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 16px solid #0D0C09;
+  margin-left: 3px;
+}
+.podcast-card-desc { font-family: var(--crim); font-size: 13px; line-height: 1.45; color: var(--ink3); }
 
 /* ANALYSTS */
 .analysts { padding: 96px 56px; border-bottom: 1px solid var(--border); max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; isolation: isolate; }
@@ -604,6 +626,14 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 72px 40px 48px; }
   .hero-right { min-height: 380px; }
+  /* Tighten node positions on tablet */
+  .tn[data-id="btc"]     { left: 14% !important; top: 14% !important; }
+  .tn[data-id="akt"]     { left: 56% !important; top: 10% !important; }
+  .tn[data-id="model"]   { left: 72% !important; top: 26% !important; }
+  .tn[data-id="peaq"]    { left: 76% !important; top: 42% !important; }
+  .tn[data-id="infer"]   { left: 72% !important; top: 56% !important; }
+  .tn[data-id="sui"]     { left: 56% !important; top: 68% !important; }
+  .tn[data-id="compute"] { left: 40% !important; top: 74% !important; }
   .thesis { grid-template-columns: 1fr; gap: 40px; padding: 72px 40px; }
   .research-preview { padding: 48px 20px; }
   .rp-header { flex-direction: column; align-items: flex-start; gap: 20px; }
@@ -1985,37 +2015,37 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
       <svg id="vizSvg"></svg>
 
       <!-- CRYPTO TOKENS -->
-      <div class="tn" data-id="btc"  style="left:10%;top:14%;--dur:5.2s;--delay:0s">
+      <div class="tn" data-id="btc"  style="left:12%;top:12%;--dur:5.2s;--delay:0s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#F7931A">₿</span>
           <span class="tn-lbl">Bitcoin</span>
         </div>
       </div>
-      <div class="tn" data-id="eth"  style="left:10%;top:44%;--dur:4.8s;--delay:-1.2s">
+      <div class="tn" data-id="eth"  style="left:10%;top:46%;--dur:4.8s;--delay:-1.2s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#627EEA">Ξ</span>
           <span class="tn-lbl">Ethereum</span>
         </div>
       </div>
-      <div class="tn hub" data-id="tao"  style="left:38%;top:28%;--dur:6s;--delay:-.6s">
+      <div class="tn hub" data-id="tao"  style="left:38%;top:32%;--dur:6s;--delay:-.6s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:var(--ink)">τ</span>
           <span class="tn-lbl">Bittensor</span>
         </div>
       </div>
-      <div class="tn" data-id="rndr" style="left:16%;top:72%;--dur:5.5s;--delay:-2s">
+      <div class="tn" data-id="rndr" style="left:14%;top:68%;--dur:5.5s;--delay:-2s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#E56B2B">R</span>
           <span class="tn-lbl">Render</span>
         </div>
       </div>
-      <div class="tn" data-id="akt"  style="left:62%;top:10%;--dur:4.6s;--delay:-.4s">
+      <div class="tn" data-id="akt"  style="left:58%;top:12%;--dur:4.6s;--delay:-.4s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#C44EF4">A</span>
           <span class="tn-lbl">Akash</span>
         </div>
       </div>
-      <div class="tn" data-id="x402" style="left:30%;top:74%;--dur:5.8s;--delay:-1.8s">
+      <div class="tn" data-id="x402" style="left:28%;top:76%;--dur:5.8s;--delay:-1.8s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#2E7D52">$</span>
           <span class="tn-lbl">x402</span>
@@ -2023,25 +2053,25 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
       </div>
 
       <!-- AI NODES -->
-      <div class="tn ai hub" data-id="model"  style="left:76%;top:30%;--dur:5.4s;--delay:-.8s">
+      <div class="tn ai hub" data-id="model"  style="left:74%;top:28%;--dur:5.4s;--delay:-.8s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:var(--cyan)">⬡</span>
           <span class="tn-lbl">Foundation<br>Model</span>
         </div>
       </div>
-      <div class="tn ai" data-id="coord"  style="left:52%;top:54%;--dur:5s;--delay:-1.4s">
+      <div class="tn ai" data-id="coord"  style="left:50%;top:52%;--dur:5s;--delay:-1.4s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:var(--cyan)">◉</span>
           <span class="tn-lbl">Coord.</span>
         </div>
       </div>
-      <div class="tn ai" data-id="infer"  style="left:76%;top:58%;--dur:4.9s;--delay:-.2s">
+      <div class="tn ai" data-id="infer"  style="left:74%;top:58%;--dur:4.9s;--delay:-.2s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:var(--cyan)">∿</span>
           <span class="tn-lbl">Inference</span>
         </div>
       </div>
-      <div class="tn ai" data-id="compute" style="left:44%;top:80%;--dur:5.7s;--delay:-2.2s">
+      <div class="tn ai" data-id="compute" style="left:42%;top:76%;--dur:5.7s;--delay:-2.2s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:var(--cyan)">▣</span>
           <span class="tn-lbl">Compute</span>
@@ -2055,13 +2085,13 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
       </div>
 
       <!-- EXPANDED ECOSYSTEM -->
-      <div class="tn" data-id="sui" style="left:60%;top:72%;--dur:5.1s;--delay:-1.1s">
+      <div class="tn" data-id="sui" style="left:58%;top:70%;--dur:5.1s;--delay:-1.1s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#4DA2FF">◆</span>
           <span class="tn-lbl">Sui</span>
         </div>
       </div>
-      <div class="tn" data-id="peaq" style="left:86%;top:46%;--dur:5.6s;--delay:-.3s">
+      <div class="tn" data-id="peaq" style="left:80%;top:44%;--dur:5.6s;--delay:-.3s">
         <div class="tn-chip">
           <span class="tn-sym" style="color:#00C4A0">⬡</span>
           <span class="tn-lbl">PEAQ</span>
@@ -2223,33 +2253,45 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
 </section>
 <!-- PODCAST -->
 <section class="podcast-strip">
-  <div class="section-label">From the Podcast</div>
+  <div class="section-label">The Supercycle Podcast</div>
   <div class="podcast-strip-header">
-    <h2 class="podcast-strip-title">The Supercycle Podcast.<br><em>On-chain. No filter.</em></h2>
-    <a href="https://www.youtube.com/@supercyclepod" target="_blank" class="podcast-yt-link">All episodes on YouTube →</a>
+    <h2 class="podcast-strip-title">Conversations with the most compelling<br>voices in <em>crypto enabled AI.</em></h2>
+    <a href="https://www.youtube.com/@supercyclepod" target="_blank" class="podcast-yt-link">All episodes on the Supercycle Podcast →</a>
   </div>
   <div class="podcast-cards">
     <a href="https://www.youtube.com/watch?v=D7G4vospKGA" target="_blank" class="podcast-card reveal">
-      <img class="podcast-thumb" src="https://i.ytimg.com/vi/D7G4vospKGA/mqdefault.jpg" alt="What Needs To Happen with Bittensor In Order To Fail?" loading="lazy">
+      <div class="podcast-thumb-wrap">
+        <img src="https://i.ytimg.com/vi/D7G4vospKGA/maxresdefault.jpg" alt="What Needs To Happen with Bittensor In Order To Fail?" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/D7G4vospKGA/mqdefault.jpg'">
+        <div class="podcast-play-btn"><div class="podcast-play-icon"><div class="podcast-play-triangle"></div></div></div>
+      </div>
       <div class="podcast-card-body">
         <div class="podcast-card-date">Apr 18 · 2026</div>
         <div class="podcast-card-title">What Needs To Happen with Bittensor In Order To Fail?</div>
+        <div class="podcast-card-desc">The honest bear case — what specific failures would actually kill Bittensor's network from the inside out.</div>
         <div class="podcast-card-watch">Watch →</div>
       </div>
     </a>
     <a href="https://www.youtube.com/watch?v=AR5h0hmYM64" target="_blank" class="podcast-card reveal">
-      <img class="podcast-thumb" src="https://i.ytimg.com/vi/AR5h0hmYM64/mqdefault.jpg" alt="Subnet 8: Vanta And The $20 Billion Prop Trading Disruption" loading="lazy">
+      <div class="podcast-thumb-wrap">
+        <img src="https://i.ytimg.com/vi/AR5h0hmYM64/maxresdefault.jpg" alt="Subnet 8: Vanta And The $20 Billion Prop Trading Disruption" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/AR5h0hmYM64/mqdefault.jpg'">
+        <div class="podcast-play-btn"><div class="podcast-play-icon"><div class="podcast-play-triangle"></div></div></div>
+      </div>
       <div class="podcast-card-body">
         <div class="podcast-card-date">Apr 30 · 2026</div>
         <div class="podcast-card-title">Subnet 8: Vanta And The $20 Billion Prop Trading Disruption</div>
+        <div class="podcast-card-desc">How a Bittensor subnet is targeting a $20B prop trading industry that VC-backed fintech hasn't cracked.</div>
         <div class="podcast-card-watch">Watch →</div>
       </div>
     </a>
     <a href="https://www.youtube.com/watch?v=4AVzA3HSfF0" target="_blank" class="podcast-card reveal">
-      <img class="podcast-thumb" src="https://i.ytimg.com/vi/4AVzA3HSfF0/mqdefault.jpg" alt="Bittensor's Wild Ride — Templar's Exit & Market Shocks" loading="lazy">
+      <div class="podcast-thumb-wrap">
+        <img src="https://i.ytimg.com/vi/4AVzA3HSfF0/maxresdefault.jpg" alt="Bittensor's Wild Ride — Templar's Exit & Market Shocks" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/4AVzA3HSfF0/mqdefault.jpg'">
+        <div class="podcast-play-btn"><div class="podcast-play-icon"><div class="podcast-play-triangle"></div></div></div>
+      </div>
       <div class="podcast-card-body">
         <div class="podcast-card-date">Apr 18 · 2026</div>
         <div class="podcast-card-title">Bittensor&rsquo;s Wild Ride &mdash; Templar&rsquo;s Exit &amp; Market Shocks</div>
+        <div class="podcast-card-desc">Inside the Templar controversy — what happened, what it revealed about Bittensor's governance, and what comes next.</div>
         <div class="podcast-card-watch">Watch →</div>
       </div>
     </a>
