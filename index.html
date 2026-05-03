@@ -655,7 +655,6 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .analysts { grid-template-columns: 1fr; gap: 40px; }
   .podcast-strip { padding: 48px 0; }
   .podcast-strip-inner { padding: 0 20px; }
-  .podcast-cards { grid-template-columns: 1fr; gap: 16px; }
   .podcast-strip-header { flex-direction: column; align-items: flex-start; gap: 12px; }
   .subscribe { padding: 72px 40px; }
   .timeline { grid-template-columns: repeat(3,1fr); }
@@ -666,6 +665,7 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 ═══════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
   body { font-size: 17px; }
+  .podcast-cards { grid-template-columns: 1fr; gap: 16px; }
 
   /* Topbar */
   .topbar { padding: 0 20px; height: 48px; }
@@ -2270,11 +2270,11 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
   <div class="podcast-strip-inner">
   <div class="section-label">The Supercycle Podcast</div>
   <div class="podcast-strip-header">
-    <h2 class="podcast-strip-title">Conversations with the most compelling<br>voices in <em>crypto enabled AI.</em></h2>
+    <h2 class="podcast-strip-title">Conversations with the most compelling<br>voices in <em>crypto-enabled AI.</em></h2>
     <a href="https://www.youtube.com/@supercyclepod" target="_blank" class="podcast-yt-link">All episodes on the Supercycle Podcast →</a>
   </div>
   <div class="podcast-cards">
-    <a href="https://www.youtube.com/watch?v=D7G4vospKGA" target="_blank" class="podcast-card reveal">
+    <a href="https://www.youtube.com/watch?v=D7G4vospKGA" target="_blank" class="podcast-card">
       <div class="podcast-thumb-wrap">
         <img src="https://i.ytimg.com/vi/D7G4vospKGA/maxresdefault.jpg" alt="What Needs To Happen with Bittensor In Order To Fail?" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/D7G4vospKGA/mqdefault.jpg'">
         <div class="podcast-play-btn"><div class="podcast-play-icon"><div class="podcast-play-triangle"></div></div></div>
@@ -2286,7 +2286,7 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
         <div class="podcast-card-watch">Watch →</div>
       </div>
     </a>
-    <a href="https://www.youtube.com/watch?v=AR5h0hmYM64" target="_blank" class="podcast-card reveal">
+    <a href="https://www.youtube.com/watch?v=AR5h0hmYM64" target="_blank" class="podcast-card">
       <div class="podcast-thumb-wrap">
         <img src="https://i.ytimg.com/vi/AR5h0hmYM64/maxresdefault.jpg" alt="Subnet 8: Vanta And The $20 Billion Prop Trading Disruption" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/AR5h0hmYM64/mqdefault.jpg'">
         <div class="podcast-play-btn"><div class="podcast-play-icon"><div class="podcast-play-triangle"></div></div></div>
@@ -2298,7 +2298,7 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
         <div class="podcast-card-watch">Watch →</div>
       </div>
     </a>
-    <a href="https://www.youtube.com/watch?v=4AVzA3HSfF0" target="_blank" class="podcast-card reveal">
+    <a href="https://www.youtube.com/watch?v=4AVzA3HSfF0" target="_blank" class="podcast-card">
       <div class="podcast-thumb-wrap">
         <img src="https://i.ytimg.com/vi/4AVzA3HSfF0/maxresdefault.jpg" alt="Bittensor's Wild Ride — Templar's Exit & Market Shocks" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/4AVzA3HSfF0/mqdefault.jpg'">
         <div class="podcast-play-btn"><div class="podcast-play-icon"><div class="podcast-play-triangle"></div></div></div>
