@@ -564,11 +564,293 @@ html[data-theme="dark"] .tm-val { color: rgba(237,232,220,.72); }
 html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); }
 .report-list-section { background: var(--cream); }
 
+
+/* ── POWER SCOREBOARD STRIP ─────────────────────────────────── */
+.power-strip {
+  background: var(--ink); border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 0; overflow: hidden;
+}
+.power-strip-inner {
+  max-width: 1240px; margin: 0 auto; padding: 22px 56px;
+  display: flex; align-items: stretch; gap: 0;
+}
+.power-signal {
+  flex: 1; padding: 0 28px; border-right: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; gap: 5px;
+}
+.power-signal:first-child { padding-left: 0; }
+.power-signal:last-child { border-right: none; }
+.ps-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+}
+.ps-value {
+  font-family: var(--bask); font-size: 18px; font-weight: 400;
+  color: #fff; line-height: 1.1;
+}
+.ps-value em { font-style: italic; color: #D94F2A; }
+.ps-sub {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .06em;
+  color: rgba(255,255,255,.4); line-height: 1.4;
+}
+
+/* ── TENSION BAR ────────────────────────────────────────────── */
+.tension-bar-wrap {
+  margin-top: 36px;
+  padding: 20px 24px;
+  background: var(--parch);
+  border: 1px solid var(--border);
+}
+.tb-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.tb-row:last-child { margin-bottom: 0; }
+.tb-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .10em;
+  text-transform: uppercase; color: var(--ink3); width: 80px; flex-shrink: 0;
+}
+.tb-bar { flex: 1; height: 6px; background: rgba(13,12,9,.08); border-radius: 1px; overflow: hidden; }
+.tb-fill { height: 100%; border-radius: 1px; }
+.tb-fill--labs { background: #C0392B; width: 99%; }
+.tb-fill--open { background: #1a7a3a; width: 1%; }
+.tb-val {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--ink); width: 52px; text-align: right; flex-shrink: 0;
+}
+
+/* ── BATTLEFRONT LABEL ──────────────────────────────────────── */
+.battlefront-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  margin-top: 20px;
+}
+.battlefront-row:first-child { margin-top: 0; }
+.bf-label {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--orange); font-weight: 600;
+}
+.bf-line { flex: 1; height: 1px; background: rgba(217,79,42,.15); }
+
+/* ── LIVE INTEL BADGE ───────────────────────────────────────── */
+.intel-live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 600;
+  color: #1a7a3a; background: rgba(26,122,58,.08);
+  border: 1px solid rgba(26,122,58,.3); border-radius: 2px;
+  padding: 3px 8px;
+}
+.intel-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: #1a7a3a;
+  animation: intel-pulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes intel-pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.7); }
+}
+
+/* ── INTEL INCOMING BADGE ───────────────────────────────────── */
+.intel-incoming-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 600;
+  color: rgba(13,12,9,.5); background: var(--parch);
+  border: 1px solid var(--bmed); border-radius: 2px;
+  padding: 3px 8px;
+}
+
+/* ── CLASSIFIED ROW (forthcoming) ───────────────────────────── */
+.report-row--locked {
+  position: relative; opacity: .72;
+}
+.report-row--locked .row-title,
+.report-row--locked .row-excerpt { color: var(--ink2); }
+.report-row--locked::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 18px,
+    rgba(13,12,9,.025) 18px, rgba(13,12,9,.025) 19px
+  );
+  z-index: 1;
+}
+
+/* ── ROW ADVERSARIAL LINE ───────────────────────────────────── */
+.row-adversarial {
+  font-family: var(--crim); font-size: 14px; font-style: italic;
+  color: var(--orange); line-height: 1.5; margin-bottom: 8px;
+}
+
+/* ── PULL QUOTE DIVIDER ─────────────────────────────────────── */
+.pull-divider {
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 28px 0; margin: 0;
+  background: var(--parch);
+}
+.pull-divider-inner {
+  max-width: 1240px; margin: 0 auto; padding: 0 56px;
+}
+.pull-quote-text {
+  font-family: var(--bask); font-size: clamp(17px,1.8vw,22px);
+  font-style: italic; color: var(--ink); line-height: 1.5;
+}
+.pull-quote-text strong { font-style: normal; font-weight: 400; color: var(--orange); }
+
+/* ── REPORT ROW LIVE — stronger treatment ───────────────────── */
+.report-row--live {
+  background: var(--cream);
+}
+.report-row--live .row-title {
+  font-size: 21px;
+}
+.report-row--live:hover { background: var(--parch); }
+
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
 <body>
-<noscript><style>.reveal{opacity:1!important;transform:none!important;animation:none!important;}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important;animation:none!important;}
+/* ── POWER SCOREBOARD STRIP ─────────────────────────────────── */
+.power-strip {
+  background: var(--ink); border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 0; overflow: hidden;
+}
+.power-strip-inner {
+  max-width: 1240px; margin: 0 auto; padding: 22px 56px;
+  display: flex; align-items: stretch; gap: 0;
+}
+.power-signal {
+  flex: 1; padding: 0 28px; border-right: 1px solid rgba(255,255,255,.08);
+  display: flex; flex-direction: column; gap: 5px;
+}
+.power-signal:first-child { padding-left: 0; }
+.power-signal:last-child { border-right: none; }
+.ps-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(255,255,255,.35);
+}
+.ps-value {
+  font-family: var(--bask); font-size: 18px; font-weight: 400;
+  color: #fff; line-height: 1.1;
+}
+.ps-value em { font-style: italic; color: #D94F2A; }
+.ps-sub {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .06em;
+  color: rgba(255,255,255,.4); line-height: 1.4;
+}
+
+/* ── TENSION BAR ────────────────────────────────────────────── */
+.tension-bar-wrap {
+  margin-top: 36px;
+  padding: 20px 24px;
+  background: var(--parch);
+  border: 1px solid var(--border);
+}
+.tb-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.tb-row:last-child { margin-bottom: 0; }
+.tb-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .10em;
+  text-transform: uppercase; color: var(--ink3); width: 80px; flex-shrink: 0;
+}
+.tb-bar { flex: 1; height: 6px; background: rgba(13,12,9,.08); border-radius: 1px; overflow: hidden; }
+.tb-fill { height: 100%; border-radius: 1px; }
+.tb-fill--labs { background: #C0392B; width: 99%; }
+.tb-fill--open { background: #1a7a3a; width: 1%; }
+.tb-val {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+  color: var(--ink); width: 52px; text-align: right; flex-shrink: 0;
+}
+
+/* ── BATTLEFRONT LABEL ──────────────────────────────────────── */
+.battlefront-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  margin-top: 20px;
+}
+.battlefront-row:first-child { margin-top: 0; }
+.bf-label {
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--orange); font-weight: 600;
+}
+.bf-line { flex: 1; height: 1px; background: rgba(217,79,42,.15); }
+
+/* ── LIVE INTEL BADGE ───────────────────────────────────────── */
+.intel-live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 600;
+  color: #1a7a3a; background: rgba(26,122,58,.08);
+  border: 1px solid rgba(26,122,58,.3); border-radius: 2px;
+  padding: 3px 8px;
+}
+.intel-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: #1a7a3a;
+  animation: intel-pulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+@keyframes intel-pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .4; transform: scale(.7); }
+}
+
+/* ── INTEL INCOMING BADGE ───────────────────────────────────── */
+.intel-incoming-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; font-weight: 600;
+  color: rgba(13,12,9,.5); background: var(--parch);
+  border: 1px solid var(--bmed); border-radius: 2px;
+  padding: 3px 8px;
+}
+
+/* ── CLASSIFIED ROW (forthcoming) ───────────────────────────── */
+.report-row--locked {
+  position: relative; opacity: .72;
+}
+.report-row--locked .row-title,
+.report-row--locked .row-excerpt { color: var(--ink2); }
+.report-row--locked::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent, transparent 18px,
+    rgba(13,12,9,.025) 18px, rgba(13,12,9,.025) 19px
+  );
+  z-index: 1;
+}
+
+/* ── ROW ADVERSARIAL LINE ───────────────────────────────────── */
+.row-adversarial {
+  font-family: var(--crim); font-size: 14px; font-style: italic;
+  color: var(--orange); line-height: 1.5; margin-bottom: 8px;
+}
+
+/* ── PULL QUOTE DIVIDER ─────────────────────────────────────── */
+.pull-divider {
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 28px 0; margin: 0;
+  background: var(--parch);
+}
+.pull-divider-inner {
+  max-width: 1240px; margin: 0 auto; padding: 0 56px;
+}
+.pull-quote-text {
+  font-family: var(--bask); font-size: clamp(17px,1.8vw,22px);
+  font-style: italic; color: var(--ink); line-height: 1.5;
+}
+.pull-quote-text strong { font-style: normal; font-weight: 400; color: var(--orange); }
+
+/* ── REPORT ROW LIVE — stronger treatment ───────────────────── */
+.report-row--live {
+  background: var(--cream);
+}
+.report-row--live .row-title {
+  font-size: 21px;
+}
+.report-row--live:hover { background: var(--parch); }
+
+</style></noscript>
 
 
 <!-- TOP BAR -->
@@ -600,8 +882,8 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
 <!-- PAGE HEADER -->
 <section class="page-header">
   <div>
-    <div class="page-eyebrow"><span class="eyebrow-line"></span>Intelligence Archive</div>
-    <h1 class="page-title">AI × Crypto Research.<br><em>One conviction</em><br>per report.</h1>
+    <div class="page-eyebrow"><span class="eyebrow-line"></span>Live Research Archive</div>
+    <h1 class="page-title">The research OpenAI, Google, and Anthropic have <em>no incentive</em> to publish.</h1>
   </div>
   <div class="page-aside">
     <div class="page-aside-stat">
@@ -610,7 +892,19 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
     </div>
     <div class="page-aside-stat">
       <div class="pas-label">Methodology</div>
-      <div class="pas-value">First-mover depth. Named position held.</div>
+      <div class="pas-value">Adversarial methodology. Every report names the incumbent <em>it threatens.</em></div>
+    </div>
+    <div class="tension-bar-wrap">
+      <div class="tb-row">
+        <div class="tb-label">Lab capital</div>
+        <div class="tb-bar"><div class="tb-fill tb-fill--labs"></div></div>
+        <div class="tb-val">$400B+</div>
+      </div>
+      <div class="tb-row">
+        <div class="tb-label">Open counter</div>
+        <div class="tb-bar"><div class="tb-fill tb-fill--open"></div></div>
+        <div class="tb-val">$4B</div>
+      </div>
     </div>
     <div class="page-access">
       <div class="access-label">Access</div>
@@ -619,6 +913,33 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
     </div>
   </div>
 </section>
+
+
+<!-- POWER SCOREBOARD -->
+<div class="power-strip">
+  <div class="power-strip-inner">
+    <div class="power-signal">
+      <div class="ps-label">Labs in control</div>
+      <div class="ps-value"><em>3</em> labs own the frontier</div>
+      <div class="ps-sub">OpenAI · Google DeepMind · Anthropic</div>
+    </div>
+    <div class="power-signal">
+      <div class="ps-label">Capital raised</div>
+      <div class="ps-value"><em>$157B+</em> by OpenAI alone</div>
+      <div class="ps-sub">No public governance. No open weights.</div>
+    </div>
+    <div class="power-signal">
+      <div class="ps-label">Open-sourced</div>
+      <div class="ps-value"><em>0</em> frontier models</div>
+      <div class="ps-sub">From the top three labs. By choice.</div>
+    </div>
+    <div class="power-signal">
+      <div class="ps-label">The counter</div>
+      <div class="ps-value">These <em>reports.</em></div>
+      <div class="ps-sub">Protocols building outside lab control.</div>
+    </div>
+  </div>
+</div>
 
 <!-- report count injected by JS -->
 
@@ -631,17 +952,19 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
   </div>
   <div class="report-list" id="reportList">
 
+    <div class="battlefront-row"><span class="bf-label">Data Battlefront</span><span class="bf-line"></span></div>
     <div class="report-row report-row--locked" data-category="Data Infrastructure">
       <div class="row-cat"><span class="row-tag tag-data">Data Infrastructure</span></div>
       <div class="row-body">
+        <div class="row-adversarial">The data APIs this industry runs on are owned by Google and Coinbase. SURF is building the version no single entity controls.</div>
         <div class="row-title">SURF: A Data Platform for <em>Crypto Intelligence</em></div>
-        <div class="row-excerpt">On-chain, social, market, and prediction data through a single API. Crypto data fragmentation is a coordination failure. SURF resolves it at infrastructure.</div>
+        <div class="row-excerpt">On-chain, social, market, and prediction data through a single API. Crypto data fragmentation is a coordination failure — SURF resolves it at infrastructure.</div>
       </div>
       <div class="row-meta">
         
         <div>
           <div class="meta-item-label">Status</div>
-          <div class="meta-item-value"><span class="forthcoming-badge">Forthcoming</span></div>
+          <div class="meta-item-value"><span class="intel-incoming-badge">Intel Incoming</span></div>
         </div>
       </div>
       <div class="row-panel">
@@ -656,17 +979,19 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
       </div>
     </div>
 
+    <div class="battlefront-row"><span class="bf-label">Finance Battlefront</span><span class="bf-line"></span></div>
     <div class="report-row report-row--locked" data-category="Agentic Finance">
       <div class="row-cat"><span class="row-tag tag-finance">Agentic Finance</span></div>
       <div class="row-body">
+        <div class="row-adversarial">Stripe and Visa were not designed for autonomous agents. x402 is the payment primitive that doesn't need their permission.</div>
         <div class="row-title">x402: The <em>Internet's Missing</em> Payment Layer</div>
-        <div class="row-excerpt">x402: the HTTP payment protocol powering autonomous transactions. Agents pay without human approval loops.</div>
+        <div class="row-excerpt">The HTTP payment protocol powering autonomous agent transactions — no human approval loops, no incumbent rails required.</div>
       </div>
       <div class="row-meta">
         
         <div>
           <div class="meta-item-label">Status</div>
-          <div class="meta-item-value"><span class="forthcoming-badge">Forthcoming</span></div>
+          <div class="meta-item-value"><span class="intel-incoming-badge">Intel Incoming</span></div>
         </div>
       </div>
       <div class="row-panel">
@@ -681,17 +1006,19 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
       </div>
     </div>
 
+    <div class="battlefront-row"><span class="bf-label">Infrastructure Battlefront</span><span class="bf-line"></span></div>
     <div class="report-row report-row--locked" data-category="AI Infrastructure">
       <div class="row-cat"><span class="row-tag tag-ai">AI Infrastructure</span></div>
       <div class="row-body">
+        <div class="row-adversarial">GitHub Copilot is a Microsoft product. The autonomous software factory is a protocol — owned by no one, open to every engineer on earth.</div>
         <div class="row-title">The Dawn of the <em>Autonomous Software</em> Factory</div>
-        <div class="row-excerpt">Code generation crossed a threshold. Autonomous software factories operating without human review cycles.</div>
+        <div class="row-excerpt">Code generation crossed the threshold. Autonomous software factories operating without human review — the first fully agentic production engineering environment.</div>
       </div>
       <div class="row-meta">
         
         <div>
           <div class="meta-item-label">Status</div>
-          <div class="meta-item-value"><span class="forthcoming-badge">Forthcoming</span></div>
+          <div class="meta-item-value"><span class="intel-incoming-badge">Intel Incoming</span></div>
         </div>
       </div>
       <div class="row-panel">
@@ -706,11 +1033,24 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
       </div>
     </div>
 
+</section>
+
+<div class="pull-divider">
+  <div class="pull-divider-inner">
+    <div class="pull-quote-text">&ldquo;Every one of these protocols exists because the labs made a deliberate choice <strong>not to share.</strong> That choice is the market.&rdquo;</div>
+  </div>
+</div>
+
+<section class="report-list-section" style="border-top:none;padding-top:40px;">
+  <div class="report-list" id="reportList2">
+
+    <div class="battlefront-row"><span class="bf-label">Coordination Battlefront · Live Intel</span><span class="bf-line"></span></div>
     <div class="report-row report-row--live" data-category="Coordination Networks" onclick="window.location='bittensor-article.html'">
       <div class="row-cat"><span class="row-tag tag-coord">Coordination Networks</span></div>
       <div class="row-body">
+        <div class="row-adversarial">The labs built closed models. Bittensor built a market — 128 subnets competing in the open, no single entity in control.</div>
         <div class="row-title">Bittensor: The <em>Intelligence</em> Olympics</div>
-        <div class="row-excerpt">Which subnets generate real revenue — and which burn emissions to simulate it.</div>
+        <div class="row-excerpt">Which subnets generate real revenue — and which burn emissions to simulate it. Enterprise traction separates signal from noise.</div>
       </div>
       <div class="row-meta">
         <div>
@@ -734,9 +1074,11 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
       </div>
     </div>
 
+    <div class="battlefront-row"><span class="bf-label">Physical AI Battlefront · Live Intel</span><span class="bf-line"></span></div>
     <div class="report-row report-row--live" data-category="Physical AI" onclick="window.location='robotics.html'">
       <div class="row-cat"><span class="row-tag tag-physical">Physical AI</span></div>
       <div class="row-body">
+        <div class="row-adversarial">Boston Dynamics is owned by Hyundai. These protocols build embodied AI that answers to token holders, not corporations.</div>
         <div class="row-title">The Decentralized <em>Robotics</em> Landscape</div>
         <div class="row-excerpt">Nine protocols building the coordination, positioning, spatial, and capital layers for the coming age of embodied AI.</div>
       </div>
@@ -765,6 +1107,7 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
     <div class="report-row report-row--locked" data-category="Physical AI">
       <div class="row-cat"><span class="row-tag tag-physical">Physical AI</span></div>
       <div class="row-body">
+        <div class="row-adversarial">The incumbents have the hardware. These protocols have the open coordination layer the incumbents cannot replicate.</div>
         <div class="row-title">Decentralized Robotics: <em>Landscape and Outlook</em></div>
         <div class="row-excerpt">Product market fit exists. Real deployments generating data centralised competitors cannot replicate. Where is the coordination advantage largest?</div>
       </div>
@@ -793,9 +1136,9 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
 <!-- SUBSCRIBE -->
 <section class="subscribe" id="subscribe">
   <div>
-    <div class="sub-label">Stay Current</div>
-    <h2 class="sub-title">New reports.<br><em>Go deeper.</em></h2>
-    <p class="sub-body"></p>
+    <div class="sub-label">Follow the Research</div>
+    <h2 class="sub-title">The research the AI labs<br><em>would rather you didn't read.</em></h2>
+    <p class="sub-body">Deep dives on the protocols building AI infrastructure outside lab control. Sent when it's ready. No filler.</p>
   </div>
   <div>
     <form class="sub-form" onsubmit="return false;">
@@ -818,13 +1161,6 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
     <span class="footer-copy">© 2026 Khala Research</span>
   </div>
 </footer>
-
-<!-- DISCLOSURE -->
-<div class="disclosure">
-  <p>For informational purposes only. Not investment advice. Khala Research may hold positions in assets discussed. Consult a qualified adviser before investing. Reproduction without permission prohibited.</p>
-</div>
-
-
 
 <script>
 /* Feature 7: Stat counter */
