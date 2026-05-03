@@ -1430,11 +1430,12 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 
 
 /* TEAM CARDS — static, no flip */
-.team-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.team-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
 .team-card {
   border: 1px solid var(--border); border-radius: 2px;
   padding: 28px; background: var(--cream);
   transition: border-color .18s;
+  display: flex; flex-direction: column;
 }
 .team-card:hover { border-color: var(--bmed); }
 .tc-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
@@ -1450,15 +1451,11 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
 .tc-role { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink3); text-transform: uppercase; margin-top: 3px; line-height: 1.5; }
 .tc-bio { font-family: var(--crim); font-size: 15px; color: var(--ink2); line-height: 1.65; margin-bottom: 18px; }
 .tc-divider { border: none; border-top: 1px solid var(--border); margin: 0 0 16px; }
-.tc-creds { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; }
+.tc-creds { display: flex; flex-direction: column; gap: 9px; margin-bottom: 16px; flex: 1; }
 .tc-cred { display: flex; align-items: flex-start; gap: 9px; }
 .tc-cred-icon { font-size: 12px; flex-shrink: 0; margin-top: 2px; color: var(--ink3); }
 .tc-cred-text { font-family: var(--crim); font-size: 14px; color: var(--ink2); line-height: 1.45; }
 .tc-cred-text strong { color: var(--ink); }
-.tc-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
-.tc-tag { font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
-  border: 1px solid var(--border); color: var(--ink3);
-  padding: 3px 8px; border-radius: 2px; }
 .tc-link { font-family: var(--mono); font-size: 11px; color: var(--cyan); text-decoration: none; }
 .tc-link:hover { text-decoration: underline; }
 
@@ -2517,7 +2514,6 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
             <div class="tc-cred"><span class="tc-cred-icon">◈</span><span class="tc-cred-text"><strong>Former auditor</strong>, institutional-grade due diligence background</span></div>
             <div class="tc-cred"><span class="tc-cred-icon">◎</span><span class="tc-cred-text"><strong>Named positions</strong>: holds TAO, publishes entry prices, no hedging on calls</span></div>
           </div>
-          <div class="tc-tags"><span class="tc-tag">Coordination Networks</span><span class="tc-tag">Yuma Consensus</span><span class="tc-tag">AI Networks</span><span class="tc-tag">On-chain Research</span></div>
           <a href="https://x.com/0xSammy" target="_blank" class="tc-link">Follow on X →</a>
       </div>
       <div class="team-card reveal">
@@ -2536,7 +2532,6 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
             <div class="tc-cred"><span class="tc-cred-icon">◈</span><span class="tc-cred-text"><strong>Network Risk Scoring</strong>, engineered the model tracking AI networks across 5 sectors</span></div>
             <div class="tc-cred"><span class="tc-cred-icon">◎</span><span class="tc-cred-text"><strong>Data infrastructure</strong>, built the on-chain metrics pipeline behind this research</span></div>
           </div>
-          <div class="tc-tags"><span class="tc-tag">EV/ARR</span><span class="tc-tag">Network Scoring</span><span class="tc-tag">On-chain Analytics</span><span class="tc-tag">FDV Modelling</span></div>
           <a href="https://www.linkedin.com/in/jackpylon/" target="_blank" class="tc-link">Connect on LinkedIn →</a>
       </div>
     </div>
