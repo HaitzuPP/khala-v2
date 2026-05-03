@@ -334,6 +334,11 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
   .featured-badge { font-size: 8.5px; padding: 0 8px; }
   /* Topbar: hide Subscribe CTA at very narrow */
   .topbar-cta { display: none; }
+
+  /* Subscribe section: collapse to single column on mobile */
+  .subscribe { grid-template-columns: 1fr; gap: 32px; padding: 48px 20px; }
+  .sub-row { flex-direction: column; }
+  .sub-btn { width: 100%; text-align: center; }
 }
 
 .report-row[data-hidden="true"] { display: none; }
