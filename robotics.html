@@ -780,6 +780,9 @@ html[data-theme="dark"] .footer-left { color: rgba(237,232,220,.4); }
 
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
+<noscript><style>
+.reveal,.reveal-on-scroll,.reveal-on-scroll.visible{opacity:1!important;transform:none!important;animation:none!important;}
+</style></noscript>
 </head>
 <body>
 
@@ -1495,6 +1498,12 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+// ── IO Fallback — force reveal after 1.2s in case observer doesn't fire ──
+setTimeout(() => {
+  document.querySelectorAll('.reveal-on-scroll:not(.visible)').forEach(el =>
+    el.classList.add('visible'));
+}, 1200);
 
 // ── Theme toggle ──────────────────────────────────────────
 (function(){
