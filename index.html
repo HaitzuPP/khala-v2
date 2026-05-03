@@ -109,6 +109,7 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 }
 .hero-headline em { font-style: italic; }
 .hero-cia { font-style: italic; text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+.deck-underline { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px; }
 .hero-deck {
   font-family: var(--crim);
   font-size: clamp(16px, 1.45vw, 22px);
@@ -1872,10 +1873,10 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
 <section class="hero">
   <div class="hero-left">
     <h1 class="hero-headline">
-      Publishing research on the most important trends in <em class="hero-cia">Crypto enabled AI</em>
+      Highlighting the most important trends in <em class="hero-cia">Crypto enabled AI</em>
     </h1>
     <p class="hero-deck">
-      The most important question to answer for humanity is not "how do we improve our models", but how do we ensure power is not controlled by the AI Labs. Khala's Research team shares deep dives on the teams progressing equitable AI for the world via crypto.
+      The most important question to answer for humanity is not &ldquo;how do we improve our models&rdquo;, but how do we ensure power <span class="deck-underline">is not controlled by the major AI Labs.</span><br><br>Khala&rsquo;s Research team shares deep dives on the teams progressing equitable AI for the world via crypto.
     </p>
     <div class="hero-actions">
       <a href="research.html" class="btn-hero-primary">Read the Research →</a>
@@ -2251,6 +2252,20 @@ function getCenter(id) {
   };
 }
 
+function isDarkMode() {
+  return document.documentElement.getAttribute('data-theme') === 'dark';
+}
+function edgeStroke() {
+  return isDarkMode() ? 'rgba(255,255,255,0.35)' : 'rgba(13,12,9,0.13)';
+}
+function refreshEdgeColors() {
+  const stroke = edgeStroke();
+  const width  = isDarkMode() ? '1.5' : '1';
+  svgLines.forEach(({ el }) => {
+    el.setAttribute('stroke', stroke);
+    el.setAttribute('stroke-width', width);
+  });
+}
 function buildLines() {
   svgEl.innerHTML = '';
   svgLines = [];
@@ -2263,8 +2278,8 @@ function buildLines() {
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     line.setAttribute('x1', ca.x); line.setAttribute('y1', ca.y);
     line.setAttribute('x2', cb.x); line.setAttribute('y2', cb.y);
-    line.setAttribute('stroke', 'rgba(13,12,9,0.13)');
-    line.setAttribute('stroke-width', '1');
+    line.setAttribute('stroke', edgeStroke());
+    line.setAttribute('stroke-width', isDarkMode() ? '1.5' : '1');
     svgEl.appendChild(line);
     svgLines.push({ el: line, aId: a, bId: b });
   });
@@ -2708,9 +2723,11 @@ document.querySelectorAll('[data-tls-count]').forEach(el => tlsIO.observe(el));
     if(isDark){
       document.documentElement.removeAttribute('data-theme');
       localStorage.setItem('khala-theme','light');
+      if(typeof refreshEdgeColors==='function') refreshEdgeColors();
     } else {
       document.documentElement.setAttribute('data-theme','dark');
       localStorage.setItem('khala-theme','dark');
+      if(typeof refreshEdgeColors==='function') refreshEdgeColors();
     }
   });
 })();
