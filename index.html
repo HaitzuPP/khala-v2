@@ -316,8 +316,12 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 /* ── RESEARCH PREVIEW (rebuilt) ── */
 .research-preview {
   border-bottom: 1px solid var(--border);
-  padding: 72px 56px;
-  max-width: 100%;
+  padding: 72px 0;
+}
+.research-preview-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 56px;
 }
 .rp-header {
   display: flex; align-items: flex-end; justify-content: space-between;
@@ -448,7 +452,12 @@ html[data-theme="dark"] .rq-card:hover { background: rgba(242,238,228,.04); }
 /* PODCAST STRIP */
 .podcast-strip {
   border-bottom: 1px solid var(--border);
-  padding: 64px 56px;
+  padding: 64px 0;
+}
+.podcast-strip-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 56px;
 }
 .podcast-strip .section-label { margin-bottom: 14px; }
 .podcast-strip-header {
@@ -635,7 +644,8 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .tn[data-id="sui"]     { left: 56% !important; top: 68% !important; }
   .tn[data-id="compute"] { left: 40% !important; top: 74% !important; }
   .thesis { grid-template-columns: 1fr; gap: 40px; padding: 72px 40px; }
-  .research-preview { padding: 48px 20px; }
+  .research-preview { padding: 48px 0; }
+  .research-preview-inner { padding: 0 20px; }
   .rp-header { flex-direction: column; align-items: flex-start; gap: 20px; }
   .rp-queue { grid-template-columns: 1fr; }
   .rp-featured { grid-template-columns: 1fr; gap: 20px; }
@@ -643,7 +653,8 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .sectors-hdr { grid-template-columns: 1fr; gap: 20px; }
   .sectors-grid { grid-template-columns: repeat(2,1fr); }
   .analysts { grid-template-columns: 1fr; gap: 40px; }
-  .podcast-strip { padding: 48px 20px; }
+  .podcast-strip { padding: 48px 0; }
+  .podcast-strip-inner { padding: 0 20px; }
   .podcast-cards { grid-template-columns: 1fr; gap: 16px; }
   .podcast-strip-header { flex-direction: column; align-items: flex-start; gap: 12px; }
   .subscribe { padding: 72px 40px; }
@@ -699,7 +710,8 @@ body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-in
   .td-h { font-size: 18px; }
 
   /* Research preview */
-  .research-preview { padding: 40px 16px; }
+  .research-preview { padding: 40px 0; }
+  .research-preview-inner { padding: 0 16px; }
   .rp-headline { font-size: 26px; }
   .rp-queue { grid-template-columns: 1fr; }
 
@@ -2198,6 +2210,7 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
 
 <!-- RESEARCH PREVIEW -->
 <section class="research-preview">
+  <div class="research-preview-inner">
 
   <!-- Header row -->
   <div class="rp-header">
@@ -2250,9 +2263,11 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
     </a>
   </div>
 
+  </div><!-- /.research-preview-inner -->
 </section>
 <!-- PODCAST -->
 <section class="podcast-strip">
+  <div class="podcast-strip-inner">
   <div class="section-label">The Supercycle Podcast</div>
   <div class="podcast-strip-header">
     <h2 class="podcast-strip-title">Conversations with the most compelling<br>voices in <em>crypto enabled AI.</em></h2>
@@ -2296,6 +2311,7 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
       </div>
     </a>
   </div>
+  </div><!-- /.podcast-strip-inner -->
 </section>
 
 <!-- ANALYSTS -->
