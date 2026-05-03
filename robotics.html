@@ -583,7 +583,7 @@ h2[id], .protocol-card[id] { scroll-margin-top: 72px; }
   .scenario-col:last-child { border-bottom: none; }
 }
 @media (max-width: 600px) {
-  .hero { padding: 48px 20px 44px; }
+  .hero { padding: 72px 20px 48px; }
   .hero-title { font-size: 34px; }
   .hero-right { grid-template-columns: 1fr 1fr; }
   .hero-stat:nth-child(3) { border-right: none; }
@@ -648,6 +648,11 @@ html[data-theme="dark"] .hero { background: #0D0C09 !important; }
 html[data-theme="dark"] .hero-eyebrow { color: rgba(237,232,220,.45) !important; }
 html[data-theme="dark"] .tm-val { color: rgba(237,232,220,.72); }
 html[data-theme="dark"] .subscribe-strip { background: #0F0D0A; }
+html[data-theme="dark"] .sub-input {
+  background: rgba(237,232,220,.07);
+  border-color: rgba(237,232,220,.15);
+  color: var(--ink);
+}
 html[data-theme="dark"] .sub-heading { color: #EDE8DC; }
 html[data-theme="dark"] .sub-body { color: rgba(237,232,220,.55); }
 html[data-theme="dark"] .protocol-card-header { background: #0D0C09; }
@@ -1400,7 +1405,7 @@ html[data-theme="dark"] .signal-tag { border-color: var(--border); }
       <div>
         <form class="sub-form" onsubmit="return false;">
           <input type="email" class="sub-input" placeholder="your@email.com">
-          <button class="sub-btn">Subscribe</button>
+          <button class="sub-btn" type="submit">Subscribe</button>
         </form>
       </div>
     </div>
@@ -1470,6 +1475,30 @@ document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.obse
 
 // ── Theme toggle ──────────────────────────────────────────
 (function(){
+// ── Article subscribe mailto handler ────────────────────
+(function(){
+  var btn = document.querySelector('#subscribe .sub-btn');
+  var inp = document.querySelector('#subscribe .sub-input, #subscribe input[type="email"]');
+  if(!btn || !inp) {
+    btn = document.querySelector('.sub-btn');
+    inp = document.querySelector('.sub-input');
+  }
+  if(!btn || !inp) return;
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    var val = inp.value.trim();
+    if(!val || !val.includes('@')){
+      inp.style.borderColor = 'var(--orange)';
+      setTimeout(function(){ inp.style.borderColor = ''; }, 500);
+      inp.focus(); return;
+    }
+    window.location.href = 'mailto:research@khala.xyz?subject=Subscribe&body=Please%20add%20me%20to%20the%20Khala%20Research%20list%3A%20' + encodeURIComponent(val);
+    btn.textContent = '✓ Subscribed';
+    btn.style.background = '#1a7a3a'; btn.style.borderColor = '#1a7a3a';
+    btn.disabled = true;
+  });
+})();
+
   var btn = document.getElementById('theme-pill');
   if(!btn) return;
   btn.addEventListener('click', function(){
