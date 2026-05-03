@@ -287,15 +287,21 @@ body { background: var(--cream); color: var(--ink); font-family: var(--crim); fo
 .section-body strong { color: var(--ink); font-weight: 600; }
 .thesis-right { display: flex; flex-direction: column; }
 .td {
-  padding: 28px 0;
+  padding: 20px 0;
   border-bottom: 1px solid var(--border);
   display: grid; grid-template-columns: 28px 1fr; gap: 18px; align-items: start;
+  cursor: pointer; user-select: none;
 }
 .td:first-child { border-top: 1px solid var(--border); }
-.td-n { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink3); padding-top: 5px; }
-.td-h { font-family: var(--bask); font-size: 21px; font-weight: 400; line-height: 1.2; color: var(--ink); margin-bottom: 9px; letter-spacing: -.01em; }
+.td-n { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--ink3); padding-top: 4px; }
+.td-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.td-h { font-family: var(--bask); font-size: 21px; font-weight: 400; line-height: 1.2; color: var(--ink); letter-spacing: -.01em; }
 .td-h em { font-style: italic; }
-.td-b { font-family: var(--crim); font-size: 17px; line-height: 1.72; color: var(--ink); }
+.td-chevron { font-size: 10px; opacity: 0.35; flex-shrink: 0; transition: transform 0.28s ease; margin-left: 8px; }
+.td.open .td-chevron { transform: rotate(180deg); opacity: 0.6; }
+.td-collapse { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.td.open .td-collapse { max-height: 500px; }
+.td-b { font-family: var(--crim); font-size: 17px; line-height: 1.72; color: var(--ink); padding-top: 10px; }
 
 /* RESEARCH PREVIEW */
 .research-preview {
@@ -2002,44 +2008,64 @@ html[data-theme="dark"] .tp-num { color: rgba(242,238,228,.35) !important; }
       <div class="td reveal" tabindex="0">
         <div class="td-n">01</div>
         <div>
-          <div class="td-h">The labs are winning <em>by design,</em> not by merit.</div>
-          <div class="td-b">OpenAI, Google DeepMind, and Anthropic have raised over $300B collectively. All three have closed weights. None have public governance. The most transformative technology in human history is being built behind closed doors.</div>
-          <div class="td-evidence">
+          <div class="td-header">
+            <div class="td-h">The labs are winning <em>by design,</em> not by merit.</div>
+            <span class="td-chevron">▼</span>
+          </div>
+          <div class="td-collapse">
+            <div class="td-b">OpenAI, Google DeepMind, and Anthropic have raised over $300B collectively. All three have closed weights. None have public governance. The most transformative technology in human history is being built behind closed doors.</div>
+            <div class="td-evidence">
             <span class="td-evidence-line">OpenAI: closed weights · $157B raised · no public board accountability</span>
             <span class="td-evidence-line">Google DeepMind: integrated into ad monopoly · no external governance</span>
+          </div>
           </div>
         </div>
       </div>
       <div class="td reveal" tabindex="0">
         <div class="td-n">02</div>
         <div>
-          <div class="td-h">Crypto is the <em>only counter</em> that cannot be reversed.</div>
-          <div class="td-b">Regulation can be lobbied away. Open-source pledges can be revoked. Safety commitments are voluntary. Cryptographic incentive layers cannot be captured — permissionless by design, enforced by protocol, not by a CEO.</div>
-          <div class="td-evidence">
+          <div class="td-header">
+            <div class="td-h">Crypto is the <em>only counter</em> that cannot be reversed.</div>
+            <span class="td-chevron">▼</span>
+          </div>
+          <div class="td-collapse">
+            <div class="td-b">Regulation can be lobbied away. Open-source pledges can be revoked. Safety commitments are voluntary. Cryptographic incentive layers cannot be captured — permissionless by design, enforced by protocol, not by a CEO.</div>
+            <div class="td-evidence">
             <span class="td-evidence-line">Token emissions: no gatekeeper can block a contributor anywhere on earth</span>
             <span class="td-evidence-line">Deregistration: quality enforced by protocol, not by institutional authority</span>
+          </div>
           </div>
         </div>
       </div>
       <div class="td reveal" tabindex="0">
         <div class="td-n">03</div>
         <div>
-          <div class="td-h">The equitable AI stack is being built <em>right now,</em> pre-consensus.</div>
-          <div class="td-b">Distributed training, open coordination networks, censorship-resistant AI infrastructure. None of it priced in. The window between &ldquo;building&rdquo; and &ldquo;won&rdquo; is where Khala operates.</div>
-          <div class="td-evidence">
+          <div class="td-header">
+            <div class="td-h">The equitable AI stack is being built <em>right now,</em> pre-consensus.</div>
+            <span class="td-chevron">▼</span>
+          </div>
+          <div class="td-collapse">
+            <div class="td-b">Distributed training, open coordination networks, censorship-resistant AI infrastructure. None of it priced in. The window between &ldquo;building&rdquo; and &ldquo;won&rdquo; is where Khala operates.</div>
+            <div class="td-evidence">
             <span class="td-evidence-line">Bittensor: 128+ subnet network · permissionless · no VC lock-in</span>
             <span class="td-evidence-line">Gensyn: distributed training · active testnet · open contributor model</span>
+          </div>
           </div>
         </div>
       </div>
       <div class="td reveal" tabindex="0">
         <div class="td-n">04</div>
         <div>
-          <div class="td-h">These teams need to be found <em>before the window closes.</em></div>
-          <div class="td-b">Once the labs control the model layer, the distribution layer, and the regulatory conversation — there is no wedge left. The teams building the alternative need capital and attention now, not after the consolidation is complete.</div>
-          <div class="td-evidence">
+          <div class="td-header">
+            <div class="td-h">These teams need to be found <em>before the window closes.</em></div>
+            <span class="td-chevron">▼</span>
+          </div>
+          <div class="td-collapse">
+            <div class="td-b">Once the labs control the model layer, the distribution layer, and the regulatory conversation — there is no wedge left. The teams building the alternative need capital and attention now, not after the consolidation is complete.</div>
+            <div class="td-evidence">
             <span class="td-evidence-line">Frontier capability doubling every 12–18 months · concentration accelerates</span>
             <span class="td-evidence-line">OpenAI staff now advising government AI policy · regulatory capture in motion</span>
+          </div>
           </div>
         </div>
       </div>
@@ -2684,6 +2710,20 @@ document.querySelectorAll('[data-tls-count]').forEach(el => tlsIO.observe(el));
 </script>
 
 <script>
+// ── Thesis collapse ───────────────────────────────────────
+(function(){
+  document.querySelectorAll('.td').forEach(function(td){
+    td.addEventListener('click', function(){
+      var isOpen = td.classList.contains('open');
+      document.querySelectorAll('.td').forEach(function(t){ t.classList.remove('open'); });
+      if(!isOpen) td.classList.add('open');
+    });
+    td.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); td.click(); }
+    });
+  });
+})();
+
 // ── Theme toggle ──────────────────────────────────────────
 (function(){
   var btn = document.getElementById('theme-pill');
