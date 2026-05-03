@@ -705,6 +705,94 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
 }
 .report-row--live:hover { background: var(--parch); }
 
+/* ── ROW PULL-QUOTE ── */
+.row-pullquote {
+  font-family: var(--bask);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--orange);
+  line-height: 1.5;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── INLINE SUBSCRIBE STRIP ── */
+.inline-sub-strip {
+  background: var(--parch);
+  border-bottom: 1px solid var(--border);
+}
+.inline-sub-inner {
+  max-width: 1240px; margin: 0 auto; padding: 14px 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.inline-sub-copy {
+  font-family: var(--geist); font-size: 13px; color: var(--ink2); line-height: 1.5;
+}
+.inline-sub-next {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--orange); margin-right: 10px;
+}
+.inline-sub-btn {
+  font-family: var(--geist); font-size: 13px; font-weight: 600; color: var(--ink);
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: opacity .15s;
+}
+.inline-sub-btn:hover { opacity: .6; }
+
+/* ── PIPELINE SECTION ── */
+.pipeline-section {
+  max-width: 1240px; margin: 0 auto;
+  padding: 48px 56px;
+  border-bottom: 1px solid var(--border);
+}
+.pipeline-section-hdr { margin-bottom: 28px; }
+.pipeline-eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 8px;
+}
+.pipeline-title {
+  font-family: var(--bask); font-size: 26px; font-weight: 400; color: var(--ink);
+  letter-spacing: -.015em; margin-bottom: 6px;
+}
+.pipeline-sub {
+  font-family: var(--geist); font-size: 13px; color: var(--ink3); line-height: 1.5;
+}
+.pipeline-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--border);
+  background: var(--border);
+  gap: 1px; margin-top: 28px;
+}
+.pipeline-card {
+  background: var(--cream); padding: 28px 32px;
+  transition: background .15s;
+}
+.pipeline-card:hover { background: var(--parch); }
+.pipeline-tag { margin-bottom: 14px; display: inline-block; }
+.pipeline-card-title {
+  font-family: var(--bask); font-size: 18px; font-weight: 400; line-height: 1.25;
+  letter-spacing: -.01em; color: var(--ink); margin-bottom: 10px;
+}
+.pipeline-card-title em { font-style: italic; }
+.pipeline-card-hook {
+  font-family: var(--crim); font-size: 14px; line-height: 1.65; color: var(--ink2);
+  margin-bottom: 18px;
+}
+.pipeline-card-cta {
+  font-family: var(--geist); font-size: 12px; font-weight: 600; color: var(--orange);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+  transition: opacity .15s;
+}
+.pipeline-card-cta:hover { opacity: .7; }
+.pipeline-card[data-hidden="true"] { display: none; }
+
+@media (max-width: 768px) {
+  .pipeline-grid { grid-template-columns: 1fr; }
+  .inline-sub-inner { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 20px; }
+  .pipeline-section { padding: 36px 20px; }
+}
+
 </style>
 <script>!function(){var t=localStorage.getItem('khala-theme'),p=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&p))document.documentElement.setAttribute('data-theme','dark')}()</script>
 </head>
@@ -850,6 +938,94 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
 }
 .report-row--live:hover { background: var(--parch); }
 
+/* ── ROW PULL-QUOTE ── */
+.row-pullquote {
+  font-family: var(--bask);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--orange);
+  line-height: 1.5;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── INLINE SUBSCRIBE STRIP ── */
+.inline-sub-strip {
+  background: var(--parch);
+  border-bottom: 1px solid var(--border);
+}
+.inline-sub-inner {
+  max-width: 1240px; margin: 0 auto; padding: 14px 56px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+}
+.inline-sub-copy {
+  font-family: var(--geist); font-size: 13px; color: var(--ink2); line-height: 1.5;
+}
+.inline-sub-next {
+  font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--orange); margin-right: 10px;
+}
+.inline-sub-btn {
+  font-family: var(--geist); font-size: 13px; font-weight: 600; color: var(--ink);
+  text-decoration: none; white-space: nowrap;
+  border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: opacity .15s;
+}
+.inline-sub-btn:hover { opacity: .6; }
+
+/* ── PIPELINE SECTION ── */
+.pipeline-section {
+  max-width: 1240px; margin: 0 auto;
+  padding: 48px 56px;
+  border-bottom: 1px solid var(--border);
+}
+.pipeline-section-hdr { margin-bottom: 28px; }
+.pipeline-eyebrow {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 8px;
+}
+.pipeline-title {
+  font-family: var(--bask); font-size: 26px; font-weight: 400; color: var(--ink);
+  letter-spacing: -.015em; margin-bottom: 6px;
+}
+.pipeline-sub {
+  font-family: var(--geist); font-size: 13px; color: var(--ink3); line-height: 1.5;
+}
+.pipeline-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--border);
+  background: var(--border);
+  gap: 1px; margin-top: 28px;
+}
+.pipeline-card {
+  background: var(--cream); padding: 28px 32px;
+  transition: background .15s;
+}
+.pipeline-card:hover { background: var(--parch); }
+.pipeline-tag { margin-bottom: 14px; display: inline-block; }
+.pipeline-card-title {
+  font-family: var(--bask); font-size: 18px; font-weight: 400; line-height: 1.25;
+  letter-spacing: -.01em; color: var(--ink); margin-bottom: 10px;
+}
+.pipeline-card-title em { font-style: italic; }
+.pipeline-card-hook {
+  font-family: var(--crim); font-size: 14px; line-height: 1.65; color: var(--ink2);
+  margin-bottom: 18px;
+}
+.pipeline-card-cta {
+  font-family: var(--geist); font-size: 12px; font-weight: 600; color: var(--orange);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 4px;
+  transition: opacity .15s;
+}
+.pipeline-card-cta:hover { opacity: .7; }
+.pipeline-card[data-hidden="true"] { display: none; }
+
+@media (max-width: 768px) {
+  .pipeline-grid { grid-template-columns: 1fr; }
+  .inline-sub-inner { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 20px; }
+  .pipeline-section { padding: 36px 20px; }
+}
+
 </style></noscript>
 
 
@@ -877,12 +1053,12 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
   </div>
   <div class="page-aside">
     <div class="page-aside-stat">
-      <div class="pas-label">Coverage</div>
-      <div class="pas-value"><em id="stat-count">2</em> reports across <span id="stat-count2">3</span> sectors</div>
+      <div class="pas-label">The position</div>
+      <div class="pas-value"><em>$4B</em> in open protocols against $157B+ in closed capital. Same problem space.</div>
     </div>
     <div class="page-aside-stat">
-      <div class="pas-label">Methodology</div>
-      <div class="pas-value">Every report takes a position. We name the protocols we believe in and state exactly why.</div>
+      <div class="pas-label">The edge</div>
+      <div class="pas-value">Every report names the protocol, states the thesis, and gives you the bear case. No neutral takes.</div>
     </div>
     <div class="tension-bar-wrap">
       <div class="tb-row">
@@ -969,6 +1145,16 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
   </div>
 </section>
 
+<!-- INLINE SUBSCRIBE STRIP -->
+<div class="inline-sub-strip">
+  <div class="inline-sub-inner">
+    <div class="inline-sub-copy">
+      <span class="inline-sub-next">Next report</span>SURF: Open data infrastructure for crypto intelligence — publishing Q2 2026.
+    </div>
+    <a href="#subscribe" class="inline-sub-btn">Subscribe to get it first →</a>
+  </div>
+</div>
+
 <!-- FILTER STRIP -->
 <div class="filter-strip">
   <button class="filter-btn active" data-filter="all">All <span class="filter-count">06</span></button>
@@ -987,102 +1173,7 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
 
 <!-- REPORT LIST -->
 <section class="report-list-section">
-  <div class="rg-header">
-    
-  </div>
   <div class="report-list" id="reportList">
-
-    <div class="battlefront-row"><span class="bf-label">Data Battlefront</span><span class="bf-line"></span></div>
-    <div class="report-row report-row--locked" data-category="Data Infrastructure">
-      <div class="row-cat"><span class="row-tag tag-data">Data Infrastructure</span></div>
-      <div class="row-body">
-        <div class="row-adversarial">Open AI development requires open data infrastructure. SURF is building the version no single entity controls.</div>
-        <div class="row-title">SURF: A Data Platform for <em>Crypto Intelligence</em></div>
-        <div class="row-excerpt">On-chain, social, market, and prediction data through a single API. Crypto data fragmentation is a coordination failure. SURF resolves it at infrastructure.</div>
-      </div>
-      <div class="row-meta">
-        
-        <div>
-          <div class="meta-item-label">Status</div>
-          <div class="meta-item-value"><span class="intel-incoming-badge">Intel Incoming</span></div>
-        </div>
-      </div>
-      <div class="row-panel">
-        <div class="row-panel-inner">
-          <div class="rp-stat"><span class="rp-stat-lbl">Protocol</span><span class="rp-stat-val">SURF</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Category</span><span class="rp-stat-val">Data Infrastructure</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Analyst</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Status</span><span class="rp-stat-val">Forthcoming</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Key Metric</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-thesis">Crypto data fragmentation is a coordination failure. SURF resolves it at infrastructure: single API for on-chain, social, market, and prediction data.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="battlefront-row"><span class="bf-label">Finance Battlefront</span><span class="bf-line"></span></div>
-    <div class="report-row report-row--locked" data-category="Agentic Finance">
-      <div class="row-cat"><span class="row-tag tag-finance">Agentic Finance</span></div>
-      <div class="row-body">
-        <div class="row-adversarial">Stripe and Visa were not designed for autonomous agents. x402 is the payment primitive built for the agentic era.</div>
-        <div class="row-title">x402: The <em>Internet's Missing</em> Payment Layer</div>
-        <div class="row-excerpt">The HTTP payment protocol powering autonomous agent transactions. No human approval loops, no incumbent rails required.</div>
-      </div>
-      <div class="row-meta">
-        
-        <div>
-          <div class="meta-item-label">Status</div>
-          <div class="meta-item-value"><span class="intel-incoming-badge">Intel Incoming</span></div>
-        </div>
-      </div>
-      <div class="row-panel">
-        <div class="row-panel-inner">
-          <div class="rp-stat"><span class="rp-stat-lbl">Protocol</span><span class="rp-stat-val">x402</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Category</span><span class="rp-stat-val">Agentic Finance</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Analyst</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Status</span><span class="rp-stat-val">Forthcoming</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Key Metric</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-thesis">The HTTP payment protocol powering autonomous agent transactions. Agents pay without human approval loops. The missing financial primitive for the agentic era.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="battlefront-row"><span class="bf-label">Infrastructure Battlefront</span><span class="bf-line"></span></div>
-    <div class="report-row report-row--locked" data-category="AI Infrastructure">
-      <div class="row-cat"><span class="row-tag tag-ai">AI Infrastructure</span></div>
-      <div class="row-body">
-        <div class="row-adversarial">The autonomous software factory should be open to every engineer on earth. This protocol is.</div>
-        <div class="row-title">The Dawn of the <em>Autonomous Software</em> Factory</div>
-        <div class="row-excerpt">Code generation crossed the threshold. Autonomous software factories operating without human review cycles. The first fully agentic production engineering environment.</div>
-      </div>
-      <div class="row-meta">
-        
-        <div>
-          <div class="meta-item-label">Status</div>
-          <div class="meta-item-value"><span class="intel-incoming-badge">Intel Incoming</span></div>
-        </div>
-      </div>
-      <div class="row-panel">
-        <div class="row-panel-inner">
-          <div class="rp-stat"><span class="rp-stat-lbl">Protocol</span><span class="rp-stat-val">Undisclosed</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Category</span><span class="rp-stat-val">AI Infrastructure</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Analyst</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Status</span><span class="rp-stat-val">Forthcoming</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Key Metric</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-thesis">Code generation crossed the threshold. Autonomous software factories operating without human review cycles. The first fully agentic production engineering environment.</div>
-        </div>
-      </div>
-    </div>
-
-</section>
-
-<div class="pull-divider">
-  <div class="pull-divider-inner">
-    <div class="pull-quote-text">&ldquo;Open AI infrastructure is not a reaction to closed models. It is a better architecture. These protocols are <strong>proving it.</strong>&rdquo;</div>
-  </div>
-</div>
-
-<section class="report-list-section" style="border-top:none;padding-top:40px;">
-  <div class="report-list" id="reportList2">
 
     <div class="battlefront-row"><span class="bf-label">Coordination Battlefront · Live Intel</span><span class="bf-line"></span></div>
     <div class="report-row report-row--live" data-category="Coordination Networks" onclick="window.location='bittensor-article.html'">
@@ -1091,6 +1182,7 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
         <div class="row-adversarial">Open model markets outperform closed alternatives over time. Bittensor built the first: 128 subnets competing in the open, no single entity in control.</div>
         <div class="row-title">Bittensor: The <em>Intelligence</em> Olympics</div>
         <div class="row-excerpt">Which subnets generate real revenue, and which burn emissions to simulate it. Enterprise traction separates signal from noise.</div>
+        <div class="row-pullquote">&ldquo;Bittensor is no longer a bet on whether. It&rsquo;s a bet on how large.&rdquo;</div>
       </div>
       <div class="row-meta">
         <div>
@@ -1121,6 +1213,7 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
         <div class="row-adversarial">Embodied AI should answer to no single owner. These protocols build the open coordination layer for physical intelligence.</div>
         <div class="row-title">The Decentralized <em>Robotics</em> Landscape</div>
         <div class="row-excerpt">Nine protocols building the coordination, positioning, spatial, and capital layers for the coming age of embodied AI.</div>
+        <div class="row-pullquote">&ldquo;The traditional robotics incumbents are hardware companies. The software, positioning, and coordination layers are wide open.&rdquo;</div>
       </div>
       <div class="row-meta">
         <div>
@@ -1144,32 +1237,47 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
       </div>
     </div>
 
-    <div class="report-row report-row--locked" data-category="Physical AI">
-      <div class="row-cat"><span class="row-tag tag-physical">Physical AI</span></div>
-      <div class="row-body">
-        <div class="row-adversarial">The incumbents have the hardware. The open coordination layer is something no single company can own.</div>
-        <div class="row-title">Decentralized Robotics: <em>Landscape and Outlook</em></div>
-        <div class="row-excerpt">Product market fit exists. Real deployments generating data centralised competitors cannot access. The open coordination layer is where physical AI becomes infrastructure.</div>
-      </div>
-      <div class="row-meta">
-        
-        <div>
-          <div class="meta-item-label">Published</div>
-          <div class="meta-item-value">—</div>
-        </div>
-      </div>
-      <div class="row-panel">
-        <div class="row-panel-inner">
-          <div class="rp-stat"><span class="rp-stat-lbl">Sector</span><span class="rp-stat-val">Physical AI</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Category</span><span class="rp-stat-val">Physical AI</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Analyst</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Status</span><span class="rp-stat-val">Forthcoming</span></div>
-          <div class="rp-stat"><span class="rp-stat-lbl">Key Metric</span><span class="rp-stat-val">—</span></div>
-          <div class="rp-thesis">Product market fit exists. Real deployments generating proprietary data no centralised competitor can access. Open coordination is the infrastructure layer physical AI runs on.</div>
-        </div>
-      </div>
-    </div>
+  </div>
+</section>
 
+<div class="pull-divider">
+  <div class="pull-divider-inner">
+    <div class="pull-quote-text">&ldquo;Open AI infrastructure is not a reaction to closed models. It is a better architecture. These protocols are <strong>proving it.</strong>&rdquo;</div>
+  </div>
+</div>
+
+<!-- COMING NEXT / PIPELINE -->
+<section class="pipeline-section">
+  <div class="pipeline-section-hdr">
+    <div class="pipeline-eyebrow">Pipeline</div>
+    <div class="pipeline-title">Coming Next</div>
+    <div class="pipeline-sub">Four reports in active research. Subscribe to get each one when it publishes.</div>
+  </div>
+  <div class="pipeline-grid" id="pipelineGrid">
+    <div class="pipeline-card" data-category="Data Infrastructure">
+      <span class="row-tag tag-data pipeline-tag">Data Infrastructure</span>
+      <div class="pipeline-card-title">SURF: A Data Platform for <em>Crypto Intelligence</em></div>
+      <div class="pipeline-card-hook">Crypto data fragmentation is a coordination failure. SURF resolves it at infrastructure: a single API for on-chain, social, market, and prediction data no single entity controls.</div>
+      <a href="#subscribe" class="pipeline-card-cta">Subscribe to get it first →</a>
+    </div>
+    <div class="pipeline-card" data-category="Agentic Finance">
+      <span class="row-tag tag-finance pipeline-tag">Agentic Finance</span>
+      <div class="pipeline-card-title">x402: The <em>Internet's Missing</em> Payment Layer</div>
+      <div class="pipeline-card-hook">Stripe and Visa were not designed for autonomous agents. x402 is the HTTP payment primitive built for the agentic era: no human approval loops, no incumbent rails required.</div>
+      <a href="#subscribe" class="pipeline-card-cta">Subscribe to get it first →</a>
+    </div>
+    <div class="pipeline-card" data-category="AI Infrastructure">
+      <span class="row-tag tag-ai pipeline-tag">AI Infrastructure</span>
+      <div class="pipeline-card-title">The Dawn of the <em>Autonomous Software</em> Factory</div>
+      <div class="pipeline-card-hook">Code generation crossed the threshold. Autonomous software factories operating without human review cycles. The first fully agentic production engineering environment.</div>
+      <a href="#subscribe" class="pipeline-card-cta">Subscribe to get it first →</a>
+    </div>
+    <div class="pipeline-card" data-category="Physical AI">
+      <span class="row-tag tag-physical pipeline-tag">Physical AI</span>
+      <div class="pipeline-card-title">Decentralized Robotics: <em>Landscape and Outlook</em></div>
+      <div class="pipeline-card-hook">Product market fit exists. Real deployments generating proprietary data no centralised competitor can access. The open coordination layer is where physical AI becomes infrastructure.</div>
+      <a href="#subscribe" class="pipeline-card-cta">Subscribe to get it first →</a>
+    </div>
   </div>
 </section>
 
@@ -1282,6 +1390,17 @@ html[data-theme="dark"] .featured-section { background: rgba(242,238,228,.025); 
         battlefronts.forEach(bf => {
           bf.style.display = cat === 'all' ? '' : 'none';
         });
+        // Filter pipeline cards
+        const pipelineCards = document.querySelectorAll('.pipeline-card');
+        pipelineCards.forEach(card => {
+          card.style.display = (cat === 'all' || card.dataset.category === cat) ? '' : 'none';
+        });
+        // Hide pipeline section header if no cards match
+        const pipelineSection = document.querySelector('.pipeline-section');
+        if (pipelineSection) {
+          const visibleCards = Array.from(pipelineCards).filter(c => c.style.display !== 'none');
+          pipelineSection.style.display = visibleCards.length ? '' : 'none';
+        }
         // Fade in staggered
         let i = 0;
         rows.forEach(r => {
