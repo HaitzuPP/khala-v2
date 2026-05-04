@@ -980,7 +980,7 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
       <span class="current">Bittensor: The Intelligence Olympics</span>
     </div>
     <nav class="topbar-right">
-      <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+      <a href="https://x.com/khalaresearch" target="_blank" rel="noopener noreferrer">X / Twitter</a>
       <div class="topbar-metrics">
         <span class="tm-item"><span class="tm-val">SN-64</span><span class="tm-lbl">CHUTES</span></span>
         <span class="topbar-metrics-sep">·</span>
@@ -992,8 +992,8 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
       </div>
             <a href="#subscribe" class="topbar-cta">Subscribe →</a>
       <div class="theme-pill" id="theme-pill">
-        <button class="tp-opt" data-mode="light">Light</button>
-        <button class="tp-opt" data-mode="dark">Dark</button>
+        <button type="button" class="tp-opt" data-mode="light">Light</button>
+        <button type="button" class="tp-opt" data-mode="dark">Dark</button>
       </div>
     </nav>
   </div>
@@ -1017,7 +1017,7 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
       <div class="hero-stat">
         <div class="hero-stat-label">Largest ARR Subnet</div>
         <div class="hero-stat-value accent">$5.5M</div>
-        <div class="hero-stat-note">Chutes · annualized · <a href="https://taostats.io" target="_blank" style="color:rgba(243,238,227,.5);font-size:10px;">taostats</a></div>
+        <div class="hero-stat-note">Chutes · annualized · <a href="https://taostats.io" target="_blank" rel="noopener noreferrer" style="color:rgba(243,238,227,.5);font-size:10px;">taostats</a></div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-label">Active Subnets</div>
@@ -1036,7 +1036,7 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
   <!-- Figures note -->
   <div style="background:var(--parch);border-bottom:1px solid var(--border);padding:10px 0;">
     <div style="max-width:calc(var(--toc) + var(--col) + var(--gap) + 64px);margin:0 auto;padding:0 32px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.07em;color:var(--ink-60);">
-      All figures as of February 2026 · TAO at ~$31 implying ~$4B FDV · Source: <a href="https://www.coingecko.com/en/coins/bittensor" target="_blank" style="color:var(--ink-60);">CoinGecko</a>
+      All figures as of February 2026 · TAO at ~$31 implying ~$4B FDV · Source: <a href="https://www.coingecko.com/en/coins/bittensor" target="_blank" rel="noopener noreferrer" style="color:var(--ink-60);">CoinGecko</a>
     </div>
   </div>
 <!-- PAGE LAYOUT -->
@@ -1106,9 +1106,9 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
     <p>The network now has paying customers:</p>
 
     <ul>
-      <li><strong>Signed enterprise contracts:</strong> <a href="https://readingfc.co.uk" target="_blank">Reading FC</a>, 3,000+ AVIA petrol stations, $10B+ market cap payments companies (under NDA).</li>
-      <li><strong>Institutional capital entering:</strong> <a href="https://grayscale.com" target="_blank">Grayscale</a> Trust products, DCG's <a href="https://taostats.io" target="_blank">Yuma</a> receiving financing from Connecticut Innovations, TAO ETPs.</li>
-      <li><strong>Academic validation:</strong> Templar's SparseLoCo accepted at <a href="https://neurips.cc" target="_blank">NeurIPS OPT2025</a>, the first Bittensor-originating research at a major ML conference.</li>
+      <li><strong>Signed enterprise contracts:</strong> <a href="https://readingfc.co.uk" target="_blank" rel="noopener noreferrer">Reading FC</a>, 3,000+ AVIA petrol stations, $10B+ market cap payments companies (under NDA).</li>
+      <li><strong>Institutional capital entering:</strong> <a href="https://grayscale.com" target="_blank" rel="noopener noreferrer">Grayscale</a> Trust products, DCG's <a href="https://taostats.io" target="_blank" rel="noopener noreferrer">Yuma</a> receiving financing from Connecticut Innovations, TAO ETPs.</li>
+      <li><strong>Academic validation:</strong> Templar's SparseLoCo accepted at <a href="https://neurips.cc" target="_blank" rel="noopener noreferrer">NeurIPS OPT2025</a>, the first Bittensor-originating research at a major ML conference.</li>
       <li><strong>Technical milestones:</strong> Largest permissionless pre-training run ever conducted (Covenant 72B).</li>
     </ul>
 <div class="section-anchor"><span class="section-num">01</span><h2 id="concentration-problem">The Concentration Problem and Crypto's Solution</h2></div>
@@ -1612,7 +1612,7 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
       <div class="terminal-header">
         <span class="term-dots"><span></span><span></span><span></span></span>
         <span class="term-title-txt">btcli · SN-64 metagraph query</span>
-        <button class="term-copy-btn" id="termCopyBtn" onclick="(function(){const t=document.getElementById('termCopyBtn');navigator.clipboard.writeText('btcli subnets metagraph --netuid 64 --subtensor.network finney').then(()=>{t.textContent='COPIED';t.classList.add('copied');setTimeout(()=>{t.textContent='COPY';t.classList.remove('copied')},2000)})})()">COPY</button>
+        <button type="button" class="term-copy-btn" id="termCopyBtn" onclick="(function(){const t=document.getElementById('termCopyBtn');navigator.clipboard.writeText('btcli subnets metagraph --netuid 64 --subtensor.network finney').then(()=>{t.textContent='COPIED';t.classList.add('copied');setTimeout(()=>{t.textContent='COPY';t.classList.remove('copied')},2000)})})()">COPY</button>
       </div>
       <div class="terminal-body">
         <div class="term-line">
@@ -1639,7 +1639,7 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
         <div class="sub-heading">Original research on the tokenised AI economy</div>
         <div class="sub-body">Coordination networks. Compute. Agentic finance. Data infrastructure. Five sectors, named positions, primary research.</div>
       </div>
-      <form class="sub-form" onsubmit="return false;">
+      <form class="sub-form" onsubmit="(function(e){e.preventDefault();var v=this.querySelector('input[type=email]').value.trim();if(!v)return;window.location.href='mailto:research@khala.xyz?subject=Subscribe&body=Please%20add%20me%20to%20the%20Khala%20Research%20list%3A%20'+encodeURIComponent(v);})(event);return false;">
         <input class="sub-input" type="email" placeholder="your@email.com">
         <button class="sub-btn" type="submit">Join the Research →</button>
       </form>
@@ -1659,7 +1659,7 @@ html[data-theme="dark"] .lb-bar-wrap { background: rgba(237,232,220,.1); }
   <div class="footer-left">© 2026 Khala Research, informational purposes only.</div>
   <nav class="footer-right">
     <a href="research.html">Research</a>
-    <a href="https://x.com/khalaresearch" target="_blank">X / Twitter</a>
+    <a href="https://x.com/khalaresearch" target="_blank" rel="noopener noreferrer">X / Twitter</a>
   </nav>
 </footer>
 
